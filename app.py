@@ -19,6 +19,6 @@ tracks = spotify.artist_top_tracks(lz_uri)   #returns a json with "tracks" as th
 #in each element of the array... is the album where the track is, the name, the etc.....
 
 print(spotify.current_user())   
-for i in range (0,5):
+for i in range (0,25):
 
     print(tracks['tracks'][i]['name'])
