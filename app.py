@@ -6,26 +6,37 @@ class SpotifyCient:
 
     def __init__ (self):
 
-        self.CLIENT_ID = client_id
-        self.CLIENT_SECRET = client_secret
-        self.REDIRECT_URI = redirect_uri
+        self.spotify = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id, client_secret, redirect_uri, scope="playlist-modify-private user-top-read"))
 
-    def get_top_tracks(self, limit, time_range, scope):
+    def create_new_playlist(self, user_id, name):
 
-        sp = spotipy.Spotify(auth_manager=SpotifyOAuth(self.CLIENT_ID, self.CLIENT_SECRET, self.REDIRECT_URI, scope))
+        self.spotify.user_playlist_create(user_id, name, public=False, collaborative=False, description="new playlist")
 
-        results = sp.current_user_top_tracks(limit=limit, time_range=time_range)
+
+    def get_top_tracks(self, limit, time_range):
+
+        results = self.spotify.current_user_top_tracks(limit=limit, time_range=time_range)
 
         for track_idx in range(limit):
 
             print(results['items'][track_idx]['name'])
 
 
-        
+    def get_top_artists(self, limit, time_range):
+
+        results = self.spotify.current_user_top_artists(limit=limit, time_range=time_range)
+
+        for track_idx in range(limit):
+
+            print(results['items'][track_idx]['name'])
+
+    
 
 user = SpotifyCient()
 
-user.get_top_tracks(10, "long_term", "user-top-read")
+user.get_top_tracks(10, "long_term")
+user.get_top_artists(5, "short_term")
+user.create_new_playlist("9ii7f67pvtetvztlv2nv779li", "cool newerestsdas playlist")
 
 
 
