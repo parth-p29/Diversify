@@ -6,14 +6,12 @@ class SpotifyCient:
 
     def __init__ (self):
  
-        #self.spotify = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id, client_secret, redirect_uri, scope="playlist-modify-private user-top-read"))
-        #self.spotify = spotipy.oauth2.SpotifyAuthBase(client_id=client_id, client_secret=client_secret, redirect_uri=redirect_uri, scope="playlist-modify-private user-top-read")
+        self.sp_ouath = SpotifyOAuth(client_id, client_secret, redirect_uri, scope="user-library-read user-top-read")
+        self.spotify = spotipy.Spotify(auth_manager=self.sp_ouath)
 
-        self.sp = SpotifyOAuth(client_id, client_secret, redirect_uri, scope="playlist-modify-private user-top-read", cache_path=".cache")
-
-    def create_new_playlist(self, user_id, name):
-
-        self.spotify.user_playlist_create(user_id, name, public=False, collaborative=False, description="new playlist")
+    def auth_url(self):
+        
+        return self.sp_ouath.get_authorize_url()
 
 
     def get_top_tracks(self, limit, time_range):
@@ -26,7 +24,6 @@ class SpotifyCient:
             track_list.append((results['items'][track_idx]['name']))
 
         return track_list
-
 
 
     def get_top_artists(self, limit, time_range):

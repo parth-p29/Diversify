@@ -1,0 +1,21 @@
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif
+}
+
+body{
+    background-color: #121212;
+    color: white;
+}
+
+a {
+    margin-top:100px;
+    padding: 10px 28px 10px 28px;
+    border-radius: 10%;
+    background-color: #1DB954;
+    color:white;
+    text-decoration: none;
+}
+
