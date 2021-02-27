@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, redirect
+from flask import Flask, render_template, url_for, redirect,request
 from secrets import *
 import requests
 import json
@@ -7,6 +7,7 @@ import json
 app = Flask(__name__)
 
 OAUTH_AUTHORIZE_URL= 'https://accounts.spotify.com/authorize'
+OAUTH_TOKEN_URL= 'https://accounts.spotify.com/api/token'
 
 auth_url = requests.get(OAUTH_AUTHORIZE_URL, params=payload).url
 
@@ -21,7 +22,9 @@ def index():
 @app.route("/redirect/")
 def redirectPage():
 
-    return "fucking finally"
+    auth_code = request.args.get('code') 
+
+    return auth_code
 
 '''
 if __name__ == "__main__":
