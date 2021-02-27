@@ -1,24 +1,27 @@
 from flask import Flask, render_template, url_for, redirect
-from spotify import *
 from secrets import *
+import requests
+import json
+
 
 app = Flask(__name__)
 
-#sp = spotipy.oauth2.SpotifyOAuth(client_id, client_secret, redirect_uri, scope="playlist-modify-private user-top-read", cache_path=".cache")
-#access_token = sp.get_cached_token()['access_token']
-user = SpotifyCient()
+OAUTH_AUTHORIZE_URL= 'https://accounts.spotify.com/authorize'
 
-authurl = user.sp_ouath.get_authorize_url()
-print(authurl)
-#user = spotipy.Spotify(access_token)
-#auth_url = sp.get_authorize_url()
+auth_url = requests.get(OAUTH_AUTHORIZE_URL, params=payload).url
+
 
 
 @app.route('/')
 def index():
 
-    return render_template('index.html')
+    return "<a href=" + auth_url + ">Login with Spotify</a>"
 
+
+@app.route("/redirect/")
+def redirectPage():
+
+    return "fucking finally"
 
 '''
 if __name__ == "__main__":
