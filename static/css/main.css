@@ -5,17 +5,56 @@
     font-family: sans-serif
 }
 
-body{
-    background-color: #121212;
-    color: white;
+#particles-js{
+
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 0;
+
 }
 
-a {
-    margin-top:100px;
+body{
+    background-color: #121212;
+    color:white;
+    display: flex;
+    align-items: center;
+
+    justify-content: center;
+}
+
+#title-box{
+    position: absolute;
+    top:50%;
+    z-index: 1;
+    text-align: center;
+    top:20%;
+    padding:5%;
+    width: 35%;
+    height: 55vh;
+    box-shadow: 0 4px 8px 0 rgba(14, 14, 14, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#title-box a {
+    margin:30px;
     padding: 10px 28px 10px 28px;
-    border-radius: 10%;
+    border-radius: 25px;
     background-color: #1DB954;
     color:white;
     text-decoration: none;
+    transition: background-color 0.5s ease;
 }
 
+
+#title-box a:hover{
+    background-color: #1dca59;
+}
+
+
+#title-box img{
+    margin: 30px;
+    width:65px;
+    height:65px;
+}

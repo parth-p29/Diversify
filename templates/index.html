@@ -4,13 +4,48 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href= "{{ url_for('static', filename='css/main.css')}}">
+    <link rel="icon" href= "{{ url_for('static', filename='photos/spotifylogo.png')}}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Diversify - Login</title>
 </head>
 <body>
 
-    <h1>Welcome to Diversify</h1>
-    <a href="https://accounts.spotify.com/login?continue=https%3A%2F%2Faccounts.spotify.com%2Fauthorize%3Fscope%3Duser-top-read%26response_type%3Dcode%26redirect_uri%3Dhttp%253A%252F%252Flocalhost%253A9000%252Fredirect%252F%26client_id%3D58023d39e03146ae8b95a3443638037c">Login with Spotify</a>
     
+
+    <div id="title-box">
+
+        
+        <div id="logo">
+
+            <img src="{{ url_for('static', filename='photos/spotifylogo.png')}}">
+
+        </div>
+
+        <div id="title">
+            <h1>Diversify</h1>
+
+        </div>
+
+
+        <div id="login">
+
+            <a href="{{ url }}">Login In</a>   
+
+        </div>
+
+
+    </div>
+
+
+    <div id="particles-js"></div>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script>
+           
+        particlesJS.load('particles-js', '{{url_for("static", filename="json/particle.json")}}', function() {
+        console.log('working...');
+        });
+
+    </script>
+ 
 </body>
 </html>
