@@ -1,14 +1,14 @@
 {
     "particles": {
       "number": {
-        "value": 65,
+        "value": 35,
         "density": {
           "enable": true,
           "value_area": 800
         }
       },
       "color": {
-        "value": "#ffffff"
+        "value": "random"
       },
       "shape": {
         "type": "triangle",
@@ -36,7 +36,7 @@
         }
       },
       "size": {
-        "value": 0,
+        "value": 3,
         "random": false,
         "anim": {
           "enable": false,

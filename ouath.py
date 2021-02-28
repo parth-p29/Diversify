@@ -3,7 +3,7 @@ import json
 import base64
 from urllib.parse import quote
 
-class SpotifyOuath():
+class SpotifyOuathClient():
 
     def __init__(self):
 
@@ -25,9 +25,6 @@ class SpotifyOuath():
         }
 
         auth_url = requests.get(self.OAUTH_AUTHORIZE_URL, params=payload).url
-        
-        #url_args = "&".join(["{}={}".format(key, quote(val)) for key, val in payload.items()])
-        #auth_url = "{}/?{}".format(self.OAUTH_AUTHORIZE_URL, url_args)
 
         return auth_url
 
@@ -42,15 +39,7 @@ class SpotifyOuath():
         }
 
         post = requests.post(self.OAUTH_TOKEN_URL, data=body)
-        response_data = post.text
+        response_data = json.loads(post.text)
+
         return (response_data)
-
-'''
-        encoded = base64.b64encode(f"{self.CLIENT_ID}:{self.CLIENT_SECRET}")
-        print(encoded)
-        headers = {"Content-Type" : HEADER, "Authorization" : "Basic {}".format(encoded)} 
-                    "client_id": self.CLIENT_ID,
-            "client_secret": self.CLIENT_SECRET
-'''
-
 

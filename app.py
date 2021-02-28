@@ -1,18 +1,19 @@
 from flask import Flask, render_template, url_for, redirect,request
 from ouath import *
+from spotifyapiclient import *
 import requests
 import json
 
 
 app = Flask(__name__)
 
-client = SpotifyOuath()
-
+ouath_client = SpotifyOuathClient()
+api_client = SpotifyApiClient()
 
 @app.route('/')
 def index():
 
-    auth_url = client.get_auth_url()
+    auth_url = ouath_client.get_auth_url()
     return render_template("index.html", url=auth_url)
 
 
@@ -20,11 +21,14 @@ def index():
 def redirectPage():
     
     auth_code = request.args.get('code')
-    response = client.get_auth_and_refresh_tokens(auth_code)
-    access_token = respone["access_token"]
-    refresh_token = respone["refresh_token"]
+    response = ouath_client.get_auth_and_refresh_tokens(auth_code)
+    access_token = response["access_token"]
+    refresh_token = response["refresh_token"]
+
+    USER_INFO = api_client.get_user_info(access_token)
     
-    return data
+    
+    return USER_INFO
 
 
 if __name__ == "__main__":
