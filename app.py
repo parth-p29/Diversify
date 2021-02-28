@@ -6,24 +6,25 @@ import json
 
 app = Flask(__name__)
 
+client = SpotifyOuath()
+
 
 @app.route('/')
 def index():
 
-    client = SpotifyOuath()
     auth_url = client.get_auth_url()
-    
     return render_template("index.html", url=auth_url)
 
 
 @app.route("/redirect/")
 def redirectPage():
     
-    auth_code = request.args.get('code') 
-
-
-
-    return auth_code
+    auth_code = request.args.get('code')
+    response = client.get_auth_and_refresh_tokens(auth_code)
+    access_token = respone["access_token"]
+    refresh_token = respone["refresh_token"]
+    
+    return data
 
 
 if __name__ == "__main__":
