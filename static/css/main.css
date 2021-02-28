@@ -34,27 +34,33 @@ body{
     padding:5%;
     width: 35%;
     height: 55vh;
-    box-shadow: 0 4px 8px 0 rgba(14, 14, 14, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-#title-box a {
+#title-box input {
     margin:30px;
+    border: 0px solid transparent;
     padding: 10px 28px 10px 28px;
     border-radius: 25px;
     background-color: #1DB954;
     color:white;
     text-decoration: none;
-    transition: background-color 0.5s ease;
+    transition: box-shadow 0.5s ease;
 }
 
 
-#title-box a:hover{
-    background-color: #1dca59;
+#title-box input:hover{
+    box-shadow: 0 8px 6px -6px #1DB954;
+    cursor: pointer;
+}
+
+#title-box h1{
+    font-size: 40px;
+    margin-bottom: 60px;
 }
 
 
 #title-box img{
-    margin: 30px;
-    width:65px;
-    height:65px;
+    width:80px;
+    height:80px;
+    margin-bottom: 15px;
 }
