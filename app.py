@@ -22,12 +22,17 @@ def redirectPage():
     
     auth_code = request.args.get('code')
     response = ouath_client.get_auth_and_refresh_tokens(auth_code)
+    global access_token 
     access_token = response["access_token"]
     refresh_token = response["refresh_token"]
+   
+    return redirect(url_for('homePage', _external=True))
 
-    USER_INFO = api_client.get_user_info(access_token)
-    
-    
+@app.route("/home")
+def homePage():
+
+    USER_INFO = api_client.get_user_top_tracks(access_token)
+
     return USER_INFO
 
 

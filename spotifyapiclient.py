@@ -22,5 +22,22 @@ class SpotifyApiClient():
 
         return data
 
+    def get_user_top_tracks(self, access_token):
+
+        url = "https://api.spotify.com/v1/me/top/tracks"
+
+
+        body = {
+
+            "Authorization": f"Bearer {access_token}"
+
+        }
+
+        get = requests.get(url, headers=body)
+
+        data = json.loads(get.text)
+
+        return data
+
 
 
