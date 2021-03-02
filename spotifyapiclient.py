@@ -1,7 +1,4 @@
-import requests
-import json
-
-
+import requests,json
 
 class SpotifyApiClient():
 
@@ -38,6 +35,7 @@ class SpotifyApiClient():
         data = json.loads(get.text)
 
         return data
+        
 
 
 

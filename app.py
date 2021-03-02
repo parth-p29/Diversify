@@ -1,12 +1,14 @@
-from flask import Flask, render_template, url_for, redirect,request
+from flask import Flask, render_template, url_for, redirect,request, session
 from ouath import *
 from spotifyapiclient import *
-import requests
-import json
+import time
 
 
 app = Flask(__name__)
+app.secret_key = "sdUBIB2312jNBI"
+app.config['SESSION_COOKIE_NAME'] = "Diversify"
 
+OUATH_RESPONE = ''
 ouath_client = SpotifyOuathClient()
 api_client = SpotifyApiClient()
 
@@ -14,38 +16,43 @@ api_client = SpotifyApiClient()
 def index():
 
     auth_url = ouath_client.get_auth_url()
-    return render_template("index.html", url=auth_url)
+    return render_template("login.html", url=auth_url)
 
 
 @app.route("/redirect/")
 def redirectPage():
     
+    session.clear()
     auth_code = request.args.get('code')
-    response = ouath_client.get_auth_and_refresh_tokens(auth_code)
-    global access_token 
-    access_token = response["access_token"]
-    refresh_token = response["refresh_token"]
-   
+    session[OUATH_RESPONE] = ouath_client.get_token_info(auth_code)
+
     return redirect(url_for('homePage', _external=True))
+
 
 @app.route("/home")
 def homePage():
 
-    USER_INFO = api_client.get_user_top_tracks(access_token)
+    token = get_token()
+    USER_INFO = api_client.get_user_top_tracks(token)
+    TOP_TRACK = USER_INFO["items"][0]["name"]
 
-    return USER_INFO
+    return render_template("home.html", top=TOP_TRACK)
+    
+
+
+def get_token(): 
+    token_response = session.get(OUATH_RESPONE)
+    current_time = int(time.time())
+    token_expiry = (token_response['expires_in']) + current_time
+
+    if (current_time > token_expiry):
+        new_token = ouath_client.refresh_token(token_response['refresh_token'])   #logic for refreshing access token
+        return new_token['access_token']
+
+    else:
+        return token_response['access_token']
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=true)
 
-
-
-
-
-
-
-
-
-
-#{"access_token": "BQDjTNtLuIwJNA6F33bgv7TX7RLJprC4GG8Ganbzc92GRtfarR6hRIDi2OIb3n0An1QyJQv8s6sh2Fl4wAv8IUuHaApoUqNmgjTDnfPhdp-DKf2YQwjwMO7iUjGToZoO3RtIWfWAJboPA_Y9Ke-lwJR2Gycu1S47DSevBnyjnMVmxaykXJjUhy67", "token_type": "Bearer", "expires_in": 3600, "refresh_token": "AQDuyF415GTx4qH-soq1s4Yt7ZSf-o5vq3Th-4J6N8treukVnjutUt4y85Y1nZqVdUlvgDfohk7yUyF337op24YsSJcugguiTJ_3IvVYDvlWbNHpJTeuymbSm17HTGHAiQs", "scope": "user-library-read user-top-read", "expires_at": 1614324258}

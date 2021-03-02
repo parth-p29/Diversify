@@ -1,7 +1,5 @@
 import requests
 import json
-import base64
-from urllib.parse import quote
 
 class SpotifyOuathClient():
 
@@ -28,7 +26,7 @@ class SpotifyOuathClient():
 
         return auth_url
 
-    def get_auth_and_refresh_tokens(self, auth_code):
+    def get_token_info(self, auth_code):
 
         body = {
             "grant_type": "authorization_code",
@@ -43,3 +41,17 @@ class SpotifyOuathClient():
 
         return (response_data)
 
+
+    def refresh_token(self, refresh_token):
+
+        body = {
+
+            "grant_type": "refresh_token",
+            "refresh_token": refresh_token,
+            "client_id": self.CLIENT_ID,
+            "client_secret": self.CLIENT_SECRET    
+        }
+
+        response = requests.post(self.OAUTH_TOKEN_URL, data=body)
+
+        return json.loads(response.text)
