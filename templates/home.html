@@ -3,13 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" href= "{{ url_for('static', filename='css/main.css')}}">
+    <link rel="stylesheet" href= "{{ url_for('static', filename='css/home.css')}}">
     <link rel="icon" href= "{{ url_for('static', filename='photos/spotifylogo.png')}}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Diversify</title>
 </head>
 <body>
-    <p>my fav song: {{top}}</p>
+    
+    <nav>
+
+        <div class="nav-container">
+
+            <div class="logo">
+
+                <a href="index.html"><img src="{{ url_for('static', filename='photos/spotifylogo.png')}}"></a>
+
+            </div>
+
+            <div class="nav-links">
+
+                <ul>
+
+                    <li><a href="#more-info" class="links"><strong>My Music</strong></a></li>
+                    <li><a href="about.html" class="links"><strong>Analytics</strong></a></li>
+                    <li><a href="#contact-text" class="links"><strong>Recommendations</strong></a></li>
+                    <li><a href="#" class="links"><strong>Github</strong></a></li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </nav>
     
 </body>
 </html>

@@ -39,7 +39,6 @@ def homePage():
     return render_template("home.html", top=TOP_TRACK)
     
 
-
 def get_token(): 
     token_response = session.get(OUATH_RESPONE)
     current_time = int(time.time())
@@ -54,5 +53,5 @@ def get_token():
 
 
 if __name__ == "__main__":
-    app.run(debug=true)
+    app.run()
 

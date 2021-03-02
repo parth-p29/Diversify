@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" href= "{{ url_for('static', filename='css/main.css')}}">
+    <link rel="stylesheet" href= "{{ url_for('static', filename='css/login.css')}}">
     <link rel="icon" href= "{{ url_for('static', filename='photos/spotifylogo.png')}}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
     <title>Diversify - Login</title>
 </head>
 <body>
@@ -34,9 +36,7 @@
 
 
         <div id="login">
-<!--
-            <a href="{{ url }}">Login</a> 
--->
+
             <input type="button" onclick="location.href='{{url}}';" value="Login with Spotify" />
             
         </div>
