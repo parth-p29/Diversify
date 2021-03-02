@@ -2,9 +2,9 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    scroll-behavior: smooth;   
     font-family: sans-serif;
 }
+
 body{
     background-color: #181818;
 }
@@ -21,30 +21,21 @@ nav{
 
     display: flex;
     align-items: center;
-    margin-right: 100px;
-    margin-left: 100px;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin: 12px 100px 12px 100px;
 
 }
 
 .logo {
-
-    flex: 1.5;
-
+    flex: 1.15;
 }
 
 .logo img{
-
     width: 45px;
     height: auto;
-
 }
-
 
 .nav-links{
     flex:0.8;
-
 }
 
 .nav-links ul{
@@ -52,7 +43,6 @@ nav{
     align-items: center;
     justify-content: space-around;
     list-style: none;
-
 }
 
 .nav-links ul a{

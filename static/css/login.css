@@ -2,20 +2,11 @@
     margin:0;
     padding: 0;
     box-sizing: border-box;
-    font-family: sans-serif
-}
-
-#particles-js{
-
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    left: 0;
-    top: 0;
+    font-family: Georgia, 'Times New Roman', Times, serif
 }
 
 body{
-    background-color: #121212;
+    background-color: #181818;
     color:white;
     display: flex;
     justify-content: center;
