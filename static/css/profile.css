@@ -1,0 +1,41 @@
+
+#profile{
+    position: absolute;
+    top:24%;
+    width:100%;
+    margin: auto;
+    text-align: center;
+
+}
+
+
+a{
+    color:ghostwhite;
+    text-decoration: none;
+    transition: color 0.3s ease;
+
+}
+
+a:hover{
+    color: #1DB954;
+
+}
+
+
+main img{
+    margin: 35px 0px 35px 0px;
+    border-radius: 200px;
+    width: 240px;
+    height: 240px;
+}
+
+.info{
+    display: flex;
+    justify-content: center;
+    color: ghostwhite;
+
+}
+
+.info h5{
+    margin: 0px 15px 0px 15px   ;
+}

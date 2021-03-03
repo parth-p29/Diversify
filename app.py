@@ -26,18 +26,43 @@ def redirectPage():
     auth_code = request.args.get('code')
     session[OUATH_RESPONE] = ouath_client.get_token_info(auth_code)
 
-    return redirect(url_for('homePage', _external=True))
+    return redirect(url_for('profilePage', _external=True))
 
 
-@app.route("/home")
-def homePage():
+@app.route("/profile")
+def profilePage():
 
     token = get_token()
-    USER_INFO = api_client.get_user_top_tracks(token)
-    TOP_TRACK = USER_INFO["items"][0]["name"]
+    user_info = api_client.get_user_info(token)
+    username = user_info["display_name"]
+    followers = user_info["followers"]["total"]
+    spotify_link = user_info["external_urls"]["spotify"]
+    user_type = (user_info["product"]).capitalize()
 
-    return render_template("home.html", top=TOP_TRACK)
+    if len(user_info["images"]) == 0:
+        profile_pic = None
+    else:
+        profile_pic = user_info["images"][0]["url"]
     
+
+    return render_template("profile.html", username = username, followers = followers, link = spotify_link, pic = profile_pic, type = user_type)
+    
+
+@app.route("/music")
+def myMusic():
+
+    return "fml"
+
+@app.route("/analytics")
+def analytics():
+
+    return "cool backend"
+
+@app.route("/new")
+def new():
+
+    return "my music taste is dogwater, help me find new tracks"
+
 
 def get_token(): 
     token_response = session.get(OUATH_RESPONE)
