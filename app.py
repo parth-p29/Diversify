@@ -5,10 +5,9 @@ import time
 
 
 app = Flask(__name__)
-app.secret_key = "sdUBIB2312jNBI"
-app.config['SESSION_COOKIE_NAME'] = "Diversify"
+app.secret_key="Diversify-App"
 
-OUATH_RESPONE = ''
+
 ouath_client = SpotifyOuathClient()
 api_client = SpotifyApiClient()
 
@@ -21,10 +20,13 @@ def index():
 
 @app.route("/redirect/")
 def redirectPage():
-    
-    session.clear()
+
     auth_code = request.args.get('code')
-    session[OUATH_RESPONE] = ouath_client.get_token_info(auth_code)
+    auth_info = ouath_client.get_token_info(auth_code)
+
+    session['ouath_info'] = auth_info
+    session['start_time'] = int(time.time())
+
 
     return redirect(url_for('profilePage', _external=True))
 
@@ -32,8 +34,9 @@ def redirectPage():
 @app.route("/profile")
 def profilePage():
 
-    token = get_token()
-    user_info = api_client.get_user_info(token)
+    a_token = get_token()
+
+    user_info = api_client.get_user_info(a_token)
     username = user_info["display_name"]
     followers = user_info["followers"]["total"]
     spotify_link = user_info["external_urls"]["spotify"]
@@ -51,12 +54,41 @@ def profilePage():
 @app.route("/music")
 def myMusic():
 
-    return "fml"
+    a_token = get_token()
+ 
+    user_top_tracks_short_term = api_client.get_user_top_tracks(a_token, 15, "short_term")
+    user_top_tracks_medium_term = api_client.get_user_top_tracks(a_token, 15, "medium_term")
+    user_top_tracks_long_term = api_client.get_user_top_tracks(a_token, 15, "long_term")
+
+    short_term_songs = list(user_top_tracks_short_term.keys())
+    short_term_song_covers = list(user_top_tracks_short_term.values())
+
+    medium_term_songs = list(user_top_tracks_medium_term.keys())
+    medium_term_song_covers = list(user_top_tracks_medium_term.values())
+
+    long_term_songs = list(user_top_tracks_long_term.keys())
+    long_term_song_covers = list(user_top_tracks_long_term.values())
+
+    return render_template("music.html", st_songs=short_term_songs, st_cover=short_term_song_covers, zip=zip)
+
+@app.route('/change-time')
+def changeTime():
+
+    return redirect(url_for('myMusic', _external=True))
+
+
+
+
+
 
 @app.route("/analytics")
 def analytics():
 
     return "cool backend"
+
+
+
+
 
 @app.route("/new")
 def new():
@@ -65,16 +97,24 @@ def new():
 
 
 def get_token(): 
-    token_response = session.get(OUATH_RESPONE)
-    current_time = int(time.time())
-    token_expiry = (token_response['expires_in']) + current_time
+    
+    ouath_info = session.get('ouath_info') #gets the user ouath info from the session
+    start_time = session.get('start_time') #gets the start time from session
+    current_time = int(time.time()) #sets the current time
+    token_expiry = ouath_info['expires_in']  #sets the token expiry time which is 3600 seconds or 1 hour
+    time_diff = current_time - start_time #subtracts current_time from the time when the access_token was first provided
 
-    if (current_time > token_expiry):
-        new_token = ouath_client.refresh_token(token_response['refresh_token'])   #logic for refreshing access token
+    if (time_diff > token_expiry): #if the time difference passes 3600, a new access token is required
+
+        new_token = ouath_client.refresh_token(ouath_info['refresh_token'])   #logic for refreshing access token
+        start_time = int(time.time())
         return new_token['access_token']
-
+    
     else:
-        return token_response['access_token']
+        return ouath_info['access_token']
+
+
+
 
 
 if __name__ == "__main__":
