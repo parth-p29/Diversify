@@ -34,31 +34,13 @@ class SpotifyApiClient():
 
         data = json.loads(get.text)
 
-        #song_name_list = []
-        #song_cover_image_list = []
 
-        song_info = [[]]
         song_dict = {}
-
-        for song_index in range(limit):
-
-            song_info[song_index].append(data['items'][song_index]["name"])
-            song_info[song_index].append(data['items'][song_index]["album"]["images"][1]["url"])
-            song_info.append([])
-
-            
         for i in range(limit):
             song_dict[data['items'][i]["name"]] = data['items'][i]["album"]["images"][1]["url"]
             
 
         return song_dict
-
-
-"""
-for song_index in range(limit):
-    song_list.append(data["items"][song_index]["name"])
-
-"""  
 
 
 

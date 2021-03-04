@@ -56,9 +56,9 @@ def myMusic():
 
     a_token = get_token()
  
-    user_top_tracks_short_term = api_client.get_user_top_tracks(a_token, 15, "short_term")
-    user_top_tracks_medium_term = api_client.get_user_top_tracks(a_token, 15, "medium_term")
-    user_top_tracks_long_term = api_client.get_user_top_tracks(a_token, 15, "long_term")
+    user_top_tracks_short_term = api_client.get_user_top_tracks(a_token, 10, "short_term")
+    user_top_tracks_medium_term = api_client.get_user_top_tracks(a_token, 10, "medium_term")
+    user_top_tracks_long_term = api_client.get_user_top_tracks(a_token, 10, "long_term")
 
     short_term_songs = list(user_top_tracks_short_term.keys())
     short_term_song_covers = list(user_top_tracks_short_term.values())
