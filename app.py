@@ -26,6 +26,7 @@ def redirectPage():
 
     session['ouath_info'] = auth_info
     session['start_time'] = int(time.time())
+    session['time_frame'] = "short_term"
 
 
     return redirect(url_for('profilePage', _external=True))
@@ -36,43 +37,47 @@ def profilePage():
 
     a_token = get_token()
 
-    user_info = api_client.get_user_info(a_token)
+    request_data = api_client.get_user_info(a_token)
+    user_info = request_data[0]
     username = user_info["display_name"]
     followers = user_info["followers"]["total"]
     spotify_link = user_info["external_urls"]["spotify"]
     user_type = (user_info["product"]).capitalize()
-
     if len(user_info["images"]) == 0:
         profile_pic = None
     else:
         profile_pic = user_info["images"][0]["url"]
-    
 
-    return render_template("profile.html", username = username, followers = followers, link = spotify_link, pic = profile_pic, type = user_type)
+
+    playlist_info = request_data[1]
+    num_of_playlists = len(playlist_info['items']) 
+
+    user_follow_info = request_data[2]
+    num_of_followed_artists = len(user_follow_info['artists']['items'])
+
+    return render_template("profile.html", username = username, followers = followers, link = spotify_link, pic = profile_pic, type = user_type, playlists = num_of_playlists, follows=num_of_followed_artists)
     
 
 @app.route("/music")
 def myMusic():
 
     a_token = get_token()
- 
-    user_top_tracks_short_term = api_client.get_user_top_tracks(a_token, 10, "short_term")
-    user_top_tracks_medium_term = api_client.get_user_top_tracks(a_token, 10, "medium_term")
-    user_top_tracks_long_term = api_client.get_user_top_tracks(a_token, 10, "long_term")
+    time_frame = session.get('time_frame')
 
-    short_term_songs = list(user_top_tracks_short_term.keys())
-    short_term_song_covers = list(user_top_tracks_short_term.values())
+    user_top_tracks = api_client.get_user_top_tracks(a_token, 10, time_frame, "tracks")
+    user_top_artists = api_client.get_user_top_tracks(a_token, 10, time_frame, "artists")
 
-    medium_term_songs = list(user_top_tracks_medium_term.keys())
-    medium_term_song_covers = list(user_top_tracks_medium_term.values())
+    songs = list(user_top_tracks.keys())
+    song_cover = list(user_top_tracks.values())
 
-    long_term_songs = list(user_top_tracks_long_term.keys())
-    long_term_song_covers = list(user_top_tracks_long_term.values())
+    artists = list(user_top_artists.keys())
+    artist_covers = list(user_top_artists.values())
 
-    return render_template("music.html", st_songs=short_term_songs, st_cover=short_term_song_covers, zip=zip)
+    return render_template("music.html", songs=songs, song_covers=song_cover, artists=artists, artist_covers =artist_covers, zip=zip)
 
-@app.route('/change-time')
+@app.route('/change-time', methods=['GET','POST'])
 def changeTime():
+
 
     return redirect(url_for('myMusic', _external=True))
 

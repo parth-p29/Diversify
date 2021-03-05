@@ -1,6 +1,50 @@
 
-.tracks img{
-    width: 55px;
-    height: 55px;
- 
+
+.top{
+    position: absolute;
+    top: 20%
+}
+.cover img{
+    width: 65px;
+    height: 65px;
+    margin-right: 20px;
+}
+
+.temp{
+    display: flex;
+    margin-top:30px;
+}
+.t{
+    
+    /*
+    background-color: #1DB954;*/
+    width:400px;
+}
+
+.temp2{
+    display: flex;
+    margin-left: 250px;
+    
+
+}
+
+.content{
+    
+    /*background-color: hotpink;*/
+    width:400px;
+
+}
+
+#songs-artists{
+    display: flex;
+    justify-content: center;
+}
+
+.top{
+    width:100%;
+}
+
+p{
+    color:ghostwhite;
+    font-size:13px;
 }

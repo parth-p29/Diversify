@@ -33,3 +33,21 @@ main img{
 .info h5{
     margin: 0px 15px 0px 15px;
 }
+
+#logout{
+    position: absolute;
+    top: 90%;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+}
+
+#logout a{
+    text-decoration: none;
+    padding: 5px 15px 5px 15px;
+    color: ghostwhite;
+    border: 0.5px solid ghostwhite;
+    border-radius: 200px;
+
+}

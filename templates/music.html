@@ -48,15 +48,49 @@
 
     </nav>
 
-    <div class="top tracks">
+    <div class="top">
 
-        {% for song, cover in zip(st_songs,st_cover) %}
+        <div id="time-selector">
 
-        <h5>{{song}}</h5>
-        <img src="{{cover}}"/>
+            <h4>Early Med Late</h4>
 
-        {%endfor%}
+        </div>
 
+        <div id="songs-artists">
+
+            <div class="t">
+
+                {% for song, s_cover in zip(songs, song_covers) %}
+                    <div class="temp">
+                        <div class="cover">
+                            <img src="{{s_cover}}"/>
+                        </div>
+                        
+                        <div class="name">
+                            <p>{{song}}</p>
+                        </div>
+                    </div>
+                {%endfor%}
+    
+            </div>
+
+            <div class="content">
+
+                {% for artist, a_cover in zip(artists, artist_covers) %}
+                <div class="temp2">
+                    <div class="cover">
+                        <img src="{{a_cover}}"/>
+                    </div>
+                    
+                    <div class="name">
+                        <p>{{artist}}</p>
+                    </div>
+                </div>
+                {%endfor%}
+    
+            </div>
+
+        </div>
 
     </div>
 
