@@ -72,7 +72,7 @@ def myMusic():
     artists = list(user_top_artists.keys())
     artist_covers = list(user_top_artists.values())
 
-    return render_template("music.html", songs=songs, song_covers=song_cover, artists=artists, artist_covers =artist_covers, zip=zip)
+    return render_template("music.html", songs=songs, song_covers=song_cover, artists=artists, artist_covers =artist_covers, zip=zip, time = time_frame)
 
 @app.route('/change-time/<string:id>')
 def changeTime(id):

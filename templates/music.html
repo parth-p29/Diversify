@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,6 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Diversify</title>
 </head>
+
 <body>
 
     
@@ -52,10 +54,23 @@
 
         <div id="time-selector">
 
-            <a href="/change-time/short_term"><h4>Recent</h4></a>
-            <a href="/change-time/medium_term"><h4>6 Months</h4></a>
-            <a href="/change-time/long_term"><h4>All Time</h4></a>
+            {% if time == "short_term" %}
+                <a href="/change-time/short_term"><h4><u>Recent</u></h4></a>
+                <a href="/change-time/medium_term"><h4>6 Months</h4></a>
+                <a href="/change-time/long_term"><h4>All Time</h4></a>
+             
+            {% elif time == "medium_term" %}
+                <a href="/change-time/short_term"><h4>Recent</h4></a>
+                <a href="/change-time/medium_term"><h4><u>6 Months</u></h4></a>
+                <a href="/change-time/long_term"><h4>All Time</h4></a>
+                
 
+            {% else %}
+                <a href="/change-time/short_term"><h4>Recent</h4></a>
+                <a href="/change-time/medium_term"><h4>6 Months</h4></a>
+                <a href="/change-time/long_term"><h4><u>All Time</u></h4></a>
+            
+            {% endif %}
 
         </div>
 
@@ -104,3 +119,10 @@
     
 </body>
 </html>
+
+
+
+<!--
+
+
+-->

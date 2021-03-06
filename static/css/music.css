@@ -9,7 +9,7 @@
 
 .top{
     position: absolute;
-    top: 20%;
+    top: 18%;
 }
 .cover img{
     width: 65px;
@@ -19,15 +19,16 @@
 
 .tracks{
     display: flex;
+    margin-left: 105px;
     margin-top:30px;
 }
 
 
 .artists{
     display: flex;
-    margin-left: 230px;
+    margin-left: 255px;
     margin-top:30px;
-    
+
 }
 
 h3{
@@ -36,26 +37,21 @@ h3{
     margin-bottom: 25px;
 }
 
+.c h3{
+    margin-left: 105px;
+}
 .a h3{
-    margin-left: 230px;
+    margin-left: 255px;
 }
+
 .content{
-    width:460px;
+    width:500px;
 }
-
-/*
-.a{
-    background-color: hotpink;
-}
-
-.c{
-    background-color: green;
-}
-*/
 
 #songs-artists{
     display: flex;
     justify-content: center;
+
 }
 
 .top{
@@ -66,4 +62,25 @@ p{
     color:ghostwhite;
     font-size:15px;
     font-family: 'Proxima Nova Th';
+}
+
+#time-selector{
+    margin-bottom: 60px;
+    display: flex;
+    justify-content: flex-end;
+    width: 92%;
+}
+
+#time-selector a{
+    margin:13px;
+    text-decoration: none;
+    color: rgb(175, 175, 175);
+    font-size: 14px;
+    opacity: 80%;
+}
+
+u {
+    padding: 10px 15px 10px 15px;
+    border:0.5px solid whitesmoke;
+    margin-top: 5px;
 }

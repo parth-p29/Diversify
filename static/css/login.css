@@ -50,7 +50,6 @@ body{
 }
 
 #title-box input:hover{
-    box-shadow: 0 8px 6px -6px #1DB954;
     cursor: pointer;
 }
 
