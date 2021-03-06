@@ -42,6 +42,7 @@ def profilePage():
     username = user_info["display_name"]
     followers = user_info["followers"]["total"]
     spotify_link = user_info["external_urls"]["spotify"]
+    
     if len(user_info["images"]) == 0:
         profile_pic = None
     else:
@@ -63,16 +64,19 @@ def myMusic():
     a_token = get_token()
     time_frame = session.get('time_frame')
 
-    user_top_tracks = api_client.get_user_top_tracks(a_token, 10, time_frame, "tracks")
-    user_top_artists = api_client.get_user_top_tracks(a_token, 10, time_frame, "artists")
+    user_top_tracks = api_client.get_user_top(a_token, 10, time_frame, "tracks")
+    user_top_artists = api_client.get_user_top(a_token, 10, time_frame, "artists")
+    user_top_tracks_info = api_client.get_user_top_track_info(a_token, 10, time_frame)
 
     songs = list(user_top_tracks.keys())
     song_cover = list(user_top_tracks.values())
+    song_artist = user_top_tracks_info[0]
+    song_album = user_top_tracks_info[1]
 
     artists = list(user_top_artists.keys())
     artist_covers = list(user_top_artists.values())
 
-    return render_template("music.html", songs=songs, song_covers=song_cover, artists=artists, artist_covers =artist_covers, zip=zip, time = time_frame)
+    return render_template("music.html", songs=songs, song_covers=song_cover, artists=artists, artist_covers =artist_covers, zip=zip,time = time_frame, song_artist=song_artist, song_album = song_album)
 
 @app.route('/change-time/<string:id>')
 def changeTime(id):
@@ -80,10 +84,6 @@ def changeTime(id):
     session['time_frame'] = id
 
     return redirect(url_for('myMusic', _external=True))
-
-
-
-
 
 
 @app.route("/analytics")

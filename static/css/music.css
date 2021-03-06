@@ -75,12 +75,10 @@ p{
     margin:13px;
     text-decoration: none;
     color: rgb(175, 175, 175);
-    font-size: 14px;
+    font-size: 16px;
     opacity: 80%;
 }
 
-u {
-    padding: 10px 15px 10px 15px;
-    border:0.5px solid whitesmoke;
-    margin-top: 5px;
+span{
+    color: #1DB954;
 }

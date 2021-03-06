@@ -55,20 +55,20 @@
         <div id="time-selector">
 
             {% if time == "short_term" %}
-                <a href="/change-time/short_term"><h4><u>Recent</u></h4></a>
+                <a href="/change-time/short_term"><h4><span>Recent</span></h4></a>
                 <a href="/change-time/medium_term"><h4>6 Months</h4></a>
                 <a href="/change-time/long_term"><h4>All Time</h4></a>
              
             {% elif time == "medium_term" %}
                 <a href="/change-time/short_term"><h4>Recent</h4></a>
-                <a href="/change-time/medium_term"><h4><u>6 Months</u></h4></a>
+                <a href="/change-time/medium_term"><h4><span>6 Months</span></h4></a>
                 <a href="/change-time/long_term"><h4>All Time</h4></a>
                 
 
             {% else %}
                 <a href="/change-time/short_term"><h4>Recent</h4></a>
                 <a href="/change-time/medium_term"><h4>6 Months</h4></a>
-                <a href="/change-time/long_term"><h4><u>All Time</u></h4></a>
+                <a href="/change-time/long_term"><h4><span>All Time</span></h4></a>
             
             {% endif %}
 
@@ -80,7 +80,7 @@
 
                 <h3>Top Tracks</h3>
 
-                {% for song, s_cover in zip(songs, song_covers) %}
+                {% for song, s_cover, s_artist, s_album in zip(songs, song_covers, song_artist, song_album) %}
                     <div class="tracks">
                         <div class="cover">
                             <img src="{{s_cover}}"/>
@@ -88,6 +88,8 @@
                         
                         <div class="name">
                             <p>{{song}}</p>
+                            <p>{{s_artist}}. {{s_album}}</p>
+                        
                         </div>
                     </div>
                 {%endfor%}
