@@ -64,19 +64,20 @@ def myMusic():
     a_token = get_token()
     time_frame = session.get('time_frame')
 
-    user_top_tracks = api_client.get_user_top(a_token, 10, time_frame, "tracks")
-    user_top_artists = api_client.get_user_top(a_token, 10, time_frame, "artists")
-    user_top_tracks_info = api_client.get_user_top_track_info(a_token, 10, time_frame)
+    user_top_tracks = api_client.get_user_top_info(a_token, 10, time_frame, "tracks")
+    user_top_artists = api_client.get_user_top_info(a_token, 10, time_frame, "artists")
+    
+    songs = user_top_tracks[0]
+    song_ids = user_top_tracks[1]
+    song_covers = user_top_tracks[2]
+    song_artists = user_top_tracks[3]
+    song_albums = user_top_tracks[4]
 
-    songs = list(user_top_tracks.keys())
-    song_cover = list(user_top_tracks.values())
-    song_artist = user_top_tracks_info[0]
-    song_album = user_top_tracks_info[1]
+    artists = user_top_artists[0]
+    artist_ids = user_top_artists[1]
+    artist_covers = user_top_artists[2]
 
-    artists = list(user_top_artists.keys())
-    artist_covers = list(user_top_artists.values())
-
-    return render_template("music.html", songs=songs, song_covers=song_cover, artists=artists, artist_covers =artist_covers, zip=zip,time = time_frame, song_artist=song_artist, song_album = song_album)
+    return render_template("music.html", songs = songs, song_ids = song_ids, song_covers = song_covers, song_artists = song_artists, song_albums = song_albums, artists = artists, artist_ids = artist_ids, artist_covers = artist_covers, zip=zip, time = time_frame)
 
 @app.route('/change-time/<string:id>')
 def changeTime(id):
@@ -86,13 +87,15 @@ def changeTime(id):
     return redirect(url_for('myMusic', _external=True))
 
 
+@app.route('/info/<string:id>')
+def info(id):
+
+    return id
+
 @app.route("/analytics")
 def analytics():
 
     return "cool backend"
-
-
-
 
 
 @app.route("/new")
@@ -117,9 +120,6 @@ def get_token():
     
     else:
         return ouath_info['access_token']
-
-
-
 
 
 if __name__ == "__main__":

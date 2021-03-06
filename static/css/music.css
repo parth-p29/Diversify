@@ -10,10 +10,11 @@
 .top{
     position: absolute;
     top: 18%;
+    width:100%;
 }
 .cover img{
-    width: 65px;
-    height: 65px;
+    width: 70px;
+    height: 70px;
     margin-right: 20px;
 }
 
@@ -23,12 +24,10 @@
     margin-top:30px;
 }
 
-
 .artists{
     display: flex;
     margin-left: 255px;
     margin-top:30px;
-
 }
 
 h3{
@@ -51,11 +50,14 @@ h3{
 #songs-artists{
     display: flex;
     justify-content: center;
-
 }
 
-.top{
-    width:100%;
+#song-artists a{
+    text-decoration: none;
+}
+
+img:hover{
+    opacity: 50%;
 }
 
 p{
@@ -79,6 +81,17 @@ p{
     opacity: 80%;
 }
 
-span{
+#time-selector span{
     color: #1DB954;
+}
+
+.temp{
+    margin-top:6px;
+}
+.name span{
+    margin-top:5px;
+    color: rgb(175, 175, 175);
+    font-size: 12px;
+    opacity: 80%;
+    font-family: 'Proxima Nova Th';
 }

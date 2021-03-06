@@ -27,7 +27,8 @@ class SpotifyApiClient():
 
         return [user_info_data, playlists_data, followed_artists_data]
 
-    def get_user_top(self, access_token, limit, time_range, top_type):
+
+    def get_user_top_info(self, access_token, limit, time_range, top_type):
 
         url = self.API_BASE_URL + f"/top/{top_type}?time_range={time_range}&limit={limit}"
 
@@ -37,51 +38,40 @@ class SpotifyApiClient():
 
         get = requests.get(url, headers=body)
         data = json.loads(get.text)
-        data_dict = {}
-
-        if top_type == "tracks":
-
-            for i in range(limit):
-
-                data_dict[data['items'][i]["name"]] = data['items'][i]["album"]["images"][1]["url"]
-                                                                       
-        else:
-
-            for i in range(limit):
-
-                data_dict[data['items'][i]["name"]] = data['items'][i]["images"][1]["url"]
-       
-                
-        return data_dict
-
-
-    def get_user_top_track_info(self, access_token, limit, time_range):
-
-        url = self.API_BASE_URL + f"/top/tracks?time_range={time_range}&limit={limit}"
-
-        body = {
-            "Authorization": f"Bearer {access_token}"
-        }
-
-        get = requests.get(url, headers=body)
-        data = json.loads(get.text)
-        data_list = [[]]
+        data_collection_list = [ [] for _ in range(limit) ]
     
         for i in range(limit):
 
-            data_list[i].append(data['items'][i]["album"]['artists'][0]['name'])
-            data_list[i].append(data['items'][i]["album"]['name'])
+            data_collection_list[i].append(data['items'][i]["name"]) #top artist or track name [0]
+            data_collection_list[i].append(data['items'][i]['id']) #top artist or track id [1]
 
-            if i+1 == limit:
-                break
+            if top_type == "tracks":
+                data_collection_list[i].append(data['items'][i]["album"]["images"][1]["url"]) # top track cover image [2]
+                data_collection_list[i].append(data['items'][i]["album"]['artists'][0]['name']) #top track artist name [3]
+                data_collection_list[i].append(data['items'][i]["album"]['name']) #top track album name [4]
+
             else:
-                data_list.append([])
+                data_collection_list[i].append(data['items'][i]["images"][1]["url"]) #top artist cover image [2]
 
+        if top_type == "tracks":
+            output_list = []
 
-        artist_name = (np.array(data_list))[:,0]
-        album_name = (np.array(data_list))[:,1]
+            for col_idx in range (5):
+                output_list.append((np.array(data_collection_list))[:,col_idx])
 
+            return output_list
 
-        return [artist_name, album_name]
+        else:
+            output_list = []
+
+            for col_idx in range (3):
+                output_list.append((np.array(data_collection_list))[:,col_idx])
+
+            return output_list
+
 
         #turn into a 2d arry, cuz dicts deleted duplicates when you do .keys() or .values()
+
+    def get_track_or_artist_info(self, access_token, id):
+
+        pass

@@ -80,15 +80,16 @@
 
                 <h3>Top Tracks</h3>
 
-                {% for song, s_cover, s_artist, s_album in zip(songs, song_covers, song_artist, song_album) %}
+                {% for song, s_cover, s_artist, s_album, id in zip(songs, song_covers, song_artists, song_albums, song_ids) %}
                     <div class="tracks">
                         <div class="cover">
-                            <img src="{{s_cover}}"/>
+                            <a href='info/{{id}}'><img src="{{s_cover}}"/></a>
                         </div>
                         
                         <div class="name">
                             <p>{{song}}</p>
-                            <p>{{s_artist}}. {{s_album}}</p>
+
+                            <div class='temp'><p><span>{{s_artist}}&nbsp; &#8226; &nbsp;{{s_album}}</span></p></div>
                         
                         </div>
                     </div>
