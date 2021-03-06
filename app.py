@@ -42,7 +42,6 @@ def profilePage():
     username = user_info["display_name"]
     followers = user_info["followers"]["total"]
     spotify_link = user_info["external_urls"]["spotify"]
-    user_type = (user_info["product"]).capitalize()
     if len(user_info["images"]) == 0:
         profile_pic = None
     else:
@@ -55,7 +54,7 @@ def profilePage():
     user_follow_info = request_data[2]
     num_of_followed_artists = len(user_follow_info['artists']['items'])
 
-    return render_template("profile.html", username = username, followers = followers, link = spotify_link, pic = profile_pic, type = user_type, playlists = num_of_playlists, follows=num_of_followed_artists)
+    return render_template("profile.html", username = username, followers = followers, link = spotify_link, pic = profile_pic, playlists = num_of_playlists, follows=num_of_followed_artists)
     
 
 @app.route("/music")
@@ -75,9 +74,10 @@ def myMusic():
 
     return render_template("music.html", songs=songs, song_covers=song_cover, artists=artists, artist_covers =artist_covers, zip=zip)
 
-@app.route('/change-time', methods=['GET','POST'])
-def changeTime():
+@app.route('/change-time/<string:id>')
+def changeTime(id):
 
+    session['time_frame'] = id
 
     return redirect(url_for('myMusic', _external=True))
 

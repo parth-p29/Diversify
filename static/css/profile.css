@@ -1,7 +1,7 @@
 
 #profile{
     position: absolute;
-    top:25%;
+    top:23%;
     width:100%;
     margin: auto;
     text-align: center;
@@ -10,12 +10,8 @@
 a{
     color:ghostwhite;
     text-decoration: none;
-    transition: color 0.3s ease;
 }
 
-a:hover{
-    color: #1DB954;
-}
 
 main img{
     margin: 35px 0px 35px 0px;
@@ -24,30 +20,42 @@ main img{
     height: 240px;
 }
 
-.info{
-    display: flex;
-    justify-content: center;
-    color: ghostwhite;
-}
-
-.info h5{
-    margin: 0px 15px 0px 15px;
-}
 
 #logout{
     position: absolute;
     top: 90%;
     width: 100%;
-
     display: flex;
     justify-content: center;
 }
 
 #logout a{
     text-decoration: none;
-    padding: 5px 15px 5px 15px;
+    padding: 10px 15px 10px 15px;
     color: ghostwhite;
-    border: 0.5px solid ghostwhite;
+    border: 0.8px solid ghostwhite;
     border-radius: 200px;
+}
+
+#user-info{
+    display: flex;
+    justify-content: center;
+}
+
+.info{
+    margin: 10px;
+}
+
+.info h5{
+    color: #1DB954;
+    margin-bottom: 10px;
+    font-size:18px;
+}
+
+.info h6{
+    color: rgb(175, 175, 175);
+    font-size: 14px;
+    opacity: 80%;
+    
 
 }

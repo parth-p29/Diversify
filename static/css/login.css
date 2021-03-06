@@ -1,8 +1,26 @@
+@font-face {
+    font-family: 'Proxima Nova Rg';
+    src: url('fonts/ProximaNova-Regular.woff2') format('woff2'),
+        url('fonts/ProximaNova-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Proxima Nova Alt Rg';
+    src: url('fonts/ProximaNovaA-Bold.woff2') format('woff2'),
+        url('fonts/ProximaNovaA-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
 *{
     margin:0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Georgia, 'Times New Roman', Times, serif
+    font-family: 'Proxima Nova Alt Rg';
 }
 
 body{
@@ -23,11 +41,12 @@ body{
 #title-box input {
     margin:60px;
     border: 0px solid transparent;
-    padding: 10px 28px 10px 28px;
-    border-radius: 25px;
+    padding: 10px 15px 10px 15px;
+    border-radius: 200px;
     background-color: #1DB954;
-    color:white;
+    color:ghostwhite;
     transition: box-shadow 0.5s ease;
+    font-family: 'Proxima Nova Rg';
 }
 
 #title-box input:hover{

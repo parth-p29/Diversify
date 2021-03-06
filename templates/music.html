@@ -52,16 +52,21 @@
 
         <div id="time-selector">
 
-            <h4>Early Med Late</h4>
+            <a href="/change-time/short_term"><h4>Recent</h4></a>
+            <a href="/change-time/medium_term"><h4>6 Months</h4></a>
+            <a href="/change-time/long_term"><h4>All Time</h4></a>
+
 
         </div>
 
         <div id="songs-artists">
 
-            <div class="t">
+            <div class="content c">
+
+                <h3>Top Tracks</h3>
 
                 {% for song, s_cover in zip(songs, song_covers) %}
-                    <div class="temp">
+                    <div class="tracks">
                         <div class="cover">
                             <img src="{{s_cover}}"/>
                         </div>
@@ -74,10 +79,12 @@
     
             </div>
 
-            <div class="content">
+            <div class="content a">
+
+                <h3>Top Artists</h3>
 
                 {% for artist, a_cover in zip(artists, artist_covers) %}
-                <div class="temp2">
+                <div class="artists">
                     <div class="cover">
                         <img src="{{a_cover}}"/>
                     </div>

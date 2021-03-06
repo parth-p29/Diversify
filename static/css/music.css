@@ -1,8 +1,15 @@
-
+@font-face {
+    font-family: 'Proxima Nova Th';
+    src: url('fonts/ProximaNovaT-Thin.woff2') format('woff2'),
+        url('fonts/ProximaNovaT-Thin.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
 
 .top{
     position: absolute;
-    top: 20%
+    top: 20%;
 }
 .cover img{
     width: 65px;
@@ -10,30 +17,41 @@
     margin-right: 20px;
 }
 
-.temp{
+.tracks{
     display: flex;
     margin-top:30px;
 }
-.t{
-    
-    /*
-    background-color: #1DB954;*/
-    width:400px;
-}
 
-.temp2{
+
+.artists{
     display: flex;
-    margin-left: 250px;
+    margin-left: 230px;
+    margin-top:30px;
     
-
 }
 
+h3{
+    color: ghostwhite;
+    font-size: 20px;
+    margin-bottom: 25px;
+}
+
+.a h3{
+    margin-left: 230px;
+}
 .content{
-    
-    /*background-color: hotpink;*/
-    width:400px;
-
+    width:460px;
 }
+
+/*
+.a{
+    background-color: hotpink;
+}
+
+.c{
+    background-color: green;
+}
+*/
 
 #songs-artists{
     display: flex;
@@ -46,5 +64,6 @@
 
 p{
     color:ghostwhite;
-    font-size:13px;
+    font-size:15px;
+    font-family: 'Proxima Nova Th';
 }
