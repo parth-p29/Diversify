@@ -61,23 +61,8 @@ def profilePage():
 @app.route("/music")
 def myMusic():
 
-    a_token = get_token()
-    time_frame = session.get('time_frame')
+    return configure_user_top('music.html')
 
-    user_top_tracks = api_client.get_user_top_info(a_token, 10, time_frame, "tracks")
-    user_top_artists = api_client.get_user_top_info(a_token, 10, time_frame, "artists")
-    
-    songs = user_top_tracks[0]
-    song_ids = user_top_tracks[1]
-    song_covers = user_top_tracks[2]
-    song_artists = user_top_tracks[3]
-    song_albums = user_top_tracks[4]
-
-    artists = user_top_artists[0]
-    artist_ids = user_top_artists[1]
-    artist_covers = user_top_artists[2]
-
-    return render_template("music.html", songs = songs, song_ids = song_ids, song_covers = song_covers, song_artists = song_artists, song_albums = song_albums, artists = artists, artist_ids = artist_ids, artist_covers = artist_covers, zip=zip, time = time_frame)
 
 @app.route('/change-time/<string:id>')
 def changeTime(id):
@@ -91,6 +76,13 @@ def changeTime(id):
 def info(id):
 
     return id
+
+@app.route('/more')
+
+def more():
+
+    return configure_user_top('more.html')
+
 
 @app.route("/analytics")
 def analytics():
@@ -121,6 +113,29 @@ def get_token():
     else:
         return ouath_info['access_token']
 
+def configure_user_top(html_page):
+
+    a_token = get_token()
+    time_frame = session.get('time_frame')
+
+    try:
+        user_top_tracks = api_client.get_user_top_info(a_token, 10, time_frame, "tracks")
+        user_top_artists = api_client.get_user_top_info(a_token, 10, time_frame, "artists")
+
+    except IndexError:
+        return "Sorry your account has no music data :("
+
+    songs = user_top_tracks[0]
+    song_ids = user_top_tracks[1]
+    song_covers = user_top_tracks[2]
+    song_artists = user_top_tracks[3]
+    song_albums = user_top_tracks[4]
+
+    artists = user_top_artists[0]
+    artist_ids = user_top_artists[1]
+    artist_covers = user_top_artists[2]
+
+    return render_template(html_page, songs = songs, song_ids = song_ids, song_covers = song_covers, song_artists = song_artists, song_albums = song_albums, artists = artists, artist_ids = artist_ids, artist_covers = artist_covers, zip=zip, time = time_frame)
 
 if __name__ == "__main__":
     app.run()

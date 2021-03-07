@@ -20,7 +20,7 @@
 
 .tracks{
     display: flex;
-    margin-left: 105px;
+    margin-left: 75px;
     margin-top:30px;
 }
 
@@ -37,7 +37,7 @@ h3{
 }
 
 .c h3{
-    margin-left: 105px;
+    margin-left: 75px;
 }
 .a h3{
     margin-left: 255px;
@@ -50,13 +50,14 @@ h3{
 #songs-artists{
     display: flex;
     justify-content: center;
+    margin-bottom:30px;
 }
 
 #song-artists a{
     text-decoration: none;
 }
 
-img:hover{
+#songs-artists img:hover{
     opacity: 50%;
 }
 
@@ -70,7 +71,7 @@ p{
     margin-bottom: 60px;
     display: flex;
     justify-content: flex-end;
-    width: 92%;
+    width: 94%;
 }
 
 #time-selector a{
@@ -81,17 +82,31 @@ p{
     opacity: 80%;
 }
 
-#time-selector span{
-    color: #1DB954;
-}
-
-.temp{
+.song-info{
     margin-top:6px;
 }
+
 .name span{
     margin-top:5px;
     color: rgb(175, 175, 175);
     font-size: 12px;
     opacity: 80%;
     font-family: 'Proxima Nova Th';
+}
+
+#show-more{
+    position: absolute;
+    top:105%;
+    width:100%;
+    display: flex;
+    justify-content: center;
+}
+
+#show-more a{
+    text-decoration: none;
+    padding: 10px 15px 10px 15px;
+    color: ghostwhite;
+    border: 0.8px solid ghostwhite;
+    border-radius: 200px;
+    margin-bottom:50px;
 }

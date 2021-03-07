@@ -1,52 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+{% extends 'base.html' %}
+
+{% block head %}
+
     <link rel="stylesheet" href= "{{ url_for('static', filename='css/profile.css')}}">
-    <link rel="stylesheet" href= "{{ url_for('static', filename='css/base.css')}}">
-    <link rel="icon" href= "{{ url_for('static', filename='photos/spotifylogo.png')}}">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diversify</title>
 
-</head>
-<body>
-    
-    <nav>
+{% endblock %}
 
-        <div class="nav-container">
+{% block nav %}
 
-            <div class="nav-links">
+    <script>document.getElementById('prof').className = "line"</script>
 
-                <ul>
-                    <div class="link-container">
-                        <li><a href="/profile" class="links"><img title="Profile" src="{{ url_for('static', filename='photos/profile.png')}}"></a></li>
-                        <div class="line"></div>
-                    </div>
-
-                    <div class="link-container">
-                        <li><a href="/music" class="links"><img title="My Music" src="{{ url_for('static', filename='photos/mymusiclogo.png')}}"></a></li>
-                        <div class="line notpage" ></div>
-                    </div>
-
-                    <div class="link-container">
-                        <li><a href="/analytics" class="links"><img title="Analytics" src="{{ url_for('static', filename='photos/analytics.png')}}"></a></li>
-                        <div class="line notpage"></div>
-                    </div>
-                    
-                    <div class="link-container">
-                        <li><a href="/new" class="links"><img title="New Music" src="{{ url_for('static', filename='photos/new.png')}}"></a></li>
-                        <div class="line notpage" ></div>
-                    </div>
+{% endblock %}
 
 
-                </ul>
-
-            </div>
-
-        </div>
-
-    </nav>
+{% block content %}
 
     <main>
 
@@ -62,7 +29,6 @@
 
             {% endif %}
 
-
             <div id="user-info">
 
                 <div class="info">
@@ -70,23 +36,21 @@
                     <h5>{{followers}}</h5>
                     <h6>FOLLOWERS</h6>
                 </div>
-    
+
                 <div class="info">
-    
+
                     <h5>{{follows}}</h5>
                     <h6>FOLLOWING</h6>
         
                 </div>
-    
+
                 <div class="info">
-    
+
                     <h5>{{playlists}}</h5>
                     <h6>PLAYLISTS</h6>
                 </div>
 
             </div>
-
-
 
         </div>
 
@@ -96,9 +60,6 @@
 
         </div>
 
-
-
     </main>
-    
-</body>
-</html>
+
+{% endblock %}

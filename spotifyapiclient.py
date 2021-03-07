@@ -41,7 +41,6 @@ class SpotifyApiClient():
         data_collection_list = [ [] for _ in range(limit) ]
     
         for i in range(limit):
-
             data_collection_list[i].append(data['items'][i]["name"]) #top artist or track name [0]
             data_collection_list[i].append(data['items'][i]['id']) #top artist or track id [1]
 
