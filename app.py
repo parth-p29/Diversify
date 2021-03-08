@@ -61,15 +61,19 @@ def profilePage():
 @app.route("/music")
 def myMusic():
 
-    return configure_user_top('music.html')
+    return configure_user_top('music.html', 10)
 
 
 @app.route('/change-time/<string:id>')
 def changeTime(id):
+    
+    if id[-1] == "M":
+        session['time_frame'] = id[:-1]
+        return redirect(url_for('more', _external=True))
 
-    session['time_frame'] = id
-
-    return redirect(url_for('myMusic', _external=True))
+    else:      
+        session['time_frame'] = id
+        return redirect(url_for('myMusic', _external=True))
 
 
 @app.route('/info/<string:id>')
@@ -78,10 +82,9 @@ def info(id):
     return id
 
 @app.route('/more')
-
 def more():
 
-    return configure_user_top('more.html')
+    return configure_user_top('more.html', 30)
 
 
 @app.route("/analytics")
@@ -113,14 +116,16 @@ def get_token():
     else:
         return ouath_info['access_token']
 
-def configure_user_top(html_page):
+def configure_user_top(html_page, limit):
 
     a_token = get_token()
     time_frame = session.get('time_frame')
 
     try:
-        user_top_tracks = api_client.get_user_top_info(a_token, 10, time_frame, "tracks")
-        user_top_artists = api_client.get_user_top_info(a_token, 10, time_frame, "artists")
+        user_top_tracks = api_client.get_user_top_info(a_token, limit, time_frame, "tracks")
+        user_top_artists = api_client.get_user_top_info(a_token, limit, time_frame, "artists")
+
+        print(user_top_tracks[0])
 
     except IndexError:
         return "Sorry your account has no music data :("

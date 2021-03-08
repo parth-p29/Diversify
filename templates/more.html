@@ -1,7 +1,74 @@
-% extends 'base.html' %
+{% extends 'base.html' %}
 
 {% block head %}
-
+    <link rel="stylesheet" href= "{{ url_for('static', filename='css/more.css')}}">
 {% endblock %}
 
+{% block nav %}
+    <script>document.getElementById('music').className = 'line'</script>
+{% endblock %}
 
+{% block content %}
+
+    <div id="more-top">
+
+        <div id="time-selector">
+
+            <a href="/change-time/short_termM"><h4 id="short">Recent</h4></a>
+            <a href="/change-time/medium_termM"><h4 id="medium">6 Months</h4></a>
+            <a href="/change-time/long_termM"><h4 id="long">All Time</h4></a>
+
+            {% if time == "short_term" %}
+                <style>#short{color: #1DB954}</style>
+            {% elif time == "medium_term" %}
+                <style>#medium{color: #1DB954}</style>
+            {% else %}
+                <style>#long{color: #1DB954}</style>
+            {% endif %}
+
+        </div>
+
+
+        <div id="type">
+
+            <div id="more-tracks">
+
+                <div class="top-title">
+                    <h3>Top Tracks</h3>
+                </div>
+
+                <div class="top-type">
+                    {% for id in (song_ids) %}
+                        <iframe src="https://open.spotify.com/embed/track/{{id}}" width="250" height="280" frameborder="0" allowtransparency="true"></iframe>
+                    {% endfor %}
+                    
+                </div>
+
+            </div>
+
+            <div id="more-artists">
+
+                <div class="top-title">
+                    <h3>Top Artists</h3>
+                </div>
+
+                <div class="top-type">
+                    {% for cover in (artist_covers) %}
+                        <img src="{{cover}}" width="250" height="280"/>
+                    {% endfor %}
+                    
+                </div>
+
+
+
+            </div>
+
+        </div>
+
+
+
+
+
+    </div>
+
+{% endblock %}
