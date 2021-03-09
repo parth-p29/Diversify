@@ -9,7 +9,6 @@ app.secret_key="Diversify-App"
 
 
 ouath_client = SpotifyOuathClient()
-api_client = SpotifyApiClient()
 
 @app.route('/')
 def index():
@@ -28,16 +27,15 @@ def redirectPage():
     session['start_time'] = int(time.time())
     session['time_frame'] = "short_term"
 
-
     return redirect(url_for('profilePage', _external=True))
 
 
 @app.route("/profile")
 def profilePage():
 
-    a_token = get_token()
+    api_client = init_api_client()
 
-    request_data = api_client.get_user_info(a_token)
+    request_data = api_client.get_user_info()
     user_info = request_data[0]
     username = user_info["display_name"]
     followers = user_info["followers"]["total"]
@@ -83,7 +81,6 @@ def info(id):
         
         track_id = id[:-1]
 
-    
     else:
 
         artist_id = id[:-1]
@@ -107,7 +104,7 @@ def new():
     return "my music taste is dogwater, help me find new tracks"
 
 
-def get_token(): 
+def init_api_client(): 
     
     ouath_info = session.get('ouath_info') #gets the user ouath info from the session
     start_time = session.get('start_time') #gets the start time from session
@@ -119,19 +116,20 @@ def get_token():
 
         new_token = ouath_client.refresh_token(ouath_info['refresh_token'])   #logic for refreshing access token
         start_time = int(time.time())
-        return new_token['access_token']
+
+        return SpotifyApiClient(new_token['access_token'])
     
     else:
-        return ouath_info['access_token']
+        return SpotifyApiClient(ouath_info['access_token'])
 
 def configure_user_top(html_page, limit):
 
-    a_token = get_token()
+    api_client = init_api_client()
     time_frame = session.get('time_frame')
 
     try:
-        user_top_tracks = api_client.get_user_top_info(a_token, limit, time_frame, "tracks")
-        user_top_artists = api_client.get_user_top_info(a_token, limit, time_frame, "artists")
+        user_top_tracks = api_client.get_user_top_info(limit, time_frame, "tracks")
+        user_top_artists = api_client.get_user_top_info(limit, time_frame, "artists")
 
     except IndexError:
         return "Sorry your account has no music data :("
