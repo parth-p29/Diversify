@@ -6,6 +6,7 @@ class SpotifyApiClient():
     def __init__(self):
 
         self.API_BASE_URL = "https://api.spotify.com/v1/me"
+        self.URL2 = "https://api.spotify.com/v1"
 
     def get_user_info(self, access_token):
 
@@ -71,6 +72,23 @@ class SpotifyApiClient():
 
         #turn into a 2d arry, cuz dicts deleted duplicates when you do .keys() or .values()
 
-    def get_track_or_artist_info(self, access_token, id):
+    def get_track_or_artist_info(self, access_token, type_id, info_type):
 
-        pass
+        url = self.URL2 + f"/{info_type}/{type_id}"
+
+        body = {
+            "Authorization": f"Bearer {access_token}"
+        }
+
+        data = requests.get(url, headers=body)
+
+        if info_type == "tracks":
+
+            popularity = data['popularity']
+
+        else:
+            followers = data['followers']['total']
+            genres = data['genres']
+            
+
+

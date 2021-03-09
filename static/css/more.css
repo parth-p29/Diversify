@@ -4,7 +4,6 @@
     top:20%;
 }
 
-
 #time-selector{
     margin-bottom: 60px;
     display: flex;
@@ -26,9 +25,23 @@
     margin:50px;
 }
 .top-type {
+
     text-align: center;
+    margin: 80px;
+
+}
+.card-body h3{
+    color: ghostwhite;
+    font-size: 12px;
+    margin-bottom:10px;
+}
+
+.card{
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+    grid-gap: 25px 20px;
 }
 
 #more-artists{
-    margin-bottom: 80px;
+    margin-bottom: 100px;
 }

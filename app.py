@@ -79,7 +79,15 @@ def changeTime(id):
 @app.route('/info/<string:id>')
 def info(id):
 
-    return id
+    if id[-1] == "T":
+        
+        track_id = id[:-1]
+
+    
+    else:
+
+        artist_id = id[:-1]
+
 
 @app.route('/more')
 def more():
@@ -124,8 +132,6 @@ def configure_user_top(html_page, limit):
     try:
         user_top_tracks = api_client.get_user_top_info(a_token, limit, time_frame, "tracks")
         user_top_artists = api_client.get_user_top_info(a_token, limit, time_frame, "artists")
-
-        print(user_top_tracks[0])
 
     except IndexError:
         return "Sorry your account has no music data :("

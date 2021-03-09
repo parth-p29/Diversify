@@ -28,7 +28,6 @@
 
         </div>
 
-
         <div id="type">
 
             <div id="more-tracks">
@@ -38,12 +37,19 @@
                 </div>
 
                 <div class="top-type">
-                    {% for id in (song_ids) %}
-                        <iframe src="https://open.spotify.com/embed/track/{{id}}" width="250" height="280" frameborder="0" allowtransparency="true"></iframe>
-                    {% endfor %}
-                    
-                </div>
 
+                    <div class="card">
+
+                        {% for name, cover in zip(songs, song_covers) %}
+
+                            <div class="card-body">
+                                <h3 >{{name}}</h3>
+                                <img src="{{cover}}" title="{{name}}"width="250" height="280"/>
+                            </div>
+  
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
 
             <div id="more-artists">
@@ -53,22 +59,13 @@
                 </div>
 
                 <div class="top-type">
-                    {% for cover in (artist_covers) %}
-                        <img src="{{cover}}" width="250" height="280"/>
+                    {% for cover, name in zip(artist_covers, artists) %}
+                        <img src="{{cover}}" title="{{name}}" width="250" height="280"/>
                     {% endfor %}
                     
                 </div>
-
-
-
             </div>
-
         </div>
-
-
-
-
-
     </div>
 
 {% endblock %}

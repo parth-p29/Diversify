@@ -36,7 +36,7 @@
                 {% for song, s_cover, s_artist, s_album, id in zip(songs, song_covers, song_artists, song_albums, song_ids) %}
                     <div class="tracks">
                         <div class="cover">
-                            <a href='info/{{id}}'><img src="{{s_cover}}"/></a>
+                            <a href='info/{{id}}T'><img src="{{s_cover}}"/></a>
                         </div>
                         
                         <div class="name">
@@ -57,7 +57,7 @@
                 {% for artist, a_cover, id in zip(artists, artist_covers, artist_ids) %}
                 <div class="artists">
                     <div class="cover">
-                        <a href='info/{{id}}'><img src="{{a_cover}}"/></a>
+                        <a href='info/{{id}}A'><img src="{{a_cover}}"/></a>
                     </div>
                     
                     <div class="name">
