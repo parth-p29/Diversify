@@ -67,7 +67,8 @@ class SpotifyApiClient():
 
         url = self.URL2 + f"/{info_type}/{type_id}"
 
-        data = requests.get(url, headers=self.auth_body)
+        get = requests.get(url, headers=self.auth_body)
+        data = json.loads(get.text)
 
         popularity = data['popularity']
 
@@ -78,12 +79,24 @@ class SpotifyApiClient():
             name = data['name']
             image = data['images'][2]['url']
 
-
             return followers, genres, name, image, popularity
         
         return popularity
 
-    def get_audio_features (self, access_token, track_id):
+    def get_audio_features (self, track_id):
 
-        url = self.URL2
-        pass
+        url = self.URL2 + f'/audio-features/{track_id}'
+        
+        get = requests.get(url, headers=self.auth_body)
+        data = json.loads(get.text)
+
+        Danceability = data['danceability']
+        Energy = data['energy']
+        acousticness = data['acousticness']
+        liveness = data['liveness']
+        Speechiness = data['speechiness']
+        Valence = data['valence']
+
+        return Danceability, Energy, acousticness, liveness, Speechiness, Valence
+
+

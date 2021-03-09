@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, redirect,request, session
+from flask import Flask, render_template, url_for, redirect, request, session
 from ouath import *
 from spotifyapiclient import *
 import time
@@ -77,9 +77,28 @@ def changeTime(id):
 @app.route('/info/<string:id>')
 def info(id):
 
+    api_client = init_api_client()
+
     if id[-1] == "T":
         
         track_id = id[:-1]
+
+        try:
+            track_popularity = api_client.get_track_or_artist_info(track_id, "tracks")
+            audio_info = api_client.get_audio_features(track_id)
+
+            dance = audio_info[0]
+            energy = audio_info[1]
+            acousticness = audio_info[2]
+            liveness = audio_info[3]
+            speech = audio_info[4]
+            valence = audio_info[5]
+
+        except:
+            
+            return "<h1>Sorry something went wrong. Please go back.</h1>"
+
+        return render_template('info.html', id = track_id, p = track_popularity, d = dance, e=energy, a=acousticness, l=liveness, s=speech, v=valence)
 
     else:
 
