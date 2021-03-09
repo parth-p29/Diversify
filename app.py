@@ -86,10 +86,11 @@ def info(id):
         try:
             track_popularity = api_client.get_track_or_artist_info(track_id, "tracks")
             audio_info = api_client.get_audio_features(track_id)
+            info_type="track"
 
             dance = audio_info[0]
             energy = audio_info[1]
-            acousticness = audio_info[2]
+            acousticness = audio_info[2]    
             liveness = audio_info[3]
             speech = audio_info[4]
             valence = audio_info[5]
@@ -98,11 +99,22 @@ def info(id):
             
             return "<h1>Sorry something went wrong. Please go back.</h1>"
 
-        return render_template('info.html', id = track_id, p = track_popularity, d = dance, e=energy, a=acousticness, l=liveness, s=speech, v=valence)
+        return render_template('info.html', id = track_id, p = track_popularity, d = dance, e=energy, a=acousticness, l=liveness, s=speech, v=valence, type=info_type)
 
     else:
 
         artist_id = id[:-1]
+        artist_info = api_client.get_track_or_artist_info(artist_id, "artists")
+        info_type="artist"
+
+        followers = artist_info[0]
+        genres = artist_info[1]
+        name = artist_info[2]
+        image = artist_info[3]
+        popularity = artist_info[4]
+
+        return render_template('info.html', f=followers, g=genres, n=name, i=image, p=popularity, type=info_type)
+
 
 
 @app.route('/more')

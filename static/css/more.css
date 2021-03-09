@@ -41,6 +41,13 @@
     grid-template-columns: auto auto auto auto auto;
     grid-gap: 25px 20px;
 }
+.top-type a{
+    text-decoration: none;
+}
+
+.top-type img:hover{
+    opacity:50%;
+}
 
 #more-artists{
     margin-bottom: 100px;

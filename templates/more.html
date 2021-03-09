@@ -40,12 +40,14 @@
 
                     <div class="card">
 
-                        {% for name, cover in zip(songs, song_covers) %}
+                        {% for name, cover,id in zip(songs, song_covers, song_ids) %}
 
-                            <div class="card-body">
-                                <h3 >{{name}}</h3>
-                                <img src="{{cover}}" title="{{name}}"width="250" height="280"/>
-                            </div>
+                            <a href="/info/{{id}}T">
+                                <div class="card-body">
+                                    <h3 >{{name}}</h3>
+                                    <img src="{{cover}}" title="{{name}}"width="250" height="280"/>
+                                </div>
+                            </a>
   
                         {% endfor %}
                     </div>
@@ -59,8 +61,10 @@
                 </div>
 
                 <div class="top-type">
-                    {% for cover, name in zip(artist_covers, artists) %}
-                        <img src="{{cover}}" title="{{name}}" width="250" height="280"/>
+                    {% for cover, name, id in zip(artist_covers, artists, artist_ids) %}
+                        <a href="info/{{id}}A">
+                            <img src="{{cover}}" title="{{name}}" width="250" height="280"/>
+                        </a>
                     {% endfor %}
                     
                 </div>

@@ -13,7 +13,44 @@
 
     <div class="yur">
 
-        <iframe src="https://open.spotify.com/embed/track/{{id}}" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+        {% if type == "track" %}
+            <iframe src="https://open.spotify.com/embed/track/{{id}}" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+            
+            <div class="facts">
+                <div class="group">
+                    <h3 class='fact'>{{p}}%</h3>
+                    <h3>Popularity</h3>
+    
+                </div>
+            </div>
+
+        {% else %}
+            <h3 class="title" >{{n}}</h3>
+            <img src="{{i}}" width="280" height="280"/>
+
+            <div class="facts">
+
+                <div class="group">
+                    <h3 class='fact'>{{p}}%</h3>
+                    <h3>Popularity</h3>
+                </div>
+
+                <div class="group">
+                    {% for genre in g %}    
+                        <h3 class='fact'>{{genre}}</h3>
+                    {% endfor %}
+
+                    <h3>Genres</h3>
+                </div>
+
+                <div class="group">
+                    <h3 class='fact'>{{f}}</h3>
+                    <h3>Followers</h3>
+                </div>
+            </div>
+
+        {% endif %}
+
     </div>
 
 

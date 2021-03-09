@@ -1,6 +1,29 @@
 .yur {
     position: absolute;
-    top:20%;
+    top:23%;
     width: 100%;
     text-align: center;
+}
+.facts{
+    margin-top: 35px;
+    color: rgb(175, 175, 175);
+    font-size: 14px;
+    opacity: 80%;
+    display: flex;
+    justify-content: center;
+
+}
+
+.title{
+    color:ghostwhite;
+    font-size: 35px;
+    margin-bottom: 25px;
+}
+
+.group{
+    margin: 0px 25px 0px 25px;
+}
+
+.fact{
+    color: #1DB954;
 }
