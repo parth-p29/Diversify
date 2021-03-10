@@ -20,13 +20,13 @@
 
 .tracks{
     display: flex;
-    margin-left: 75px;
+    margin-left: 120px;
     margin-top:30px;
 }
 
 .artists{
     display: flex;
-    margin-left: 255px;
+    margin-left: 225px;
     margin-top:30px;
 }
 
@@ -37,10 +37,10 @@ h3{
 }
 
 .c h3{
-    margin-left: 75px;
+    margin-left: 120px;
 }
 .a h3{
-    margin-left: 255px;
+    margin-left: 225px;
 }
 
 .content{

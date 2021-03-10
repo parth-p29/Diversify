@@ -99,7 +99,7 @@ def info(id):
             
             return "<h1>Sorry something went wrong. Please go back.</h1>"
 
-        return render_template('info.html', id = track_id, p = track_popularity, d = dance, e=energy, a=acousticness, l=liveness, s=speech, v=valence, type=info_type)
+        return render_template('info.html', id = track_id, p = track_popularity, d=dance, e=energy, a=acousticness, l=liveness, s=speech, v=valence, type=info_type)
 
     else:
 

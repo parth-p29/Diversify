@@ -11,7 +11,6 @@
     opacity: 80%;
     display: flex;
     justify-content: center;
-
 }
 
 .title{
@@ -26,4 +25,19 @@
 
 .fact{
     color: #1DB954;
+}
+
+#graph-title{
+    display: flex;
+    justify-self: end;
+    margin: 100px 0px 100px 200px;
+    color:ghostwhite;
+}
+
+
+#graph {
+    width: 50vw;
+    height:20vw;
+    margin: 0px auto;
+    margin-bottom: 250px;
 }

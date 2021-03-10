@@ -24,6 +24,52 @@
                 </div>
             </div>
 
+            <div id="graph-title">
+                <h1>Audio Analysis</h1>
+            </div>
+
+            <div id="graph">
+
+                <canvas id="myChart" width="55vw" height="35w"></canvas>
+
+            </div>
+        
+            <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+            <script>
+
+                var ctx = document.getElementById('myChart').getContext('2d');
+                var chart = new Chart(ctx, {
+                    // The type of chart we want to create
+                    type: 'bar',
+
+                    // The data for our dataset
+                    data: {
+                        labels: ['Danceability', 'Energy', 'Acousticness', 'Liveness', 'Speechiness', 'Valence'],
+                        datasets: [{
+                            backgroundColor: 'rgb(255, 99, 132)',
+                            borderColor: 'rgb(255, 99, 132)',
+                            data: [{{d|safe}}, {{e|safe}}, {{v|safe}}, {{l|safe}}, {{s|safe}}, {{v|safe}}]
+                        }]
+                    },
+
+                    // Configuration options go here
+                    options: {
+                        legend: {
+                            display: false
+                        },
+                        tooltips: {
+                            callbacks: {
+                            label: function(tooltipItem) {
+                                    return tooltipItem.yLabel;
+                            }
+                            }
+                        }
+                    }
+                });
+
+
+            </script>
+
         {% else %}
             <h3 class="title" >{{n}}</h3>
             <img src="{{i}}" width="280" height="280"/>
