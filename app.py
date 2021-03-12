@@ -1,5 +1,6 @@
 from flask import Flask, render_template, url_for, redirect, request, session
 from ouath import *
+from datanalysis import *
 from spotifyapiclient import *
 import time
 
@@ -56,6 +57,7 @@ def profilePage():
     return render_template("profile.html", username = username, followers = followers, link = spotify_link, pic = profile_pic, playlists = num_of_playlists, follows=num_of_followed_artists)
     
 
+
 @app.route("/music")
 def myMusic():
 
@@ -88,18 +90,23 @@ def info(id):
             audio_info = api_client.get_audio_features(track_id)
             info_type="track"
 
+            labels = ['Danceability', 'Energy', 'Acousticness', 'Liveness', 'Speechiness', 'Valence', 'Instrumentalness']
+
             dance = audio_info[0]
             energy = audio_info[1]
             acousticness = audio_info[2]    
             liveness = audio_info[3]
             speech = audio_info[4]
             valence = audio_info[5]
+            instrumentalness = audio_info[6]
+
 
         except:
             
             return "<h1>Sorry something went wrong. Please go back.</h1>"
 
-        return render_template('info.html', id = track_id, p = track_popularity, d=dance, e=energy, a=acousticness, l=liveness, s=speech, v=valence, type=info_type)
+        return render_template('info.html', labels=labels, data=audio_info, type=info_type)
+        #return render_template('info.html', id = track_id, p = track_popularity, d=dance, e=energy, a=acousticness, l=liveness, s=speech, v=valence, i=instrumentalness, type=info_type)
 
     else:
 
@@ -113,7 +120,7 @@ def info(id):
         image = artist_info[3]
         popularity = artist_info[4]
 
-        return render_template('info.html', f=followers, g=genres, n=name, i=image, p=popularity, type=info_type)
+        return render_template('info.html', f=followers, g=genres, n=name, i=image, p=popularity, type=info_type, ins=instrumentalness)
 
 
 

@@ -96,7 +96,8 @@ class SpotifyApiClient():
         liveness = data['liveness']
         Speechiness = data['speechiness']
         Valence = data['valence']
+        instrumentalness = data['instrumentalness']
 
-        return Danceability, Energy, acousticness, liveness, Speechiness, Valence
+        return [Danceability, Energy, acousticness, liveness, Speechiness, Valence, instrumentalness]
 
 

@@ -14,7 +14,7 @@
     <div class="yur">
 
         {% if type == "track" %}
-            <iframe src="https://open.spotify.com/embed/track/{{id}}" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+            <iframe src="https://open.spotify.com/embed/track/{{id}}" width="300" height="350" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
             
             <div class="facts">
                 <div class="group">
@@ -30,43 +30,15 @@
 
             <div id="graph">
 
-                <canvas id="myChart" width="55vw" height="35w"></canvas>
+                <canvas id="myChart" width="45vw" height="25w"></canvas>
 
             </div>
         
             <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+            <script src="{{ url_for('static', filename='js/graphs.js')}}"></script>
             <script>
 
-                var ctx = document.getElementById('myChart').getContext('2d');
-                var chart = new Chart(ctx, {
-                    // The type of chart we want to create
-                    type: 'bar',
-
-                    // The data for our dataset
-                    data: {
-                        labels: ['Danceability', 'Energy', 'Acousticness', 'Liveness', 'Speechiness', 'Valence'],
-                        datasets: [{
-                            backgroundColor: 'rgb(255, 99, 132)',
-                            borderColor: 'rgb(255, 99, 132)',
-                            data: [{{d|safe}}, {{e|safe}}, {{v|safe}}, {{l|safe}}, {{s|safe}}, {{v|safe}}]
-                        }]
-                    },
-
-                    // Configuration options go here
-                    options: {
-                        legend: {
-                            display: false
-                        },
-                        tooltips: {
-                            callbacks: {
-                            label: function(tooltipItem) {
-                                    return tooltipItem.yLabel;
-                            }
-                            }
-                        }
-                    }
-                });
-
+                create_graph( {{data|safe}} );
 
             </script>
 
