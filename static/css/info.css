@@ -1,6 +1,6 @@
 .yur {
     position: absolute;
-    top:23%;
+    top:27%;
     width: 100%;
     text-align: center;
 }
@@ -12,33 +12,38 @@
     display: flex;
     justify-content: center;
 }
-
 .title{
     color:ghostwhite;
     font-size: 35px;
     margin-bottom: 25px;
 }
-
 .group{
     margin: 0px 25px 0px 25px;
 }
-
 .fact{
     color: #1DB954;
 }
-
 #graph-title{
     display: flex;
     justify-self: end;
-    margin: 100px 0px 100px 200px;
+    margin: 150px 0px 100px 200px;
     color:ghostwhite;
 }
-
-
 #graph {
-    width: 45vw;
-    height:25vw;
+    width: 55vw;
+    height:28vw;
     margin: 0px auto;
-    margin-bottom: 250px;
+    margin-bottom: 40px;
 }
-
+.a {
+    margin-bottom: 30px;
+}
+.ref{
+    margin-bottom: 50px;
+}
+.ref a{
+    text-decoration: none;
+    color: rgb(175, 175, 175);
+    opacity: 80%;
+    font-size: 14px;
+}

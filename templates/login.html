@@ -1,58 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" href= "{{ url_for('static', filename='css/login.css')}}">
-    <link rel="icon" href= "{{ url_for('static', filename='photos/spotifylogo.png')}}">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link rel="stylesheet" href= "{{ url_for('static', filename='css/login.css')}}">
+        <link rel="icon" href= "{{ url_for('static', filename='photos/spotifylogo.png')}}">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Diversify - Login</title>
+    </head>
 
+    <body>
+        <div id="title-box">        
+            <div id="logo">
+                <img src="{{ url_for('static', filename='photos/spotifylogo.png')}}">
+            </div>
 
-    <title>Diversify - Login</title>
-</head>
-<body>
-<!--
-    <div id="particles-js"></div>
--->
-    <div id="title-box">
+            <div id="title">
+                <h1>Diversify</h1>
+            </div>
 
-        
-        <div id="logo">
+            <div class="gif">
+                <img src="{{ url_for('static', filename='photos/play.gif')}}">
+            </div>
 
-            <img src="{{ url_for('static', filename='photos/spotifylogo.png')}}">
-
+            <div id="login">
+                <input type="button" onclick="location.href='{{url}}';" value="Login with Spotify" />
+            </div>
         </div>
-
-        <div id="title">
-            <h1>Diversify</h1>
-
-        </div>
-
-        <div class="gif">
-
-            <img src="{{ url_for('static', filename='photos/play.gif')}}">
-
-        </div>
-
-
-        <div id="login">
-
-            <input type="button" onclick="location.href='{{url}}';" value="Login with Spotify" />
-            
-        </div>
-
-
-    </div>
-
-
-    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-    <script>
-           
-        particlesJS.load('particles-js', '{{url_for("static", filename="json/particle.json")}}', function() {
-        console.log('working...');
-        });
-
-    </script>
- 
-</body>
+    </body>
 </html>

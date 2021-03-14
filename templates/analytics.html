@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <link rel="stylesheet" href= "{{ url_for('static', filename='css/analytics.css')}}">
+{% endblock %}
+
+{% block nav %}
+    <script>document.getElementById('analytics').className = 'line'</script>
+{% endblock %}
+
+{% block content %}
+    <div id="user-profile">
+        <h3 class='title'>{{name}}'s Listening Habits</h3>
+
+        <canvas id="myChart" width="28vw" height="8vh"></canvas>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"> </script>
+        <script src="{{ url_for('static', filename='js/graphs.js')}}"></script>
+        <script>
+            radar_graph( {{features|safe}} );
+        </script>
+
+    </div>
+
+    <div class="caption">
+    
+        <p>Going through 150 of your most listened to tracks, this graph depicts what you fond most when vibing out to music</p>
+
+    </div>
+
+
+{% endblock %}
+
+

@@ -6,7 +6,6 @@
     font-style: normal;
     font-display: swap;
 }
-
 .top{
     position: absolute;
     top: 18%;
@@ -17,63 +16,52 @@
     height: 70px;
     margin-right: 20px;
 }
-
 .tracks{
     display: flex;
     margin-left: 120px;
     margin-top:30px;
 }
-
 .artists{
     display: flex;
     margin-left: 225px;
     margin-top:30px;
 }
-
 h3{
     color: ghostwhite;
     font-size: 20px;
     margin-bottom: 25px;
 }
-
 .c h3{
     margin-left: 120px;
 }
 .a h3{
     margin-left: 225px;
 }
-
 .content{
     width:500px;
 }
-
 #songs-artists{
     display: flex;
     justify-content: center;
     margin-bottom:30px;
 }
-
 #song-artists a{
     text-decoration: none;
 }
-
 #songs-artists img:hover{
     opacity: 50%;
 }
-
 p{
     color:ghostwhite;
     font-size:15px;
     font-family: 'Proxima Nova Th';
 }
-
 #time-selector{
     margin-bottom: 60px;
     display: flex;
     justify-content: flex-end;
     width: 94%;
 }
-
 #time-selector a{
     margin:13px;
     text-decoration: none;
@@ -81,11 +69,9 @@ p{
     font-size: 16px;
     opacity: 80%;
 }
-
 .song-info{
     margin-top:6px;
 }
-
 .name span{
     margin-top:5px;
     color: rgb(175, 175, 175);
@@ -93,7 +79,6 @@ p{
     opacity: 80%;
     font-family: 'Proxima Nova Th';
 }
-
 #show-more{
     position: absolute;
     top:105%;
@@ -101,7 +86,6 @@ p{
     display: flex;
     justify-content: center;
 }
-
 #show-more a{
     text-decoration: none;
     padding: 10px 15px 10px 15px;

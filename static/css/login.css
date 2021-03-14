@@ -1,13 +1,4 @@
 @font-face {
-    font-family: 'Proxima Nova Rg';
-    src: url('fonts/ProximaNova-Regular.woff2') format('woff2'),
-        url('fonts/ProximaNova-Regular.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
     font-family: 'Proxima Nova Alt Rg';
     src: url('fonts/ProximaNovaA-Bold.woff2') format('woff2'),
         url('fonts/ProximaNovaA-Bold.woff') format('woff');
@@ -15,21 +6,18 @@
     font-style: normal;
     font-display: swap;
 }
-
 *{
     margin:0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Proxima Nova Alt Rg';
 }
-
 body{
     background-color: #181818;
-    color:white;
+    color:ghostwhite;
     display: flex;
     justify-content: center;
 }
-
 #title-box{
     position: absolute;
     top:12%;
@@ -37,7 +25,6 @@ body{
     max-width: 35%;
     height: 55vh;
 }
-
 #title-box input {
     margin:60px;
     border: 0px solid transparent;
@@ -46,23 +33,19 @@ body{
     background-color: #1DB954;
     color:ghostwhite;
     transition: box-shadow 0.5s ease;
-    font-family: 'Proxima Nova Rg';
+    font-family: 'Proxima Nova Alt Rg';
 }
-
 #title-box input:hover{
     cursor: pointer;
 }
-
 #title-box h1{
     font-size: 40px;
     margin-bottom: 30px;
 }
-
 #title-box .gif img{
     width:340px;
     height: 280px;
 }
-
 #title-box img{
     width:80px;
     height:80px;

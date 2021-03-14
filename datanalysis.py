@@ -1,40 +1,31 @@
-import matplotlib.pyplot as plt
-import os
+from spotifyapiclient import *
+import pandas as pd
+from retry.api import retry_call
 
+def get_user_top_audio_features(api_client):
 
-plt.style.use('ggplot')
+    #get Id's of user top songs
+    short_term_songs = api_client.get_user_top_info(10, "short_term", "tracks")[1]
+    medium_term_songs = api_client.get_user_top_info(40, "medium_term", "tracks")[1]
+    long_term_songs = api_client.get_user_top_info(50, "long_term", "tracks")[1]
+    all_songs = list(set(short_term_songs+medium_term_songs+long_term_songs)) #removes all duplicates
 
-class BarChart():
+    csv_list = ','.join(all_songs)
 
-    def __init__(self, x_axis, y_axis):
+    try:
+        features_list = api_client.get_audio_features_for_multiple_songs(csv_list)
+    
+    except:
+        features_list = retry_call(api_client.get_audio_features_for_multiple_songs, fargs=[csv_list])
 
-        self.x_axis = x_axis
-        self.y_axis = y_axis
+    columns=['Danceability', 'Energy', 'acousticness', 'Speechiness', 'Valence', 'instrumentalness']
+    data_table = pd.DataFrame(features_list, columns=columns)
+    #data_table = pd.DataFrame(df_dict, index=['Danceability', 'Energy', 'acousticness', 'Speechiness', 'Valence', 'instrumentalness'])
+    
+    avg_value_list = []
+    for col in columns:
+        val = round(data_table[col].mean(), 2)
+        avg_value_list.append(val)
+        
+    return (avg_value_list)
 
-    def create_graph(self):
-
-        x_pos = [i for i, _ in enumerate(self.x_axis)]
-
-        plt.bar(x_pos, self.y_axis, color='blue')
-        plt.xlabel("Audio Features")
-        plt.ylabel("Track Data")
-        plt.title("Audio Analysis of Track")
-        plt.xticks(x_pos, self.x_axis)
-        plt.savefig('static/photos/track-data.png')
-
-
-'''
-x = ['Nuclear', 'Hydro', 'Gas', 'Oil', 'Coal', 'daddy p', 'tensor flow']
-energy = [5, 6, 15, 22, 24, 8,8]
-
-x_pos = [i for i, _ in enumerate(x)]
-print(x_pos)
-plt.bar(x_pos, energy, color='blue')
-plt.xlabel("Energy Source")
-plt.ylabel("Energy Output (GJ)")
-plt.title("Energy output from various fuel sources")
-
-plt.xticks(x_pos, x)
-
-plt.savefig('static/photos/track-data.png')
-'''

@@ -1,5 +1,6 @@
 import requests,json
-import numpy as np
+
+
 
 class SpotifyApiClient():
 
@@ -88,16 +89,43 @@ class SpotifyApiClient():
         url = self.URL2 + f'/audio-features/{track_id}'
         
         get = requests.get(url, headers=self.auth_body)
-        data = json.loads(get.text)
+        try:
+            data = json.loads(get.text)
+
+        except:
+            print(get.status_code)
 
         Danceability = data['danceability']
         Energy = data['energy']
         acousticness = data['acousticness']
-        liveness = data['liveness']
         Speechiness = data['speechiness']
         Valence = data['valence']
         instrumentalness = data['instrumentalness']
+        tempo = data['tempo']
+        loudness = data['loudness']
 
-        return [Danceability, Energy, acousticness, liveness, Speechiness, Valence, instrumentalness]
+        return [Danceability, Energy, acousticness, Speechiness, Valence, instrumentalness], tempo, loudness
 
+    def get_audio_features_for_multiple_songs(self, ids):
 
+        url = self.URL2 + f"/audio-features?ids={ids}"
+
+        get = requests.get(url, headers=self.auth_body)
+        
+
+        data = json.loads(get.text)
+
+        print(get.status_code)
+
+        all_features = []
+
+        for audio in data['audio_features']:
+
+            features = [audio['danceability'], audio['energy'], audio['acousticness'],
+                        audio['speechiness'], audio['valence'], audio['instrumentalness']]
+
+            all_features.append(features)
+
+        return all_features
+
+        

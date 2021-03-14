@@ -6,14 +6,12 @@
     font-style: normal;
     font-display: swap;
 }
-
 *{
     padding: 0;
     margin: 0;
     box-sizing: border-box;
     font-family: 'Proxima Nova Alt Rg';
 }
-
 .link-container h6{
     margin-top:2px;
     color: rgb(175, 175, 175);
@@ -21,11 +19,9 @@
     opacity: 80%;
     text-align: center;
 }
-
 body{
     background-color: #181818;
 }
-
 nav{
     position: fixed;
     width: 100%;
@@ -34,7 +30,6 @@ nav{
     background-color: #121212;
 
 }
-
 .links img{
     height: 38px;
     width: 36px;
@@ -45,26 +40,21 @@ nav{
 .nav-container{
     margin: 20px 20px 0px 20px;
 }
-
 .nav-links ul{
     display: flex;
     justify-content: center;
     list-style: none;
 }
-
 .nav-links ul a{
     margin-right:50px;
     margin-left:50px;
 }
-
 .notpage{
     opacity: 0%;
 }
-
 .link-container:hover .notpage{
     opacity: 100%;
 }
-
 .line{
     margin:auto;
     margin-top:18px;
@@ -74,4 +64,3 @@ nav{
     vertical-align: bottom;
     text-align:center;
 }
-

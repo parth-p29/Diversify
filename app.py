@@ -47,7 +47,6 @@ def profilePage():
     else:
         profile_pic = user_info["images"][0]["url"]
 
-
     playlist_info = request_data[1]
     num_of_playlists = len(playlist_info['items']) 
 
@@ -82,31 +81,22 @@ def info(id):
     api_client = init_api_client()
 
     if id[-1] == "T":
-        
+
         track_id = id[:-1]
 
         try:
             track_popularity = api_client.get_track_or_artist_info(track_id, "tracks")
             audio_info = api_client.get_audio_features(track_id)
+            audio_features = audio_info[0]
+            tempo = audio_info[1]
+            loudness = audio_info[2]
             info_type="track"
-
-            labels = ['Danceability', 'Energy', 'Acousticness', 'Liveness', 'Speechiness', 'Valence', 'Instrumentalness']
-
-            dance = audio_info[0]
-            energy = audio_info[1]
-            acousticness = audio_info[2]    
-            liveness = audio_info[3]
-            speech = audio_info[4]
-            valence = audio_info[5]
-            instrumentalness = audio_info[6]
-
+            labels = ['Danceability', 'Energy', 'Acousticness', 'Speechiness', 'Valence', 'Instrumentalness']
 
         except:
-            
-            return "<h1>Sorry something went wrong. Please go back.</h1>"
+            return redirect(url_for('myMusic', _external=True))
 
-        return render_template('info.html', labels=labels, data=audio_info, type=info_type)
-        #return render_template('info.html', id = track_id, p = track_popularity, d=dance, e=energy, a=acousticness, l=liveness, s=speech, v=valence, i=instrumentalness, type=info_type)
+        return render_template('info.html', t=tempo, l=loudness, id=track_id, p=track_popularity, labels=labels, data=audio_features, type=info_type)
 
     else:
 
@@ -114,14 +104,13 @@ def info(id):
         artist_info = api_client.get_track_or_artist_info(artist_id, "artists")
         info_type="artist"
 
-        followers = artist_info[0]
+        followers = f"{artist_info[0]:,d}"
         genres = artist_info[1]
         name = artist_info[2]
         image = artist_info[3]
         popularity = artist_info[4]
 
-        return render_template('info.html', f=followers, g=genres, n=name, i=image, p=popularity, type=info_type, ins=instrumentalness)
-
+        return render_template('info.html', f=followers, g=genres, n=name, i=image, p=popularity, type=info_type)
 
 
 @app.route('/more')
@@ -132,8 +121,15 @@ def more():
 
 @app.route("/analytics")
 def analytics():
+    #get user data
+    api_client = init_api_client()
+    request_data = api_client.get_user_info()
+    user_info = request_data[0]
+    username = user_info["display_name"]
 
-    return "cool backend"
+    features = get_user_top_audio_features(api_client)
+
+    return render_template('analytics.html', name =username, features=features)
 
 
 @app.route("/new")
@@ -170,7 +166,7 @@ def configure_user_top(html_page, limit):
         user_top_artists = api_client.get_user_top_info(limit, time_frame, "artists")
 
     except IndexError:
-        return "Sorry your account has no music data :("
+        return "Sorry your account is new and has no music data :("
 
     songs = user_top_tracks[0]
     song_ids = user_top_tracks[1]

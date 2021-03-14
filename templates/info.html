@@ -8,9 +8,7 @@
     <script>document.getElementById('music').className = 'line'</script>
 {% endblock %}
 
-
 {% block content %}
-
     <div class="yur">
 
         {% if type == "track" %}
@@ -20,7 +18,16 @@
                 <div class="group">
                     <h3 class='fact'>{{p}}%</h3>
                     <h3>Popularity</h3>
-    
+                </div>
+
+                <div class="group">
+                    <h3 class='fact'>{{t}}</h3>
+                    <h3>Tempo (BPM)</h3>
+                </div>
+
+                <div class="group">
+                    <h3 class='fact'>{{l}}</h3>
+                    <h3>Loudness (-dB)</h3>
                 </div>
             </div>
 
@@ -29,35 +36,32 @@
             </div>
 
             <div id="graph">
-
-                <canvas id="myChart" width="45vw" height="25w"></canvas>
-
+                <canvas id="myChart" width="55vw" height="28w"></canvas>
+                <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+                <script src="{{ url_for('static', filename='js/graphs.js')}}"></script>
+                <script>
+                    bar_graph( {{labels|safe}}, {{data|safe}} );
+                </script>
             </div>
-        
-            <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-            <script src="{{ url_for('static', filename='js/graphs.js')}}"></script>
-            <script>
 
-                create_graph( {{data|safe}} );
-
-            </script>
+            <h3 class="ref"><a href="https://developer.spotify.com/documentation/web-api/reference/#object-audiofeaturesobject">Full Description of Audio Features</a></h3>
 
         {% else %}
             <h3 class="title" >{{n}}</h3>
             <img src="{{i}}" width="280" height="280"/>
 
-            <div class="facts">
-
+            <div class="facts a">
                 <div class="group">
                     <h3 class='fact'>{{p}}%</h3>
                     <h3>Popularity</h3>
                 </div>
 
                 <div class="group">
+
                     {% for genre in g %}    
                         <h3 class='fact'>{{genre}}</h3>
                     {% endfor %}
-
+                    
                     <h3>Genres</h3>
                 </div>
 
@@ -66,10 +70,7 @@
                     <h3>Followers</h3>
                 </div>
             </div>
-
         {% endif %}
 
     </div>
-
-
 {% endblock %}
