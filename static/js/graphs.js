@@ -62,7 +62,7 @@ function bar_graph(data_labels, audio_data){
 //
 
 
-function radar_graph(user_data){
+function radar_graph(user_data, spotify_data){
 
 
     new Chart(ctx, {
@@ -74,10 +74,18 @@ function radar_graph(user_data){
             labels: ['Danceability', 'Energy', 'Acousticness', 'Speechiness', 'Valence', "Instrumentalness"],
             datasets: [{
                 data: user_data,
-                backgroundColor: ['rgba(248, 142, 118, 0.52)'],
-                borderColor: ['rgba(228, 134, 113, 0.74)'],
-                borderWidth: 2
-                
+                backgroundColor: ['rgba(233, 72, 96, 0.8)'],
+                borderColor: ['rgba(229, 25, 56, 0.97)'],
+                borderWidth: 2,
+                label: "You"
+
+            }, {
+
+                data: spotify_data,
+                backgroundColor: ['rgba(47, 124, 33, 0.79)'],
+                borderColor: ['rgba(47, 124, 33, 0.97)'],
+                borderWidth: 2,
+                label: "Top Songs in 2020"
 
             }]
         },
@@ -109,7 +117,7 @@ function radar_graph(user_data){
             },
 
             legend: {
-                display: false
+                display: true,   
             },
 
             tooltips: {

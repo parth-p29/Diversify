@@ -127,9 +127,10 @@ def analytics():
     user_info = request_data[0]
     username = user_info["display_name"]
 
-    features = get_user_top_audio_features(api_client)
+    user_avg_features = get_user_top_audio_features(api_client, "user")
+    top_avg_features = get_user_top_audio_features(api_client, "spotify")
 
-    return render_template('analytics.html', name =username, features=features)
+    return render_template('analytics.html', name =username, user_avg_features=user_avg_features, top_avg_features=top_avg_features)
 
 
 @app.route("/new")
