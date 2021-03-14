@@ -24,16 +24,15 @@
     color: #1DB954;
 }
 #graph-title{
-    display: flex;
-    justify-self: end;
-    margin: 150px 0px 100px 200px;
+    text-align: center;
+    margin: 100px 0px 50px 0px;
     color:ghostwhite;
 }
 #graph {
     width: 55vw;
     height:28vw;
     margin: 0px auto;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 .a {
     margin-bottom: 30px;

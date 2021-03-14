@@ -12,6 +12,8 @@ def get_user_top_audio_features(api_client):
 
     csv_list = ','.join(all_songs)
 
+    top_spotify_songs = pd.read_csv('static/csv/spotifytoptracks.csv')
+
     try:
         features_list = api_client.get_audio_features_for_multiple_songs(csv_list)
     
