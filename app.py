@@ -127,8 +127,9 @@ def analytics():
     user_info = request_data[0]
     username = user_info["display_name"]
 
-    user_avg_features = get_user_top_audio_features(api_client, "user")
-    top_avg_features = get_user_top_audio_features(api_client, "spotify")
+    cols = ['danceability', 'energy', 'acousticness', 'speechiness', 'valence', 'instrumentalness']
+    user_avg_features = get_user_top_audio_features(api_client, cols)
+    top_avg_features = get_spotify_top_charts_data(cols)
 
     return render_template('analytics.html', name =username, user_avg_features=user_avg_features, top_avg_features=top_avg_features)
 

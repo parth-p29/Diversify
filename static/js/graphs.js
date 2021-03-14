@@ -31,9 +31,9 @@ function bar_graph(data_labels, audio_data){
                     
                     ticks: {
                         beginAtZero: true,
-                        steps:9,
+                        steps:10,
                         stepValue: 0.1,
-                        max: 0.9
+                        max: 1.0
                     },
 
                     gridLines: {
@@ -77,7 +77,8 @@ function radar_graph(user_data, spotify_data){
                 backgroundColor: ['rgba(233, 72, 96, 0.8)'],
                 borderColor: ['rgba(229, 25, 56, 0.97)'],
                 borderWidth: 2,
-                label: "You"
+                label: "You",
+                pointBackgroundColor: "rgb(182, 6, 27)"
 
             }, {
 
@@ -85,7 +86,7 @@ function radar_graph(user_data, spotify_data){
                 backgroundColor: ['rgba(47, 124, 33, 0.79)'],
                 borderColor: ['rgba(47, 124, 33, 0.97)'],
                 borderWidth: 2,
-                label: "Top Songs in 2020"
+                label: "Top Songs from 1930-2021"
 
             }]
         },
@@ -110,8 +111,10 @@ function radar_graph(user_data, spotify_data){
                 },
 
                 ticks: {
-                    suggestedMin: 0,
-                    suggestedMax: 1.0,
+                    beginAtZero: true,
+                    steps:20,
+                    stepValue: 0.05,
+                    max: 1.0,
                     backdropColor: "#181818"
                 }
             },
