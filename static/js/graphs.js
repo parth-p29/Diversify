@@ -74,19 +74,20 @@ function radar_graph(user_data, spotify_data){
             labels: ['Danceability', 'Energy', 'Acousticness', 'Speechiness', 'Valence', "Instrumentalness"],
             datasets: [{
                 data: user_data,
-                backgroundColor: ['rgba(233, 72, 96, 0.8)'],
+                backgroundColor: ['rgba(233, 72, 96, 0.5)'],
                 borderColor: ['rgba(229, 25, 56, 0.97)'],
                 borderWidth: 2,
                 label: "You",
-                pointBackgroundColor: "rgb(182, 6, 27)"
+                pointBackgroundColor: "rgba(169, 4, 23, 0.63)"
 
             }, {
 
                 data: spotify_data,
-                backgroundColor: ['rgba(47, 124, 33, 0.79)'],
+                backgroundColor: ['rgba(47, 124, 33, 0.5)'],
                 borderColor: ['rgba(47, 124, 33, 0.97)'],
                 borderWidth: 2,
-                label: "Top Songs from 1930-2021"
+                label: "Top Songs from 1930-2021",
+                pointBackgroundColor: "rgba(26, 169, 4, 0.63)"
 
             }]
         },
