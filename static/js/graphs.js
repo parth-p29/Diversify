@@ -1,7 +1,6 @@
-var ctx = document.getElementById('myChart').getContext('2d');
 
 function bar_graph(data_labels, audio_data){
-
+    var ctx = document.getElementById('myChart').getContext('2d');
     new Chart(ctx, {
         // The type of chart we want to create
         type: 'bar',
@@ -18,6 +17,8 @@ function bar_graph(data_labels, audio_data){
     
         // Configuration options go here
         options: {
+            responsive: true,
+            maintainAspectRatio: false,
             scales: {
                 xAxes: [{
                     gridLines: {
@@ -63,11 +64,10 @@ function bar_graph(data_labels, audio_data){
 
 
 function radar_graph(user_data, spotify_data){
+    var radarChart = document.getElementById('radarChart').getContext('2d');
 
+    new Chart(radarChart, {
 
-    new Chart(ctx, {
-        
-        
         type: 'radar',
         
         data: {
@@ -79,8 +79,9 @@ function radar_graph(user_data, spotify_data){
                 borderWidth: 2,
                 label: "You",
                 pointBackgroundColor: "rgba(169, 4, 23, 0.63)"
-
-            }, {
+            }, 
+            
+            {
 
                 data: spotify_data,
                 backgroundColor: ['rgba(47, 124, 33, 0.5)'],
@@ -88,11 +89,12 @@ function radar_graph(user_data, spotify_data){
                 borderWidth: 2,
                 label: "Top Songs from 1930-2021",
                 pointBackgroundColor: "rgba(26, 169, 4, 0.63)"
-
             }]
         },
+        
         options: {
-
+            responsive: true,
+            maintainAspectRatio: false,
             scale: {
                 pointLabels: {
                     fontSize: 15
@@ -101,11 +103,9 @@ function radar_graph(user_data, spotify_data){
                 angleLines: {
                     display: true,
                     color: "rgba(255, 255, 255, 0.74)"
-                
                 },
 
                 gridLines :{
-
                     display: true,
                     color: "rgb(175, 175, 175, 0.3)",
                     opacity: "5%"
@@ -134,11 +134,30 @@ function radar_graph(user_data, spotify_data){
             }
 
         }
-    
-    
+
     });
-
-
 
 }
 
+
+function doughnut_graph(data1, data2){
+
+    new Chart(ctx, {
+        type: 'doughnut',
+
+        // The data for our dataset
+        data: {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            datasets: [{
+                label: 'My First dataset',
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 99, 132)',
+                data: [0, 10, 5, 2, 20, 30, 45]
+            }]
+        },
+
+        // Configuration options go here
+        options: {}
+});
+
+}

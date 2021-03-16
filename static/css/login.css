@@ -26,7 +26,7 @@ body{
     height: 55vh;
 }
 #title-box input {
-    margin:60px;
+    margin:45px;
     border: 0px solid transparent;
     padding: 10px 15px 10px 15px;
     border-radius: 200px;
@@ -50,6 +50,13 @@ body{
     width:80px;
     height:80px;
     margin-bottom: 15px;
+}
+
+.creds a{
+    text-decoration: none;
+    color: rgb(175, 175, 175);
+    opacity: 35%;
+    font-size: 12px;
 }
 
 

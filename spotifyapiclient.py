@@ -112,7 +112,6 @@ class SpotifyApiClient():
 
         get = requests.get(url, headers=self.auth_body)
         
-
         data = json.loads(get.text)
 
         print(get.status_code)

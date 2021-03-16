@@ -22,3 +22,10 @@
     color: rgb(175, 175, 175);
     font-size: 15px;
 }
+
+.chart-container {
+    position: relative;
+    margin: auto;
+    height: 60vh;
+    width: 100%;
+  }

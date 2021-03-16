@@ -2,6 +2,8 @@
 
 {% block head %}
     <link rel="stylesheet" href= "{{ url_for('static', filename='css/info.css')}}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="{{ url_for('static', filename='js/graphs.js')}}"></script>
 {% endblock %}
 
 {% block nav %}
@@ -36,12 +38,7 @@
             </div>
 
             <div id="graph">
-                <canvas id="myChart" width="55vw" height="28w"></canvas>
-                <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-                <script src="{{ url_for('static', filename='js/graphs.js')}}"></script>
-                <script>
-                    bar_graph( {{labels|safe}}, {{data|safe}} );
-                </script>
+                <canvas id="myChart"></canvas>
             </div>
 
             <h3 class="ref"><a href="https://developer.spotify.com/documentation/web-api/reference/#object-audiofeaturesobject">Full Description of Audio Features</a></h3>
@@ -71,6 +68,10 @@
                 </div>
             </div>
         {% endif %}
+
+        <script>
+            bar_graph( {{labels|safe}}, {{data|safe}} );
+        </script>
 
     </div>
 {% endblock %}
