@@ -60,8 +60,6 @@ function bar_graph(data_labels, audio_data){
 
 }
 
-//
-
 
 function radar_graph(user_data, spotify_data){
     var radarChart = document.getElementById('radarChart').getContext('2d');
@@ -140,7 +138,8 @@ function radar_graph(user_data, spotify_data){
 }
 
 
-function doughnut_graph(data1, data2){
+function doughnut_graph(data1, data2, id){
+    var ctx = document.getElementById(id).getContext('2d');
 
     new Chart(ctx, {
         type: 'doughnut',

@@ -1,7 +1,7 @@
 import requests
 import json
 
-class SpotifyOuathClient():
+class SpotifyOauthClient():
 
     def __init__(self):
 
@@ -39,8 +39,7 @@ class SpotifyOuathClient():
         post = requests.post(self.OAUTH_TOKEN_URL, data=body)
         response_data = json.loads(post.text)
 
-        return (response_data)
-
+        return response_data
 
     def refresh_token(self, refresh_token):
 
@@ -52,6 +51,7 @@ class SpotifyOuathClient():
             "client_secret": self.CLIENT_SECRET    
         }
 
-        response = requests.post(self.OAUTH_TOKEN_URL, data=body)
-
-        return json.loads(response.text)
+        post = requests.post(self.OAUTH_TOKEN_URL, data=body)
+        response_data = json.loads(post.text)
+        
+        return response_data

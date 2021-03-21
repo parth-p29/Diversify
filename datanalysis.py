@@ -1,13 +1,12 @@
-from spotifyapiclient import *
 import pandas as pd
 from retry.api import retry_call
 
 def get_user_top_audio_features(api_client, columns):
 
     #get Id's of user top songs
-    short_term_songs = api_client.get_user_top_info(20, "short_term", "tracks")[1]
-    medium_term_songs = api_client.get_user_top_info(30, "medium_term", "tracks")[1]
-    long_term_songs = api_client.get_user_top_info(50, "long_term", "tracks")[1]
+    short_term_songs = api_client.get_user_top_info(20, "short_term", "tracks")['id']
+    medium_term_songs = api_client.get_user_top_info(30, "medium_term", "tracks")['id']
+    long_term_songs = api_client.get_user_top_info(50, "long_term", "tracks")['id']
     all_songs = list(set(short_term_songs+medium_term_songs+long_term_songs)) #removes all duplicates
 
     csv_list = ','.join(all_songs) 
@@ -30,7 +29,7 @@ def get_user_top_audio_features(api_client, columns):
 def get_spotify_top_charts_data(columns):
 
     #utilize spotify top songs dataset
-    data_table = pd.read_csv('static/csv/1930-2021.csv', usecols = columns)
+    data_table = pd.read_csv('static/csv/spotifytoptracks.csv', usecols = columns)
     
     avg_value_list = []
     for col in columns:
@@ -39,3 +38,10 @@ def get_spotify_top_charts_data(columns):
         
     return (avg_value_list)
 
+def get_user_top_data(data):
+
+    df = pd.DataFrame(data.values())
+
+    ls = df.to_dict("list")
+
+    return ls

@@ -1,13 +1,11 @@
-import requests,json
-
-
+import requests, json
+from datanalysis import *
 
 class SpotifyApiClient():
 
     def __init__(self, access_token):
 
-        self.API_BASE_URL = "https://api.spotify.com/v1/me"
-        self.URL2 = "https://api.spotify.com/v1"
+        self.API_BASE_URL = "https://api.spotify.com/v1"
         self.auth_body = {
 
             "Authorization" : f"Bearer {access_token}"
@@ -15,10 +13,10 @@ class SpotifyApiClient():
 
     def get_user_info(self):
 
-        playlist_url = self.API_BASE_URL + "/playlists"
-        followed_artist_url = self.API_BASE_URL + "/following?type=artist"
+        playlist_url = self.API_BASE_URL + "/me/playlists"
+        followed_artist_url = self.API_BASE_URL + "/me/following?type=artist"
 
-        user_info_get = requests.get(self.API_BASE_URL, headers=self.auth_body)
+        user_info_get = requests.get(f"{self.API_BASE_URL}/me", headers=self.auth_body)
         playlist_get = requests.get(playlist_url, headers=self.auth_body)
         followed_artists_get = requests.get(followed_artist_url, headers=self.auth_body)
 
@@ -26,50 +24,47 @@ class SpotifyApiClient():
         playlists_data = json.loads(playlist_get.text)
         followed_artists_data = json.loads(followed_artists_get.text)
 
-        return user_info_data, playlists_data, followed_artists_data
+        output_dict = lambda **data: data
+        
+        return output_dict(user_info=user_info_data, playlist_info=playlists_data, following_info=followed_artists_data)
 
 
     def get_user_top_info(self, limit, time_range, top_type):
 
-        url = self.API_BASE_URL + f"/top/{top_type}?time_range={time_range}&limit={limit}"
+        url = self.API_BASE_URL + f"/me/top/{top_type}?time_range={time_range}&limit={limit}"
 
         get = requests.get(url, headers=self.auth_body)
         data = json.loads(get.text)
 
-        name_list = []
-        id_list = []
-        track_cover_list = []
-        track_artist_list = []
-        track_album_list = []
-        artist_cover_list = []
+        data_dict = {}
 
         for i in range(limit):
-            name_list.append(data['items'][i]["name"])
-            id_list.append(data['items'][i]["id"])
+
+            data_dict[i] = {}
+
+            data_dict[i]['name'] = data['items'][i]["name"]
+            data_dict[i]['id'] = data['items'][i]["id"]
 
             if top_type == "tracks":
-                track_cover_list.append(data['items'][i]["album"]["images"][1]["url"]) # top track cover image [2]
-                track_artist_list.append(data['items'][i]["album"]['artists'][0]['name']) #top track artist name [3]
-                track_album_list.append(data['items'][i]["album"]['name']) #top track album name [4]
+
+                data_dict[i]["image"] = data['items'][i]["album"]["images"][1]["url"]  #track cover image
+                data_dict[i]["trackartistname"] = data['items'][i]["album"]['artists'][0]['name'] #artist who released track
+                data_dict[i]["trackalbumname"] = data['items'][i]["album"]['name'] #album the track is in
 
             else:
-                artist_cover_list.append(data['items'][i]["images"][1]["url"]) #top artist cover image [2]
 
-        if top_type=="tracks":
-            
-            return name_list, id_list, track_cover_list, track_artist_list, track_album_list
+                data_dict[i]['image'] = data['items'][i]["images"][1]["url"] #artist cover image
 
-        else:
-            
-            return name_list, id_list, artist_cover_list
-
+        return get_user_top_data(data_dict)
 
     def get_track_or_artist_info(self, type_id, info_type):
 
-        url = self.URL2 + f"/{info_type}/{type_id}"
+        url = self.API_BASE_URL + f"/{info_type}/{type_id}"
 
         get = requests.get(url, headers=self.auth_body)
         data = json.loads(get.text)
+
+        output_dict = lambda **data: data
 
         popularity = data['popularity']
 
@@ -80,20 +75,18 @@ class SpotifyApiClient():
             name = data['name']
             image = data['images'][2]['url']
 
-            return followers, genres, name, image, popularity
+            return output_dict(followers=followers, genres=genres, name=name, image=image, popularity=popularity)
         
         return popularity
 
     def get_audio_features (self, track_id):
 
-        url = self.URL2 + f'/audio-features/{track_id}'
+        url = self.API_BASE_URL + f'/audio-features/{track_id}'
         
         get = requests.get(url, headers=self.auth_body)
-        try:
-            data = json.loads(get.text)
+        data = json.loads(get.text)
 
-        except:
-            print(get.status_code)
+        output_dict = lambda **data: data
 
         Danceability = data['danceability']
         Energy = data['energy']
@@ -104,11 +97,11 @@ class SpotifyApiClient():
         tempo = data['tempo']
         loudness = data['loudness']
 
-        return [Danceability, Energy, acousticness, Speechiness, Valence, instrumentalness], tempo, loudness
+        return output_dict(features=[Danceability, Energy, acousticness, Speechiness, Valence, instrumentalness], tempo=tempo, loudness=loudness)
 
     def get_audio_features_for_multiple_songs(self, ids):
 
-        url = self.URL2 + f"/audio-features?ids={ids}"
+        url = self.API_BASE_URL + f"/audio-features?ids={ids}"
 
         get = requests.get(url, headers=self.auth_body)
         

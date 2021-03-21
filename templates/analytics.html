@@ -11,28 +11,36 @@
 {% endblock %}
 
 {% block content %}
-    <div id="user-profile">
+    <div class="user-profile">
         
         <h3 class='title'>{{name}}'s Listening Habits</h3>
 
-        <div class="chart-container">
+        <div class="chart-container radar">
             <canvas id="radarChart"></canvas>
+        </div>
+
+        <div class="caption">
+            <p>Going through your most listened to tracks, this graph depicts what you fond most when vibing out to music</p>
+            <p>We also compared the most popular songs throughout the decades with your music taste. Scroll below to see more stats 👀</p>
         </div>
 
     </div>
 
-    <div class="caption">
-    
-        <p>Going through your most listened to tracks, this graph depicts what you fond most when vibing out to music</p>
-        <p>We also compared the most popular songs throughout the decades with your music taste. Scroll below to see more stats 👀</p>
+ 
+    <div class="user-profile stats">
+
+        <div class="chart-container doughnut">
+            <canvas id="doughnutChart"></canvas>
+        </div>
 
     </div>
 
+
+
     <script>
         radar_graph( {{user_avg_features|safe}}, {{top_avg_features|safe}} );
+        doughnut_graph( {{user_avg_features|safe}}, {{top_avg_features|safe}}, "doughnutChart" );
     </script>
-
-
 {% endblock %}
 
 
