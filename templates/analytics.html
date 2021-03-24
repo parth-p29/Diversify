@@ -12,6 +12,20 @@
 
 {% block content %}
     <div class="user-profile">
+
+        <div id="time-selector">
+            <a href="/change-time/short_termA"><h4 id="short">Recent</h4></a>
+            <a href="/change-time/medium_termA"><h4 id="medium">6 Months</h4></a>
+            <a href="/change-time/long_termA"><h4 id="long">All Time</h4></a>
+    
+            {% if time == "short_term" %}
+                <style>#short{color: #1DB954}</style>
+            {% elif time == "medium_term" %}
+                <style>#medium{color: #1DB954}</style>
+            {% else %}
+                <style>#long{color: #1DB954}</style>
+            {% endif %}
+        </div>
         
         <h3 class='title'>{{name}}'s Listening Habits</h3>
 

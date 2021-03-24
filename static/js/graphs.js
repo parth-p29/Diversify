@@ -111,8 +111,7 @@ function radar_graph(user_data, spotify_data){
 
                 ticks: {
                     beginAtZero: true,
-                    steps:20,
-                    stepValue: 0.05,
+                    stepValue: 2,
                     max: 1.0,
                     backdropColor: "#181818"
                 }

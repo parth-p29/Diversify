@@ -60,7 +60,6 @@ class SpotifyApiClient():
     def get_track_or_artist_info(self, type_id, info_type):
 
         url = self.API_BASE_URL + f"/{info_type}/{type_id}"
-
         get = requests.get(url, headers=self.auth_body)
         data = json.loads(get.text)
 
@@ -77,9 +76,9 @@ class SpotifyApiClient():
 
             return output_dict(followers=followers, genres=genres, name=name, image=image, popularity=popularity)
         
-        return popularity
+        return output_dict(popularity=popularity)
 
-    def get_audio_features (self, track_id):
+    def get_audio_features(self, track_id):
 
         url = self.API_BASE_URL + f'/audio-features/{track_id}'
         
@@ -102,12 +101,8 @@ class SpotifyApiClient():
     def get_audio_features_for_multiple_songs(self, ids):
 
         url = self.API_BASE_URL + f"/audio-features?ids={ids}"
-
         get = requests.get(url, headers=self.auth_body)
-        
         data = json.loads(get.text)
-
-        print(get.status_code)
 
         all_features = []
 
@@ -120,4 +115,12 @@ class SpotifyApiClient():
 
         return all_features
 
+    def get_multiple_track_or_artist_info(self, info_type, type_ids):
+
+        url = self.API_BASE_URL + f"/{info_type}?ids={type_ids}"
+        get = requests.get(url, headers=self.auth_body)
+        data = json.loads(get.text)
+
+        all_pop = [pop['popularity'] for pop in data[info_type]]
         
+        return all_pop

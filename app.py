@@ -62,6 +62,10 @@ def changeTime(id):
     if id[-1] == "M":
         session['time_frame'] = id[:-1]
         return redirect(url_for('more', _external=True))
+    
+    elif id[-1] == "A":
+        session['time_frame'] = id[:-1]
+        return redirect(url_for('analytics', _external=True))
 
     else:      
         session['time_frame'] = id
@@ -77,8 +81,7 @@ def info(id):
         track_id = id[:-1]
 
         try:
-
-            track_popularity = api_client.get_track_or_artist_info(track_id, "tracks")
+            track_popularity = (api_client.get_track_or_artist_info(track_id, "tracks"))['popularity']
             audio_info = api_client.get_audio_features(track_id)
             info_type="track"
 
@@ -88,7 +91,6 @@ def info(id):
             labels = ['Danceability', 'Energy', 'Acousticness', 'Speechiness', 'Valence', 'Instrumentalness']
 
         except:
-
             return redirect(url_for('myMusic', _external=True))
 
         return render_template('info.html', t=tempo, l=loudness, id=track_id, p=track_popularity, labels=labels, data=audio_features, type=info_type)
@@ -116,15 +118,18 @@ def more():
 def analytics():
 
     api_client = init_api_client()
+    user_data_client = UserDataClient(api_client, session.get('time_frame'))
     request_data = api_client.get_user_info()
     user_info = request_data['user_info']
     username = user_info["display_name"]
 
+    user_data_client.get_user_avg_popularity("tracks")
+
     cols = ['danceability', 'energy', 'acousticness', 'speechiness', 'valence', 'instrumentalness']
-    user_avg_features = get_user_top_audio_features(api_client, cols)
+    user_avg_features = user_data_client.get_user_top_avg_audio_features(cols)
     top_avg_features = get_spotify_top_charts_data(cols)
 
-    return render_template('analytics.html', name =username, user_avg_features=user_avg_features, top_avg_features=top_avg_features)
+    return render_template('analytics.html', time=session.get("time_frame"), name=username, user_avg_features=user_avg_features, top_avg_features=top_avg_features)
 
 @app.route("/new")
 def new():
@@ -157,12 +162,10 @@ def configure_user_top(html_page, limit):
     time_frame = session.get('time_frame')
 
     try:
-
         user_top_tracks = api_client.get_user_top_info(limit, time_frame, "tracks")
         user_top_artists = api_client.get_user_top_info(limit, time_frame, "artists")
 
     except:
-
         return "Sorry your account is new and has no music data I can use :("
 
     songs = user_top_tracks['name']
