@@ -69,7 +69,7 @@ function radar_graph(user_data, spotify_data){
         type: 'radar',
         
         data: {
-            labels: ['Danceability', 'Energy', 'Acousticness', 'Speechiness', 'Valence', "Instrumentalness"],
+            labels: ['Danceability', 'Energy', 'Acousticness', 'Speechiness', 'Positivity', "Instrumentalness"],
             datasets: [{
                 data: user_data,
                 backgroundColor: ['rgba(233, 72, 96, 0.5)'],
@@ -85,7 +85,7 @@ function radar_graph(user_data, spotify_data){
                 backgroundColor: ['rgba(47, 124, 33, 0.5)'],
                 borderColor: ['rgba(47, 124, 33, 0.97)'],
                 borderWidth: 2,
-                label: "Top Songs from 1930-2021",
+                label: "Top Spotify Songs",
                 pointBackgroundColor: "rgba(26, 169, 4, 0.63)"
             }]
         },
@@ -145,9 +145,9 @@ function doughnut_graph(data1, data2, id){
 
         // The data for our dataset
         data: {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            labels: ['You'],
             datasets: [{
-                label: 'My First dataset',
+                label: 'Popularity of your top Songs',
                 backgroundColor: 'rgb(255, 99, 132)',
                 borderColor: 'rgb(255, 99, 132)',
                 data: [0, 10, 5, 2, 20, 30, 45]

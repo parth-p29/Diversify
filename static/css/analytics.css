@@ -5,7 +5,7 @@
 }
 
 #time-selector{
-    margin-bottom: 60px;
+    margin-bottom: 30px;
     display: flex;
     justify-content: flex-end;
     width: 94%;
@@ -19,11 +19,11 @@
 }
 
 .stats {
-    top: 100%;
+    top: 120%;
 }
 .title{
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
     color: ghostwhite;
     font-size: 23px;
 }
