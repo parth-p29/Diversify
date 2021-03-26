@@ -1,7 +1,10 @@
+//creates a bunch of graphs
 
-function bar_graph(data_labels, audio_data){
-    var ctx = document.getElementById('myChart').getContext('2d');
+
+function bar_graph(data_labels, data, id_name, step=10, step_value=0.1, max_value=1.0){
+    var ctx = document.getElementById(id_name).getContext('2d');
     new Chart(ctx, {
+
         // The type of chart we want to create
         type: 'bar',
     
@@ -10,8 +13,7 @@ function bar_graph(data_labels, audio_data){
             labels: data_labels,
             datasets: [{
                 backgroundColor: ['rgb(87, 103, 232, 0.7)', 'rgb(238, 205, 98, 0.7)', 'rgb(98, 238, 112, 0.7)', 'rgb(228, 64, 75, 0.7)', 'rgb(218, 131, 45, 0.7)', 'rgb(151, 56, 235, 0.7)', 'rgb(103, 243, 239, 0.7)'],
-                data: audio_data
-    
+                data: data
             }]
         },
     
@@ -29,21 +31,19 @@ function bar_graph(data_labels, audio_data){
     
                 yAxes: [{
                     display:true,
-                    
                     ticks: {
                         beginAtZero: true,
-                        steps:10,
-                        stepValue: 0.1,
-                        max: 1.0
+                        steps:step,
+                        stepValue: step_value,
+                        max: max_value
                     },
-
+                    
                     gridLines: {
                         display: true,
                         color: "rgb(175, 175, 175, 0.3)",
                         opacity: "5%"
                     }
-                }]
-                    
+                }]    
             },
             legend: {
                 display: false
@@ -52,12 +52,11 @@ function bar_graph(data_labels, audio_data){
                 callbacks: {
                 label: function(tooltipItem) {
                         return tooltipItem.yLabel;
-                }
+                    }
                 }
             }
         }
     });
-
 }
 
 
@@ -80,7 +79,6 @@ function radar_graph(user_data, spotify_data){
             }, 
             
             {
-
                 data: spotify_data,
                 backgroundColor: ['rgba(47, 124, 33, 0.5)'],
                 borderColor: ['rgba(47, 124, 33, 0.97)'],

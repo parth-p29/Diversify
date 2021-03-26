@@ -15,7 +15,7 @@ class SpotifyApiClient():
     def get_user_info(self):
 
         output_dict = lambda **data: data
-        
+
         playlist_url = self.API_BASE_URL + "/me/playlists"
         followed_artist_url = self.API_BASE_URL + "/me/following?type=artist"
 
@@ -77,6 +77,15 @@ class SpotifyApiClient():
         return output_dict(popularity=popularity)
 
 
+    def find_artists_from_songs(self, song_ids):
+
+        url = self.API_BASE_URL + f"/tracks?ids={song_ids}"
+        get = requests.get(url, headers=self.auth_body)
+        data = json.loads(get.text)
+        
+        return [ artist['album']['artists'][0]['id'] for artist in data['tracks']] 
+
+
     def get_audio_features(self, track_id):
 
         output_dict = lambda **data: data
@@ -114,7 +123,7 @@ class SpotifyApiClient():
         return all_features
 
 
-    def get_multiple_track_or_artist_info(self, info_type, type_ids):
+    def get_multiple_track_or_artist_popularity(self, info_type, type_ids):
 
         url = self.API_BASE_URL + f"/{info_type}?ids={type_ids}"
         get = requests.get(url, headers=self.auth_body)

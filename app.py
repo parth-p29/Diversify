@@ -126,18 +126,20 @@ def analytics():
     data_client = DataClient(api_client, session.get('time_frame'))
     
     request_data = api_client.get_user_info()
-    user_info = request_data['user_info']
+    user_info = request_data['user_info']   #general user info
     username = user_info["display_name"]
 
-    user_avg_track_popularity = data_client.get_user_avg_popularity("tracks")
-    spotify_avg_popularity = data_client.get_spotify_charts_avg_popularity()
-    print(spotify_avg_popularity)
-    user_avg_artist_popularity = data_client.get_user_avg_popularity("tracks")
+
+    popularity_graph_labels = ["Popularity of your Top Tracks", "Popularity of your Top Artists", "Popularity of Top Songs in 2020", "Popularity of Top Artists in 2020"]
+    popularity_data = [data_client.get_user_avg_popularity("tracks"), data_client.get_user_avg_popularity("artists"), data_client.get_spotify_charts_avg_popularity()['track'], data_client.get_spotify_charts_avg_popularity()['artist']] 
+ 
 
     user_avg_features = data_client.get_user_top_avg_audio_features(cols)
-    spotify_avg_features = data_client.get_spotify_charts_avg_features(cols)
+    spotify_avg_features = data_client.get_spotify_charts_avg_features(cols)  #audio features info
 
-    return render_template('analytics.html', time=session.get("time_frame"), name=username, user_avg_features=user_avg_features, top_avg_features=spotify_avg_features)
+    #genres
+
+    return render_template('analytics.html', time=session.get("time_frame"), name=username, user_avg_features=user_avg_features, top_avg_features=spotify_avg_features, pop_labels=popularity_graph_labels, pop_data=popularity_data)
 
 
 @app.route("/new")
