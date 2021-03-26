@@ -44,7 +44,7 @@
     <div class="user-profile stats">
 
         <div class="chart-container doughnut">
-            <canvas id="popularGraph"></canvas>
+            <canvas id="myChart"></canvas>
         </div>
 
     </div>
@@ -53,7 +53,7 @@
 
     <script>
         radar_graph( {{user_avg_features|safe}}, {{top_avg_features|safe}} );
-        bar_graph( {{pop_labels|safe}}, {{pop_data|safe}}, "popularGraph", 10, 10, 100);
+        bar_graph( {{pop_labels|safe}}, {{pop_data|safe}}, 10, 10, 100);
     </script>
 {% endblock %}
 

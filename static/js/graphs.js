@@ -1,8 +1,70 @@
 //creates a bunch of graphs
 
 
-function bar_graph(data_labels, data, id_name, step=10, step_value=0.1, max_value=1.0){
-    var ctx = document.getElementById(id_name).getContext('2d');
+// function double_bar_graph(data_labels, data){
+//     var ctx = document.getElementById("myChart").getContext('2d');
+//     new Chart(ctx, {
+
+//         // The type of chart we want to create
+//         type: 'bar',
+    
+//         // The data for our dataset
+//         data: {
+//             labels: data_labels,
+            
+//             datasets: [
+//                 {   
+//                     label:"You",
+//                     backgroundColor: ['rgb(87, 103, 232, 0.7)'], //, 'rgb(238, 205, 98, 0.7)', 'rgb(98, 238, 112, 0.7)', 'rgb(228, 64, 75, 0.7)', 'rgb(218, 131, 45, 0.7)', 'rgb(151, 56, 235, 0.7)', 'rgb(103, 243, 239, 0.7)'],
+//                     data: [data[0], data[1]],
+//                 },
+        
+//                 {
+//                     label:'Spotify',
+//                     backgroundColor: ['rgb(238, 205, 98, 0.7'],
+//                     data: [data[2], data[3]]
+//                 }
+        
+//         ]
+    
+//     },
+    
+//         // Configuration options go here
+//         options: {
+//             responsive: true,
+//             maintainAspectRatio: false,
+//             scales: {
+//                 xAxes: [{
+//                     gridLines: {
+//                         display: true,
+//                         color: "rgb(175, 175, 175, 0.3)"
+//                     }
+//                 }],
+    
+//                 yAxes: [{
+//                     display:true,
+//                     ticks: {
+//                         beginAtZero: true,
+//                         steps:10,
+//                         stepValue: 0.1,
+//                         max: 1.0
+//                     },
+
+//                     gridLines: {
+//                         display: true,
+//                         color: "rgb(175, 175, 175, 0.3)"
+//                     }
+//                 }]    
+//             },
+//             legend: {
+//                 display: false
+//             }
+//         }
+//     });
+// }
+
+function bar_graph(data_labels, data, step=10, step_value=0.1, max_value=1.0){
+    var ctx = document.getElementById("myChart").getContext('2d');
     new Chart(ctx, {
 
         // The type of chart we want to create
@@ -11,9 +73,14 @@ function bar_graph(data_labels, data, id_name, step=10, step_value=0.1, max_valu
         // The data for our dataset
         data: {
             labels: data_labels,
+            
             datasets: [{
                 backgroundColor: ['rgb(87, 103, 232, 0.7)', 'rgb(238, 205, 98, 0.7)', 'rgb(98, 238, 112, 0.7)', 'rgb(228, 64, 75, 0.7)', 'rgb(218, 131, 45, 0.7)', 'rgb(151, 56, 235, 0.7)', 'rgb(103, 243, 239, 0.7)'],
-                data: data
+                data: data,
+                barPercentage: 0.5,
+                barThickness: 1,
+                maxBarThickness: 1,
+                minBarLength: 2,
             }]
         },
     
@@ -37,28 +104,19 @@ function bar_graph(data_labels, data, id_name, step=10, step_value=0.1, max_valu
                         stepValue: step_value,
                         max: max_value
                     },
-                    
+
                     gridLines: {
                         display: true,
-                        color: "rgb(175, 175, 175, 0.3)",
-                        opacity: "5%"
+                        color: "rgb(175, 175, 175, 0.3)"
                     }
                 }]    
             },
             legend: {
                 display: false
-            },
-            tooltips: {
-                callbacks: {
-                label: function(tooltipItem) {
-                        return tooltipItem.yLabel;
-                    }
-                }
             }
         }
     });
 }
-
 
 function radar_graph(user_data, spotify_data){
     var radarChart = document.getElementById('radarChart').getContext('2d');
