@@ -17,10 +17,6 @@
     font-size: 16px;
     opacity: 80%;
 }
-
-.stats {
-    top: 120%;
-}
 .title{
     text-align: center;
     margin-bottom: 15px;
@@ -29,7 +25,7 @@
 }
 
 .caption{
-    margin-top: 20px;
+    margin-top: 15px;
     width: 100%;
     text-align: center;
 }
@@ -37,6 +33,10 @@
 .caption p{
     color: rgb(175, 175, 175);
     font-size: 15px;
+}
+
+.stats {
+    top: 113%;
 }
 
 .chart-container {
@@ -49,8 +49,12 @@
     width: 100%;
   }
 
-  .doughnut{
+  .popularity{
     width: 55%;
     height:60vh;
+    margin-bottom: 30px;
   }
 
+  .artist-title{
+        margin: 10px;
+  }

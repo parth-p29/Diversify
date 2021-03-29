@@ -33,18 +33,25 @@
                 </div>
             </div>
 
-            <div id="graph-title">
-                <h1>Audio Analysis</h1>
-            </div>
-
+            <h3 class="title">Audio Analysis</h3>
+   
             <div id="graph">
                 <canvas id="myChart"></canvas>
             </div>
 
             <h3 class="ref"><a href="https://developer.spotify.com/documentation/web-api/reference/#object-audiofeaturesobject">Full Description of Audio Features</a></h3>
 
+            <div class="sentiment">
+                <h3 class="title" >Lyrical Analysis</h3>
+                <p>Overall: {{overall}}</p>
+                <p>Positive: {{positive}}</p>
+                <p>Negative: {{negative}}</p>
+                <p>Neutral: {{neutral}}</p>
+                <p> {{lyrics |safe}} </p>
+            </div>
+
         {% else %}
-            <h3 class="title" >{{n}}</h3>
+            <h3 class="title artist-title" >{{n}}</h3>
             <img src="{{i}}" width="280" height="280"/>
 
             <div class="facts a">
@@ -72,6 +79,8 @@
         <script>
             bar_graph( {{labels|safe}}, {{data|safe}} );
         </script>
+
+
 
     </div>
 {% endblock %}

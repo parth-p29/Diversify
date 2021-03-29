@@ -126,7 +126,7 @@ function radar_graph(user_data, spotify_data){
         type: 'radar',
         
         data: {
-            labels: ['Danceability', 'Energy', 'Acousticness', 'Speechiness', 'Positivity', "Instrumentalness"],
+            labels: ['Danceability', 'Energy', 'Acousticness', 'Speechiness', 'Valence', "Instrumentalness"],
             datasets: [{
                 data: user_data,
                 backgroundColor: ['rgba(233, 72, 96, 0.5)'],
@@ -141,7 +141,7 @@ function radar_graph(user_data, spotify_data){
                 backgroundColor: ['rgba(47, 124, 33, 0.5)'],
                 borderColor: ['rgba(47, 124, 33, 0.97)'],
                 borderWidth: 2,
-                label: "Top Spotify Songs",
+                label: "Top Spotify Songs in 2020",
                 pointBackgroundColor: "rgba(26, 169, 4, 0.63)"
             }]
         },

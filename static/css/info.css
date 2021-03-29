@@ -15,19 +15,20 @@
 .title{
     color:ghostwhite;
     font-size: 35px;
-    margin-bottom: 25px;
+    margin: 100px 0px 30px 0px;
 }
+
+.artist-title{
+    margin: 15px;
+}
+
 .group{
     margin: 0px 25px 0px 25px;
 }
 .fact{
     color: #1DB954;
 }
-#graph-title{
-    text-align: center;
-    margin: 100px 0px 50px 0px;
-    color:ghostwhite;
-}
+
 #graph {
     width: 60%;
     height:60vh;
@@ -45,4 +46,19 @@
     color: rgb(175, 175, 175);
     opacity: 80%;
     font-size: 14px;
+}
+
+.sentiment{
+    margin-top: 100px;
+    color: rgb(175, 175, 175);
+    font-size: 15px;
+}
+
+.sentiment p{
+    text-align: left;
+    margin: 60px 15% 60px 15%;
+}
+
+.sentiment span{
+    color:#1DB954;
 }

@@ -1,7 +1,8 @@
 from flask import Flask, render_template, url_for, redirect, request, session
 from oauth import *
-from datanalysis import *
+from dataclient import *
 from spotifyapiclient import *
+from azureclient import *
 import time
 
 app = Flask(__name__)
@@ -15,7 +16,6 @@ def index():
     auth_url = oauth_client.get_auth_url()
     return render_template("login.html", url=auth_url)
 
-
 @app.route("/redirect/")
 def redirectPage():
 
@@ -27,7 +27,6 @@ def redirectPage():
     session['time_frame'] = "short_term"
 
     return redirect(url_for('profilePage', _external=True))
-
 
 @app.route("/profile")
 def profilePage():
@@ -53,7 +52,6 @@ def profilePage():
 
     return render_template("profile.html", username = username, followers = followers, link = spotify_link, pic = profile_pic, playlists = num_of_playlists, follows=num_of_followed_artists)
     
-
 @app.route("/music")
 def myMusic():
 
@@ -74,29 +72,51 @@ def changeTime(id):
         session['time_frame'] = id
         return redirect(url_for('myMusic', _external=True))
 
-
 @app.route('/info/<string:id>')
 def info(id):
 
     api_client = init_api_client()
 
     if id[-1] == "T":
+
+        info_type="track" 
         track_id = id[:-1]
 
         try:
-            track_popularity = (api_client.get_track_or_artist_info(track_id, "tracks"))['popularity']
+            track_info = (api_client.get_track_or_artist_info(track_id, "tracks"))
             audio_info = api_client.get_audio_features(track_id)
-            info_type="track"
-
-            audio_features = audio_info['features']
-            tempo = audio_info['tempo']
-            loudness = audio_info['loudness']
-            labels = ['Danceability', 'Energy', 'Acousticness', 'Speechiness', 'Positivity', 'Instrumentalness']
+            lyrics_analyzer = AzureAnalyticsClient()
 
         except:
             return redirect(url_for('myMusic', _external=True))
 
-        return render_template('info.html', t=tempo, l=loudness, id=track_id, p=track_popularity, labels=labels, data=audio_features, type=info_type)
+        track_name = track_info['name']
+        track_artist = track_info['artist']
+        song_lyrics = api_client.get_song_lyrics(track_artist, track_name)
+        
+        sentiment = lyrics_analyzer.sentiment_analysis(song_lyrics)
+        song_overall_sentiment = sentiment['overall']
+        song_positive_score = sentiment['positive']
+        song_negative_score = sentiment['negative']
+        song_neutral_score = sentiment['neutral']
+
+        key_phrases = lyrics_analyzer.key_phrase_extraction(song_lyrics)
+
+        for phrase in key_phrases:
+            
+            if phrase == "br":
+                pass
+            
+            else:
+                song_lyrics = song_lyrics.replace(phrase, f"<span>{phrase}</span>")
+          
+        audio_features = audio_info['features']
+        track_popularity = track_info['popularity']
+        tempo = audio_info['tempo']
+        loudness = audio_info['loudness']
+        labels = ['Danceability', 'Energy', 'Acousticness', 'Speechiness', 'Valence', 'Instrumentalness']
+
+        return render_template('info.html', t=tempo, l=loudness, id=track_id, p=track_popularity, labels=labels, data=audio_features, type=info_type, lyrics=song_lyrics, overall=song_overall_sentiment, positive=song_positive_score, negative=song_negative_score, neutral=song_neutral_score )
 
     else:
         artist_id = id[:-1]
@@ -111,12 +131,10 @@ def info(id):
 
         return render_template('info.html', f=followers, g=genres, n=name, i=image, p=popularity, type=info_type)
 
-
 @app.route('/more')
 def more():
 
     return configure_user_top('more.html', 30)
-
 
 @app.route("/analytics")
 def analytics():
@@ -129,24 +147,25 @@ def analytics():
     user_info = request_data['user_info']   #general user info
     username = user_info["display_name"]
 
-
     popularity_graph_labels = ["Popularity of your Top Tracks", "Popularity of your Top Artists", "Popularity of Top Songs in 2020", "Popularity of Top Artists in 2020"]
     popularity_data = [data_client.get_user_avg_popularity("tracks"), data_client.get_user_avg_popularity("artists"), data_client.get_spotify_charts_avg_popularity()['track'], data_client.get_spotify_charts_avg_popularity()['artist']] 
  
-
     user_avg_features = data_client.get_user_top_avg_audio_features(cols)
     spotify_avg_features = data_client.get_spotify_charts_avg_features(cols)  #audio features info
 
     #genres
+    user_top_genres = data_client.get_user_top_genres()
 
     return render_template('analytics.html', time=session.get("time_frame"), name=username, user_avg_features=user_avg_features, top_avg_features=spotify_avg_features, pop_labels=popularity_graph_labels, pop_data=popularity_data)
-
 
 @app.route("/new")
 def new():
 
-    return "my music taste is dogwater, help me find new tracks"
+    api_client = init_api_client()
 
+    api_client.get_song_lyrics("travis scott", "guidance")
+
+    return "my music taste is dogwater, help me find new tracks"
 
 def init_api_client(): 
     
@@ -165,7 +184,6 @@ def init_api_client():
     
     else:
         return SpotifyApiClient(oauth_info['access_token'])
-
 
 def configure_user_top(html_page, limit):
 
@@ -190,7 +208,6 @@ def configure_user_top(html_page, limit):
     artist_covers = user_top_artists['image']
 
     return render_template(html_page, songs=songs, song_ids=song_ids, song_covers=song_covers, song_artists=song_artists, song_albums=song_albums, artists=artists, artist_ids=artist_ids, artist_covers=artist_covers, zip=zip, time=time_frame)
-
 
 if __name__ == "__main__":
     app.run()

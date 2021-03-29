@@ -1,6 +1,8 @@
 import pandas as pd
 from retry.api import retry_call
 import statistics
+from collections import Counter
+
 class DataClient():
 
     def __init__(self, api_client, time_frame):
@@ -11,7 +13,6 @@ class DataClient():
             "artists": (','.join(api_client.get_user_top_info(33, time_frame, "artists")['id'])),
             "tracks": (','.join(api_client.get_user_top_info(50, time_frame, "tracks")['id'])) 
         }
-
 
     def get_user_top_avg_audio_features(self, columns):
 
@@ -26,25 +27,22 @@ class DataClient():
 
         return avg_value_list
 
-
     def get_user_avg_popularity(self, popularity_type):
 
         try:
-            popularity_list = self.api_client.get_multiple_track_or_artist_popularity(popularity_type, self.ids[popularity_type])
+            popularity_list = self.api_client.get_multiple_track_or_artist_info(popularity_type, self.ids[popularity_type], "popularity")
 
         except:
-            popularity_list = retry_call(self.api_client.get_multiple_track_or_artist_popularity, fargs=[popularity_type, self.ids[popularity_type]])
+            popularity_list = retry_call(self.api_client.get_multiple_track_or_artist_info, fargs=[popularity_type, self.ids[popularity_type], "popularity"])
 
         data_table = pd.DataFrame(popularity_list, columns=['Popularity'])
 
         return round(data_table['Popularity'].mean(), 2)
 
-
     def get_spotify_charts_avg_features(self, columns):
         
         avg_value_list = [round(self.spotify_dataset[col].mean(), 4) for col in columns]
         return avg_value_list
-
 
     def get_spotify_charts_avg_popularity(self):
 
@@ -53,12 +51,30 @@ class DataClient():
         track_ids = ','.join(self.spotify_dataset['track_id'].to_list())
         artist_ids = ','.join(self.api_client.find_artists_from_songs(track_ids))
 
-        track_popularity = self.api_client.get_multiple_track_or_artist_popularity("tracks", track_ids)
-        artist_popularity = self.api_client.get_multiple_track_or_artist_popularity("artists", artist_ids)
+        track_popularity = self.api_client.get_multiple_track_or_artist_info("tracks", track_ids, "popularity")
+        artist_popularity = self.api_client.get_multiple_track_or_artist_info("artists", artist_ids, "popularity")
 
         return output_dict(track=statistics.mean(track_popularity), artist=statistics.mean(artist_popularity))
 
+    def get_user_top_genres(self):
+        
+        genres = {}
+        top_artist_genres = self.api_client.get_multiple_track_or_artist_info("artists", self.ids['artists'], "genres")
 
+        for artist_genres in top_artist_genres:
+
+            for genre in artist_genres:
+
+                if genre in genres.keys():
+                    genres[genre] += 1
+
+                else:
+                    genres[genre] = 1
+
+        top_genres = dict(Counter(genres).most_common(5)) 
+
+        return (list(top_genres))
+        
 #useful functions
 def get_user_top_data(data):
 
