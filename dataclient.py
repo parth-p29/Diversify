@@ -41,7 +41,7 @@ class DataClient():
 
     def get_spotify_charts_avg_features(self, columns):
         
-        avg_value_list = [round(self.spotify_dataset[col].mean(), 4) for col in columns]
+        avg_value_list = [round(self.spotify_dataset[col.lower()].mean(), 4) for col in columns]
         return avg_value_list
 
     def get_spotify_charts_avg_popularity(self):
@@ -74,7 +74,13 @@ class DataClient():
         top_genres = dict(Counter(genres).most_common(5)) 
 
         return (list(top_genres))
+
+    def get_similarity_between_features(self, user, spotify):
+
+        percent_list = [round(((min(item1, item2) / max(item1,item2)) * 100), 2) for item1, item2 in zip(user, spotify)]
         
+        return percent_list
+
 #useful functions
 def get_user_top_data(data):
 

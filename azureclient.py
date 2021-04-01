@@ -14,18 +14,25 @@ class AzureAnalyticsClient():
         output_dict = lambda **data: data
 
         documents = [lyrics]
-        response = self.client.analyze_sentiment(documents=documents)[0]
 
-        overall_sentiment = response.sentiment
-        positive = response.confidence_scores.positive
-        negative = response.confidence_scores.negative
-        neutral = response.confidence_scores.neutral
+        try:
+            response = self.client.analyze_sentiment(documents=documents)[0]
+            overall_sentiment = response.sentiment
+            positive = response.confidence_scores.positive
+            negative = response.confidence_scores.negative
+            neutral = response.confidence_scores.neutral
 
-        return output_dict(overall=overall_sentiment, positive=positive, negative=negative, neutral=neutral)
+            return output_dict(overall=overall_sentiment, positive=positive, negative=negative, neutral=neutral)
+        
+        except:
+            return output_dict(overall="Not able to be analyzed", positive=100, negative=100, neutral=100)
 
     def key_phrase_extraction(self, lyrics):
-
-        documents = [lyrics]
-        response = self.client.extract_key_phrases(documents = documents)[0]
-
-        return response.key_phrases
+        
+        try:
+            documents = [lyrics]
+            response = self.client.extract_key_phrases(documents = documents)[0]
+            return response.key_phrases
+        
+        except:
+            return ['none']

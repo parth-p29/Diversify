@@ -26,31 +26,64 @@
                 <style>#long{color: #1DB954}</style>
             {% endif %}
         </div>
-        
-        <h3 class='title'>{{name}}'s Listening Habits</h3>
-
+    
         <div class="chart-container radar">
+            <h3 class='title'>Your Listening Habits</h3>
             <canvas id="radarChart"></canvas>
         </div>
 
-        <div class="caption">
-            <p>Going through your most listened to tracks, this graph depicts what you fond most when vibing out to music</p>
-            <p>We also compared the most popular songs throughout the decades with your music taste. Scroll below to see more stats 👀</p>
-        </div>
-
-    </div>
-
-    <div class="user-profile stats">
-        
-        <h3 class='title'>Popularity of {{name}}'s Top Songs/Artists</h3>
-
         <div class="chart-container popularity">
+            <h3 class='title'>Popularity of Your Top Songs/Artists</h3>
             <canvas id="myChart"></canvas>
         </div>
 
+        <div class="genres">
+            <h3 class='title'>Your Top Genres</h3>
+            <div class="facts">
+                <div class="group">
+                    {% for genre in genres %}    
+                        <h3 class='fact g'>{{genre}}</h3>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="similarity-scores">
+
+            <h3 class="title">Similarity of Your Stats with Everyone Else</h3>
+
+            <div class="facts">
+                {% for data, col in zip(sim, cols) %} 
+                    <div class="s">
+                        <h3 class='fact'>{{data}}% Match</h3>
+                        <h3>{{col}}</h3>
+                    </div>
+                {% endfor %}
+            </div>
+            <!-- <div class="facts">
+                <div class="group">
+                    <h3 class='fact'>{{p}}%</h3>
+                    <h3>Popularity</h3>
+                </div>
+
+                <div class="group">
+                    <h3 class='fact'>{{t}}</h3>
+                    <h3>Tempo (BPM)</h3>
+                </div>
+
+                <div class="group">
+                    <h3 class='fact'>{{l}}</h3>
+                    <h3>Loudness (-dB)</h3>
+                </div>
+            </div> -->
+
+
+
+        </div>
+
     </div>
-
-
 
     <script>
         radar_graph( {{user_avg_features|safe}}, {{top_avg_features|safe}} );

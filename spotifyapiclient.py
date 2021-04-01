@@ -123,16 +123,16 @@ class SpotifyApiClient():
         url = self.API_BASE_URL + f"/{info_type}?ids={type_ids}"
         get = requests.get(url, headers=self.auth_body)
         data = json.loads(get.text)
-        all_pop = [pop[feature] for pop in data[info_type]]
+        all_info = [info[feature] for info in data[info_type]]
         
-        return all_pop
+        return all_info
 
     def get_song_lyrics(self, song_artist, song_name):
 
         url = f"https://api.lyrics.ovh/v1/{song_artist}/{song_name}"
         
         try:
-            get = requests.get(url, timeout=8)
+            get = requests.get(url, timeout=10)
         
         except:
             return "Lyrics not able to be analyzed"

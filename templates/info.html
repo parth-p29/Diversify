@@ -35,7 +35,7 @@
 
             <h3 class="title">Audio Analysis</h3>
    
-            <div id="graph">
+            <div class="graph">
                 <canvas id="myChart"></canvas>
             </div>
 
@@ -43,10 +43,16 @@
 
             <div class="sentiment">
                 <h3 class="title" >Lyrical Analysis</h3>
-                <p>Overall: {{overall}}</p>
-                <p>Positive: {{positive}}</p>
-                <p>Negative: {{negative}}</p>
-                <p>Neutral: {{neutral}}</p>
+                <div class="graph">
+                    <canvas id="doughnut"></canvas>
+                </div>
+                
+                <div class="group">
+                    <h3 class='fact'>{{overall}}</h3>
+                    <h3>Overall Sentiment</h3>
+
+                </div>
+
                 <p> {{lyrics |safe}} </p>
             </div>
 
@@ -78,6 +84,7 @@
 
         <script>
             bar_graph( {{labels|safe}}, {{data|safe}} );
+            doughnut_graph( {{positive|safe}}, {{negative|safe}}, {{neutral|safe}}, "doughnut" );
         </script>
 
 

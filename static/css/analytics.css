@@ -24,37 +24,66 @@
     font-size: 23px;
 }
 
-.caption{
-    margin-top: 15px;
-    width: 100%;
-    text-align: center;
-}
-
-.caption p{
-    color: rgb(175, 175, 175);
-    font-size: 15px;
-}
-
-.stats {
-    top: 113%;
-}
-
 .chart-container {
     position: relative;
     margin: auto;
-  }
+}
 
-  .radar{
+.radar{
     height: 60vh;
     width: 100%;
-  }
 
-  .popularity{
+}
+.popularity{
     width: 55%;
     height:60vh;
-    margin-bottom: 30px;
-  }
+    margin-bottom: 80px;
+    margin-top: 80px;
+}
 
-  .artist-title{
-        margin: 10px;
-  }
+/* .facts{
+    margin-top: 35px;
+    color: rgb(175, 175, 175);
+    font-size: 14px;
+    opacity: 80%;
+    display: flex;
+    justify-content: center;
+} */
+
+.facts{
+    margin-top: 15px;
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.fact{
+    color: #1DB954;
+    font-size: 18px;
+    margin:10px;
+}
+
+.g{
+    border: 0.5px solid ghostwhite;
+    padding: 10px 20px 10px 20px;
+}
+.g:hover{
+    background-color: ghostwhite;
+}
+
+.group{
+    display: flex;
+}
+
+.s{
+    margin: 10px 20px 10px 20px;
+    color: rgb(175, 175, 175);
+}
+
+hr{
+    border: 0.5px solid ghostwhite;
+    opacity: 0.7;
+    margin: 70px 200px 80px 200px;
+}
+

@@ -140,30 +140,28 @@ def more():
 def analytics():
 
     api_client = init_api_client()
-    cols = ['danceability', 'energy', 'acousticness', 'speechiness', 'valence', 'instrumentalness']
+    cols = ['Danceability', 'Energy', 'Acousticness', 'Speechiness', 'Valence', 'Instrumentalness']
     data_client = DataClient(api_client, session.get('time_frame'))
     
-    request_data = api_client.get_user_info()
-    user_info = request_data['user_info']   #general user info
-    username = user_info["display_name"]
-
-    popularity_graph_labels = ["Popularity of your Top Tracks", "Popularity of your Top Artists", "Popularity of Top Songs in 2020", "Popularity of Top Artists in 2020"]
-    popularity_data = [data_client.get_user_avg_popularity("tracks"), data_client.get_user_avg_popularity("artists"), data_client.get_spotify_charts_avg_popularity()['track'], data_client.get_spotify_charts_avg_popularity()['artist']] 
- 
+    #popularity info
+    popularity_graph_labels = ["Popularity of your Top Songs", "Popularity of Top Songs in 2020", "Popularity of your Top Artists", "Popularity of Top Artists in 2020"]
+    popularity_data = [data_client.get_user_avg_popularity("tracks"), data_client.get_spotify_charts_avg_popularity()['track'], data_client.get_user_avg_popularity("artists"), data_client.get_spotify_charts_avg_popularity()['artist']] 
+ #
+    #audio features info
     user_avg_features = data_client.get_user_top_avg_audio_features(cols)
     spotify_avg_features = data_client.get_spotify_charts_avg_features(cols)  #audio features info
 
     #genres
     user_top_genres = data_client.get_user_top_genres()
 
-    return render_template('analytics.html', time=session.get("time_frame"), name=username, user_avg_features=user_avg_features, top_avg_features=spotify_avg_features, pop_labels=popularity_graph_labels, pop_data=popularity_data)
+    #percentages
+    audio_feature_similarities = data_client.get_similarity_between_features(user_avg_features, spotify_avg_features)
+    print(audio_feature_similarities)
+
+    return render_template('analytics.html', time=session.get("time_frame"), user_avg_features=user_avg_features, top_avg_features=spotify_avg_features, pop_labels=popularity_graph_labels, pop_data=popularity_data, genres=user_top_genres, sim=audio_feature_similarities, cols=cols, zip=zip)
 
 @app.route("/new")
 def new():
-
-    api_client = init_api_client()
-
-    api_client.get_song_lyrics("travis scott", "guidance")
 
     return "my music taste is dogwater, help me find new tracks"
 
