@@ -37,7 +37,7 @@ def profilePage():
     user_info = request_data["user_info"]
     username = user_info["display_name"]
     followers = user_info["followers"]["total"]
-    spotify_link = user_info["external_urls"]["spotify"]
+
     
     if len(user_info["images"]) == 0:
         profile_pic = None
@@ -50,7 +50,7 @@ def profilePage():
     user_follow_info = request_data["following_info"]
     num_of_followed_artists = len(user_follow_info['artists']['items'])
 
-    return render_template("profile.html", username = username, followers = followers, link = spotify_link, pic = profile_pic, playlists = num_of_playlists, follows=num_of_followed_artists)
+    return render_template("profile.html", username = username, followers = followers, pic = profile_pic, playlists = num_of_playlists, follows=num_of_followed_artists)
     
 @app.route("/music")
 def myMusic():
@@ -144,9 +144,14 @@ def analytics():
     data_client = DataClient(api_client, session.get('time_frame'))
     
     #popularity info
+    track_popularity = data_client.get_user_avg_popularity("tracks")
+    spotify_track_popularity = data_client.get_spotify_charts_avg_popularity()['track']
+    artist_popularity = data_client.get_user_avg_popularity("artists")
+    spotify_artist_popularity = data_client.get_spotify_charts_avg_popularity()['artist']
+
     popularity_graph_labels = ["Popularity of your Top Songs", "Popularity of Top Songs in 2020", "Popularity of your Top Artists", "Popularity of Top Artists in 2020"]
-    popularity_data = [data_client.get_user_avg_popularity("tracks"), data_client.get_spotify_charts_avg_popularity()['track'], data_client.get_user_avg_popularity("artists"), data_client.get_spotify_charts_avg_popularity()['artist']] 
- #
+    popularity_data = [track_popularity, spotify_track_popularity, artist_popularity, spotify_artist_popularity] 
+ 
     #audio features info
     user_avg_features = data_client.get_user_top_avg_audio_features(cols)
     spotify_avg_features = data_client.get_spotify_charts_avg_features(cols)  #audio features info
@@ -156,9 +161,11 @@ def analytics():
 
     #percentages
     audio_feature_similarities = data_client.get_similarity_between_features(user_avg_features, spotify_avg_features)
-    print(audio_feature_similarities)
+    track_popularity_similarities = data_client.get_similarity_between_features([track_popularity], [spotify_track_popularity])
+    artist_popularity_similarities = data_client.get_similarity_between_features([artist_popularity], [spotify_artist_popularity])
 
-    return render_template('analytics.html', time=session.get("time_frame"), user_avg_features=user_avg_features, top_avg_features=spotify_avg_features, pop_labels=popularity_graph_labels, pop_data=popularity_data, genres=user_top_genres, sim=audio_feature_similarities, cols=cols, zip=zip)
+    basic_score = round((audio_feature_similarities + track_popularity_similarities + artist_popularity_similarities) / 3)
+    return render_template('analytics.html', time=session.get("time_frame"), user_avg_features=user_avg_features, top_avg_features=spotify_avg_features, pop_labels=popularity_graph_labels, pop_data=popularity_data, genres=user_top_genres, score=basic_score, cols=cols, zip=zip)
 
 @app.route("/new")
 def new():

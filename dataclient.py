@@ -77,9 +77,9 @@ class DataClient():
 
     def get_similarity_between_features(self, user, spotify):
 
-        percent_list = [round(((min(item1, item2) / max(item1,item2)) * 100), 2) for item1, item2 in zip(user, spotify)]
+        percent_list = [(((min(item1, item2) / max(item1,item2)) * 100)) for item1, item2 in zip(user, spotify)]
         
-        return percent_list
+        return round(statistics.mean(percent_list))
 
 #useful functions
 def get_user_top_data(data):

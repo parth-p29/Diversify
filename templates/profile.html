@@ -11,7 +11,7 @@
 {% block content %}
     <main>
         <div id="profile">
-            <a href="{{link}}"><h1>{{username}}</h1></a>
+            <h1>{{username}}</h1>
 
             {% if pic == None %}
             <img src="{{url_for('static', filename='photos/defaultpic.png')}}"/>

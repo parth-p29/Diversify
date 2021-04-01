@@ -51,36 +51,18 @@
         <hr>
 
         <div class="similarity-scores">
-
-            <h3 class="title">Similarity of Your Stats with Everyone Else</h3>
+            <h3 class="title" title="A Score representing how 'basic' your music taste is. The lower the better.">Your Basic Score</h3>
 
             <div class="facts">
-                {% for data, col in zip(sim, cols) %} 
-                    <div class="s">
-                        <h3 class='fact'>{{data}}% Match</h3>
-                        <h3>{{col}}</h3>
+                 
+                    <div class="s" title="A Score representing how 'basic' your music taste is. The lower the better.">
+                        <h3 class='fact'>{{score}}</h3>
                     </div>
-                {% endfor %}
             </div>
-            <!-- <div class="facts">
-                <div class="group">
-                    <h3 class='fact'>{{p}}%</h3>
-                    <h3>Popularity</h3>
-                </div>
 
-                <div class="group">
-                    <h3 class='fact'>{{t}}</h3>
-                    <h3>Tempo (BPM)</h3>
-                </div>
-
-                <div class="group">
-                    <h3 class='fact'>{{l}}</h3>
-                    <h3>Loudness (-dB)</h3>
-                </div>
-            </div> -->
-
-
-
+            <div class="caption">
+                <p>Analyzing all your Spotify data, this score generally represents your music taste. The higher it is, the more "basic" your music.</p>
+            </div>
         </div>
 
     </div>

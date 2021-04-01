@@ -41,15 +41,6 @@
     margin-top: 80px;
 }
 
-/* .facts{
-    margin-top: 35px;
-    color: rgb(175, 175, 175);
-    font-size: 14px;
-    opacity: 80%;
-    display: flex;
-    justify-content: center;
-} */
-
 .facts{
     margin-top: 15px;
     font-size: 14px;
@@ -75,15 +66,27 @@
 .group{
     display: flex;
 }
+.similarity-scores{
+    margin-bottom: 80px;
+}
 
 .s{
-    margin: 10px 20px 10px 20px;
-    color: rgb(175, 175, 175);
+    margin: 10px 20px 50px 20px;
+    border: 0.5px solid ghostwhite;
+    border-radius: 50%;
+    padding: 20px;
 }
 
 hr{
     border: 0.5px solid ghostwhite;
     opacity: 0.7;
     margin: 70px 200px 80px 200px;
+}
+
+.caption{
+    color: rgb(175, 175, 175);
+    width: 40%;
+    margin: auto;
+    text-align: center;
 }
 
