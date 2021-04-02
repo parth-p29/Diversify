@@ -145,20 +145,50 @@ class SpotifyApiClient():
 
     def get_track_recommendations(self, limit, seeds, audio_features, popularity):
         
-        seed_query = f"/recommendations?limit={limit}&seed_artists={seeds['artist']}&seed_tracks={seeds['track']}&seed_genres={seeds['genre']}&"
-        popularity_query = f"target_popularity{popularity}&"
-        features_query = f"target_danceability={audio_features[0]}&target_energy={audio_features[1]}&target_instrumentalness={audio_features[5]}&target_valence={audio_features[4]}&target_acousticness={audio_features[2]}&target_speechiness={audio_features[3]}"
-        
+        seed_query = f"/recommendations?limit={limit}&seed_artists={seeds['artist']}&seed_tracks={seeds['track']}&seed_genres={seeds['genre']}"
+        features_query = f"&target_danceability={audio_features[0]}&target_energy={audio_features[1]}&target_instrumentalness={audio_features[5]}&target_valence={audio_features[4]}&target_acousticness={audio_features[2]}&target_speechiness={audio_features[3]}"
+        popularity_query = f"&target_popularity={round(popularity)}"
         url = self.API_BASE_URL + seed_query + popularity_query + features_query
-        get = requests.get(url, headers=self.auth_body)
+
+        try:
+            get = requests.get(url, headers=self.auth_body)
+        
+        except:
+            get = retry_call(requests.get, fargs=[url, self.auth_body])
+        
         data = json.loads(get.text)
 
-        print(data['tracks'][0]["name"])
+        data_dict = {}
 
-    def get_artist_recommendations(self, limit, tracks, artists, audio_features, popularity, genres):
+        for idx in range(limit):
+
+            data_dict[idx] = {}
+            data_dict[idx]['name'] = data['tracks'][idx]["name"]
+            data_dict[idx]['id'] = data['tracks'][idx]["id"]
+            data_dict[idx]["image"] = data['tracks'][idx]["album"]["images"][1]["url"]  #track cover image
+            data_dict[idx]["trackartistname"] = data['tracks'][idx]["album"]['artists'][0]['name'] #artist who released track
+            data_dict[idx]["trackalbumname"] = data['tracks'][idx]["album"]['name'] #album the track is in
+
+        return get_user_top_data(data_dict)
+
+    def get_artist_recommendations(self, artist_id):
         
-        query = f"/recommendations?limit={limit}&seed_artists={artists}&seed_tracks={tracks}&seed_genres={genres}"
-        url = self.API_BASE_URL
-
-
+        url = self.API_BASE_URL + f"/artists/{artist_id}/related-artists"
+        get = requests.get(url, headers=self.auth_body)
+        data = json.loads(get.text)
         
+        limit = 10
+        data_dict = {}
+
+        if len(data['artists']) < limit:
+
+            limit = len(data['artists'])
+
+        for idx in range(limit):
+
+            data_dict[idx] = {}
+            data_dict[idx]['name'] = data['artists'][idx]['name']
+            data_dict[idx]['id'] = data['artists'][idx]['id']
+            data_dict[idx]['image'] = data['artists'][idx]['images'][1]['url']
+
+        return get_user_top_data(data_dict)

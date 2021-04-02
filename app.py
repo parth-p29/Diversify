@@ -178,7 +178,23 @@ def new():
     seeds = data_client.get_recommendation_seeds()
     user_audio_features = data_client.get_user_top_avg_audio_features(cols)
     user_popularity = data_client.get_user_avg_popularity("tracks")
-    get_recommended_tracks = api_client.get_track_recommendations(10, seeds, user_audio_features, user_popularity)
+
+    #tracks
+    get_recommended_tracks_info = api_client.get_track_recommendations(10, seeds, user_audio_features, user_popularity)
+    track_names = get_recommended_tracks_info['name']
+    track_ids = get_recommended_tracks_info['id']
+    track_image = get_recommended_tracks_info['image']
+    track_artist = get_recommended_tracks_info['trackartistname']
+    track_album = get_recommended_tracks_info['trackalbumname']
+
+    #artists
+    get_recommended_artists_info = api_client.get_artist_recommendations(seeds['artist'])
+    artist_name = get_recommended_artists_info['name']
+    artist_id = get_recommended_artists_info['id']
+    artist_image = get_recommended_artists_info['image']
+
+    print(f"{track_names} - {track_artist}")
+
 
 
     return render_template('recommendations.html')

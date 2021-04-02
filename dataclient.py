@@ -90,7 +90,7 @@ class DataClient():
         
         output_dict = lambda **data: data
 
-        random_track = self.ids['tracks'][random.randint(0,35)]
+        random_track = self.ids['tracks'][random.randint(0,10)]
         random_artist = self.ids['artists'][random.randint(0,10)]
         random_genre = self.get_user_top_genres()[random.randint(0,4)]
 
