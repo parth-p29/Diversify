@@ -1,5 +1,6 @@
 import requests, json
 from dataclient import *
+from retry.api import retry_call
 
 class SpotifyApiClient():
 
@@ -141,5 +142,23 @@ class SpotifyApiClient():
         lyrics = data['lyrics'].replace("\n","<br>")
      
         return lyrics
+
+    def get_track_recommendations(self, limit, seeds, audio_features, popularity):
+        
+        seed_query = f"/recommendations?limit={limit}&seed_artists={seeds['artist']}&seed_tracks={seeds['track']}&seed_genres={seeds['genre']}&"
+        popularity_query = f"target_popularity{popularity}&"
+        features_query = f"target_danceability={audio_features[0]}&target_energy={audio_features[1]}&target_instrumentalness={audio_features[5]}&target_valence={audio_features[4]}&target_acousticness={audio_features[2]}&target_speechiness={audio_features[3]}"
+        
+        url = self.API_BASE_URL + seed_query + popularity_query + features_query
+        get = requests.get(url, headers=self.auth_body)
+        data = json.loads(get.text)
+
+        print(data['tracks'][0]["name"])
+
+    def get_artist_recommendations(self, limit, tracks, artists, audio_features, popularity, genres):
+        
+        query = f"/recommendations?limit={limit}&seed_artists={artists}&seed_tracks={tracks}&seed_genres={genres}"
+        url = self.API_BASE_URL
+
 
         

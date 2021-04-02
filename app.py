@@ -163,14 +163,25 @@ def analytics():
     audio_feature_similarities = data_client.get_similarity_between_features(user_avg_features, spotify_avg_features)
     track_popularity_similarities = data_client.get_similarity_between_features([track_popularity], [spotify_track_popularity])
     artist_popularity_similarities = data_client.get_similarity_between_features([artist_popularity], [spotify_artist_popularity])
-
     basic_score = round((audio_feature_similarities + track_popularity_similarities + artist_popularity_similarities) / 3)
+    
     return render_template('analytics.html', time=session.get("time_frame"), user_avg_features=user_avg_features, top_avg_features=spotify_avg_features, pop_labels=popularity_graph_labels, pop_data=popularity_data, genres=user_top_genres, score=basic_score, cols=cols, zip=zip)
 
 @app.route("/new")
 def new():
 
-    return "my music taste is dogwater, help me find new tracks"
+    api_client = init_api_client()
+    data_client = DataClient(api_client, session.get('time_frame'))
+    cols = ['Danceability', 'Energy', 'Acousticness', 'Speechiness', 'Valence', 'Instrumentalness']
+
+    #tracks
+    seeds = data_client.get_recommendation_seeds()
+    user_audio_features = data_client.get_user_top_avg_audio_features(cols)
+    user_popularity = data_client.get_user_avg_popularity("tracks")
+    get_recommended_tracks = api_client.get_track_recommendations(10, seeds, user_audio_features, user_popularity)
+
+
+    return render_template('recommendations.html')
 
 def init_api_client(): 
     
