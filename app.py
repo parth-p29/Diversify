@@ -163,7 +163,9 @@ def analytics():
     audio_feature_similarities = data_client.get_similarity_between_features(user_avg_features, spotify_avg_features)
     track_popularity_similarities = data_client.get_similarity_between_features([track_popularity], [spotify_track_popularity])
     artist_popularity_similarities = data_client.get_similarity_between_features([artist_popularity], [spotify_artist_popularity])
-    basic_score = round((audio_feature_similarities + track_popularity_similarities + artist_popularity_similarities) / 3)
+    song_occurence = data_client.get_number_of_same_songs_percentage()
+
+    basic_score = round(((audio_feature_similarities) + track_popularity_similarities + (artist_popularity_similarities) + song_occurence) / 4)
     
     return render_template('analytics.html', time=session.get("time_frame"), user_avg_features=user_avg_features, top_avg_features=spotify_avg_features, pop_labels=popularity_graph_labels, pop_data=popularity_data, genres=user_top_genres, score=basic_score, cols=cols, zip=zip)
 

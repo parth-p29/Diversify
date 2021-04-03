@@ -3,7 +3,6 @@ from retry.api import retry_call
 import statistics, random
 from collections import Counter
 
-
 class DataClient():
 
     def __init__(self, api_client, time_frame):
@@ -85,6 +84,22 @@ class DataClient():
         percent_list = [(((min(item1, item2) / max(item1,item2)) * 100)) for item1, item2 in zip(user, spotify)]
         
         return round(statistics.mean(percent_list))
+
+    def get_number_of_same_songs_percentage(self):
+
+        user_songs = self.ids['tracks']
+        spotify_songs = self.spotify_dataset['track_id'].to_list()
+
+        occurence = 0
+
+        for song in user_songs:
+
+            if song in spotify_songs:
+                
+                occurence += 1
+
+        return round((occurence/50) * 100, 4)
+
 
     def get_recommendation_seeds(self):
         

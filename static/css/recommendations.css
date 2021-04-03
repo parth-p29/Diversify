@@ -71,3 +71,21 @@ p{
     margin-top:100px;
     text-align: center;
 }
+
+.slider {
+    -webkit-appearance: none;
+    width: 30%;
+    height: 10px;
+    border-radius: 10px;
+    margin: 20px 0px 50px 0px;
+  }
+
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 23px;
+    height: 23px;
+    background: #1DB954;
+    cursor: pointer;
+    border-radius: 50%;
+  }
