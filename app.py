@@ -184,20 +184,17 @@ def new():
     track_names = get_recommended_tracks_info['name']
     track_ids = get_recommended_tracks_info['id']
     track_image = get_recommended_tracks_info['image']
-    track_artist = get_recommended_tracks_info['trackartistname']
-    track_album = get_recommended_tracks_info['trackalbumname']
+    track_artists = get_recommended_tracks_info['trackartistname']
+    track_albums = get_recommended_tracks_info['trackalbumname']
 
     #artists
     get_recommended_artists_info = api_client.get_artist_recommendations(seeds['artist'])
-    artist_name = get_recommended_artists_info['name']
-    artist_id = get_recommended_artists_info['id']
-    artist_image = get_recommended_artists_info['image']
-
-    print(f"{track_names} - {track_artist}")
+    artist_names = get_recommended_artists_info['name']
+    artist_ids = get_recommended_artists_info['id']
+    artist_images = get_recommended_artists_info['image']
 
 
-
-    return render_template('recommendations.html')
+    return render_template('recommendations.html', t_names=track_names, t_ids=track_ids, t_images=track_image, t_artists=track_artists, t_albums=track_albums, a_names=artist_names, a_ids=artist_ids, a_images=artist_images, zip=zip)
 
 def init_api_client(): 
     
