@@ -195,8 +195,10 @@ def new():
     artist_ids = get_recommended_artists_info['id']
     artist_images = get_recommended_artists_info['image']
 
+    #user created recommendations
 
-    return render_template('recommendations.html', t_names=track_names, t_ids=track_ids, t_images=track_image, t_artists=track_artists, t_albums=track_albums, a_names=artist_names, a_ids=artist_ids, a_images=artist_images, zip=zip)
+
+    return render_template('recommendations.html', t_names=track_names, cols=cols, t_ids=track_ids, t_images=track_image, t_artists=track_artists, t_albums=track_albums, a_names=artist_names, a_ids=artist_ids, a_images=artist_images, zip=zip)
 
 def init_api_client(): 
     
