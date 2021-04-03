@@ -167,7 +167,7 @@ def analytics():
     
     return render_template('analytics.html', time=session.get("time_frame"), user_avg_features=user_avg_features, top_avg_features=spotify_avg_features, pop_labels=popularity_graph_labels, pop_data=popularity_data, genres=user_top_genres, score=basic_score, cols=cols, zip=zip)
 
-@app.route("/new")
+@app.route("/new", methods=['POST', 'GET'])
 def new():
 
     api_client = init_api_client()

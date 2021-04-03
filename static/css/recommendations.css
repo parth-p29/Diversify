@@ -66,3 +66,8 @@ p{
     opacity: 80%;
     font-family: 'Proxima Nova Th';
 }
+
+.form{
+    margin-top:100px;
+    text-align: center;
+}
