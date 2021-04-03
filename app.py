@@ -198,7 +198,12 @@ def new():
     #user created recommendations
 
     if request.method == "POST":
-        print(request.form['Danceability'])
+        
+        user_inputed_popularity = request.form['pop']
+        user_inputed_audio_features = [request.form['Danceability'], request.form['Energy'], request.form['Acousticness'], request.form['Speechiness'], request.form['Valence'], request.form['Instrumentalness']]
+
+        more_tracks = api_client.get_track_recommendations(10, seeds, user_inputed_audio_features, user_inputed_popularity)
+        
 
 
     return render_template('recommendations.html', t_names=track_names, cols=cols, t_ids=track_ids, t_images=track_image, t_artists=track_artists, t_albums=track_albums, a_names=artist_names, a_ids=artist_ids, a_images=artist_images, zip=zip)
