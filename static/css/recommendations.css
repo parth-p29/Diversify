@@ -78,9 +78,10 @@ p{
     height: 10px;
     border-radius: 10px;
     margin: 13px 0px 40px 0px;
-  }
+    background-color: ghostwhite;
+}
 
-  .slider::-webkit-slider-thumb {
+.slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
     width: 23px;
@@ -88,4 +89,8 @@ p{
     background: #1DB954;
     cursor: pointer;
     border-radius: 50%;
-  }
+}
+
+.slider-title span{
+    color: #1DB954;
+}

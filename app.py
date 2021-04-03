@@ -197,6 +197,9 @@ def new():
 
     #user created recommendations
 
+    if request.method == "POST":
+        print(request.form['Danceability'])
+
 
     return render_template('recommendations.html', t_names=track_names, cols=cols, t_ids=track_ids, t_images=track_image, t_artists=track_artists, t_albums=track_albums, a_names=artist_names, a_ids=artist_ids, a_images=artist_images, zip=zip)
 

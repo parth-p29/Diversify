@@ -174,7 +174,13 @@ class SpotifyApiClient():
     def get_artist_recommendations(self, artist_id):
         
         url = self.API_BASE_URL + f"/artists/{artist_id}/related-artists"
-        get = requests.get(url, headers=self.auth_body)
+
+        try:
+            get = requests.get(url, headers=self.auth_body)
+        
+        except:
+            get = retry_call(requests.get, fargs=[url, self.auth_body])
+            
         data = json.loads(get.text)
         
         limit = 10
