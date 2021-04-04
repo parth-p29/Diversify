@@ -11,11 +11,9 @@
 {% block content %}
     <div class="top">
         <div id="time-selector">
-
             <a href="/change-time/short_term"><h4 id="short">Recent</h4></a>
             <a href="/change-time/medium_term"><h4 id="medium">6 Months</h4></a>
             <a href="/change-time/long_term"><h4 id="long">All Time</h4></a>
-
             {% if time == "short_term" %}
                 <style>#short{color: #1DB954}</style>
             {% elif time == "medium_term" %}
@@ -23,13 +21,11 @@
             {% else %}
                 <style>#long{color: #1DB954}</style>
             {% endif %}
-
         </div>
 
         <div id="songs-artists">
             <div class="content c">
                 <h3>Top Tracks</h3>
-
                 {% for song, s_cover, s_artist, s_album, id in zip(songs, song_covers, song_artists, song_albums, song_ids) %}
                     <div class="tracks">
                         <div class="cover">
@@ -42,12 +38,10 @@
                         </div>
                     </div>
                 {%endfor%}
-            
             </div>
 
             <div class="content a">
                 <h3>Top Artists</h3>
-
                 {% for artist, a_cover, id in zip(artists, artist_covers, artist_ids) %}
                 <div class="artists">
                     <div class="cover">
@@ -59,7 +53,6 @@
                     </div>
                 </div>
                 {%endfor%}
-
             </div>
         </div>
 

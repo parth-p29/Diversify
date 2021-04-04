@@ -66,12 +66,10 @@ p{
     opacity: 80%;
     font-family: 'Proxima Nova Th';
 }
-
 .form{
     margin-top:100px;
     text-align: center;
 }
-
 .slider {
     -webkit-appearance: none;
     width: 30%;
@@ -80,7 +78,6 @@ p{
     margin: 13px 0px 40px 0px;
     background-color: ghostwhite;
 }
-
 .slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
@@ -94,7 +91,6 @@ p{
 .slider-title span{
     color: #1DB954;
 }
-
 .submit input{
     padding: 10px;
     color: ghostwhite;

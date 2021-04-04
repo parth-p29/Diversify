@@ -22,17 +22,14 @@ body{
     position: absolute;
     top:12%;
     text-align: center;
-    max-width: 35%;
-    height: 55vh;
 }
 #title-box input {
-    margin:45px;
+    margin:45px 0px 45px 0px;
     border: 0px solid transparent;
     padding: 10px 15px 10px 15px;
     border-radius: 200px;
     background-color: #1DB954;
     color:ghostwhite;
-    transition: box-shadow 0.5s ease;
     font-family: 'Proxima Nova Alt Rg';
 }
 #title-box input:hover{
@@ -40,23 +37,20 @@ body{
 }
 #title-box h1{
     font-size: 40px;
-    margin-bottom: 30px;
+    margin-bottom: 45px;
 }
 #title-box .gif img{
-    width:340px;
-    height: 280px;
+    width:60%;
+    height: 40%;
 }
-#title-box img{
+#title-box #logo img{
     width:80px;
     height:80px;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
 }
-
 .creds a{
     text-decoration: none;
     color: rgb(175, 175, 175);
     opacity: 55%;
     font-size: 12px;
 }
-
-

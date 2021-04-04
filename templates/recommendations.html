@@ -13,7 +13,6 @@
         <div id="songs-artists">
             <div class="content c">
                 <h3>Recommended Tracks</h3>
-
                 {% for song, s_cover, s_artist, s_album, id in zip(t_names, t_images, t_artists, t_albums, t_ids) %}
                     <div class="tracks">
                         <div class="cover">
@@ -27,10 +26,8 @@
                     </div>
                 {%endfor%}
             </div>
-
             <div class="content a">
                 <h3>Recommended Artists</h3>
-
                 {% for artist, a_cover, id in zip(a_names, a_images, a_ids) %}
                     <div class="artists">
                         <div class="cover">
@@ -44,15 +41,11 @@
                 {%endfor%}
             </div>
         </div>
-
         <div class="form">
-
             <div class="title">
                 <h3>Create your own Recommendations</h3>
             </div>
-
             <form action='/new' method="POST">
-                
                 <div class="slider-container">
                     <div class="slider-title">
                         <p>Popularity: &nbsp;<span id="value"></span></p>
@@ -61,7 +54,6 @@
                         <input type="range" class="slider" min="0" max="100" step="1.0" value="0" name="pop" id="pop">
                     </div>
                 </div>
-
                 {% for name in cols %}
                     <div class="slider-container">
                         <div class="slider-title">
@@ -72,13 +64,10 @@
                         </div>
                     </div>
                 {% endfor %}
-
                 <div class="submit">
                     <input type="submit" id="button" name="slide-submit" value="Create Playlist" onclick="alert('A new playlist with the name of \'Recommendations\' is created in your Spotify account with the new songs. Enjoy!')">
                 </div>
-
             </form>
-
             <script src="{{ url_for('static', filename='js/slider.js')}}"></script>
         </div>
     </div>

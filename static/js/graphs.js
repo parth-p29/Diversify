@@ -121,9 +121,7 @@ function radar_graph(user_data, spotify_data){
                     }
                 }
             }
-
         }
-
     });
 }
 
@@ -146,6 +144,5 @@ function doughnut_graph(data1, data2, data3, id){
 
         // Configuration options go here
         options: {}
-});
-
+    });
 }

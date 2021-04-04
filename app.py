@@ -25,6 +25,7 @@ def redirectPage():
     session['oauth_info'] = auth_info
     session['start_time'] = int(time.time())
     session['time_frame'] = "short_term"
+    session['cols'] = ['Danceability', 'Energy', 'Acousticness', 'Speechiness', 'Valence', 'Instrumentalness']
 
     return redirect(url_for('profilePage', _external=True))
 
@@ -93,7 +94,7 @@ def info(id):
         track_name = track_info['name']
         track_artist = track_info['artist']
         song_lyrics = api_client.get_song_lyrics(track_artist, track_name)
-        
+
         sentiment = lyrics_analyzer.sentiment_analysis(song_lyrics)
         song_overall_sentiment = sentiment['overall']
         song_positive_score = sentiment['positive']
@@ -114,9 +115,8 @@ def info(id):
         track_popularity = track_info['popularity']
         tempo = audio_info['tempo']
         loudness = audio_info['loudness']
-        labels = ['Danceability', 'Energy', 'Acousticness', 'Speechiness', 'Valence', 'Instrumentalness']
 
-        return render_template('info.html', t=tempo, l=loudness, id=track_id, p=track_popularity, labels=labels, data=audio_features, type=info_type, lyrics=song_lyrics, overall=song_overall_sentiment, positive=song_positive_score, negative=song_negative_score, neutral=song_neutral_score )
+        return render_template('info.html', t=tempo, l=loudness, id=track_id, p=track_popularity, labels=session.get('cols'), data=audio_features, type=info_type, lyrics=song_lyrics, overall=song_overall_sentiment, positive=song_positive_score, negative=song_negative_score, neutral=song_neutral_score )
 
     else:
         artist_id = id[:-1]
@@ -139,10 +139,15 @@ def more():
 @app.route("/analytics")
 def analytics():
 
-    api_client = init_api_client()
-    cols = ['Danceability', 'Energy', 'Acousticness', 'Speechiness', 'Valence', 'Instrumentalness']
-    data_client = DataClient(api_client, session.get('time_frame'))
-    
+    try:
+        api_client = init_api_client()
+        data_client = DataClient(api_client, session.get('time_frame'))
+
+    except:
+        return error_page("Sorry, seems like your account is new and I can't access your music data :(")
+
+    cols = session.get('cols')
+
     #popularity info
     track_popularity = data_client.get_user_avg_popularity("tracks")
     spotify_track_popularity = data_client.get_spotify_charts_avg_popularity()['track']
@@ -179,7 +184,7 @@ def new():
     except:
         return error_page("Sorry, seems like your account is new and I can't access your music data :(")
 
-    cols = ['Danceability', 'Energy', 'Acousticness', 'Speechiness', 'Valence', 'Instrumentalness']
+    cols = session.get('cols')
 
     #user info
     user_id = api_client.get_user_info()['user_info']['id']
