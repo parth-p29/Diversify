@@ -102,7 +102,6 @@ class DataClient():
 
         return round((occurence/50) * 100, 4)
 
-
     def get_recommendation_seeds(self):
         
         output_dict = lambda **data: data
@@ -112,7 +111,6 @@ class DataClient():
         random_genre = self.get_user_top_genres()[random.randint(0,4)]
 
         return output_dict(track=random_track, artist=random_artist, genre=random_genre)
-
 
 #useful functions
 def get_user_top_data(data):

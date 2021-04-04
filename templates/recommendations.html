@@ -74,19 +74,10 @@
                 {% endfor %}
 
                 <div class="submit">
-                    <input type="submit" name="slide-submit" value="Create">
+                    <input type="submit" id="button" name="slide-submit" value="Create Playlist">
                 </div>
 
             </form>
-
-            <div class="user-output">
-
-                {% for name in n_names %}
-                    <h2>{{name}}</h2>
-                {% endfor %}
-
-
-            </div>
 
             <script src="{{ url_for('static', filename='js/slider.js')}}"></script>
         </div>

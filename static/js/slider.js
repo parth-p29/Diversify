@@ -14,6 +14,8 @@ var speech_output = document.getElementById("slider-value-Speechiness");
 var val_output = document.getElementById("slider-value-Valence");
 var instru_output = document.getElementById("slider-value-Instrumentalness");
 
+var button = document.getElementById('button');
+
 pop_output.innerHTML = pop_slider.value;
 dance_output.innerHTML = dance_slider.value;
 energy_output.innerHTML = dance_slider.value;
@@ -48,5 +50,10 @@ val_slider.oninput = function() {
 
 instru_slider.oninput = function() {
     instru_output.innerHTML = this.value;
+}
+
+button.onclick = () => {
+
+    alert("A new playlist with the name of 'Recommendations' is created in your Spotify account with the new songs. Enjoy!")
 }
 

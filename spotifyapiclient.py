@@ -148,15 +148,11 @@ class SpotifyApiClient():
         seed_query = f"/recommendations?limit={limit}&seed_artists={seeds['artist']}&seed_tracks={seeds['track']}&seed_genres={seeds['genre']}"
         features_query = f"&target_danceability={audio_features[0]}&target_energy={audio_features[1]}&target_instrumentalness={audio_features[5]}&target_valence={audio_features[4]}&target_acousticness={audio_features[2]}&target_speechiness={audio_features[3]}"
         popularity_query = f"&target_popularity={round(popularity)}"
+        
         url = self.API_BASE_URL + seed_query + popularity_query + features_query
-
-        try:
-            get = requests.get(url, headers=self.auth_body)
-        
-        except:
-            get = retry_call(requests.get, fargs=[url, self.auth_body])
-        
-        data = json.loads(get.text)
+        get = retry_call(requests.get, fargs=[url], fkwargs={"headers":self.auth_body})
+        data = retry_call(json.loads, fargs=[get.text])
+        #data = json.loads(get.text)
 
         data_dict = {}
 
@@ -174,14 +170,9 @@ class SpotifyApiClient():
     def get_artist_recommendations(self, artist_id):
         
         url = self.API_BASE_URL + f"/artists/{artist_id}/related-artists"
-
-        try:
-            get = requests.get(url, headers=self.auth_body)
-        
-        except:
-            get = retry_call(requests.get, fargs=[url, self.auth_body])
-
-        data = json.loads(get.text)
+        #get = retry_call(requests.get, fargs=[url], fkwargs={"headers":self.auth_body})
+        get = requests.get(url, headers=self.auth_body)
+        data = retry_call(json.loads, fargs=[get.text])
         
         limit = 10
         data_dict = {}
@@ -202,3 +193,14 @@ class SpotifyApiClient():
     def create_new_playlist(self, user_id):
 
         url = self.API_BASE_URL + f"/users/{user_id}/playlists"
+
+        request_body = {
+            "name": "Recommendations",
+            "description": "Your customized recommendations from Diversify!",
+            "public": False
+        }
+
+        post = requests.post(url, headers=self.auth_body, json=request_body)
+        data = json.loads(post.text)
+
+        return data

@@ -204,13 +204,15 @@ def new():
         user_inputed_audio_features = [float(request.form['Danceability']), float(request.form['Energy']), float(request.form['Acousticness']), float(request.form['Speechiness']), float(request.form['Valence']), float(request.form['Instrumentalness'])]
 
         more_tracks = api_client.get_track_recommendations(10, seeds, user_inputed_audio_features, user_inputed_popularity)
-        new_names = get_recommended_tracks_info['name']
-        new_ids = get_recommended_tracks_info['id']
-        new_images = get_recommended_tracks_info['image']
-        new_artists = get_recommended_tracks_info['trackartistname']
-        new_albums = get_recommended_tracks_info['trackalbumname']
+        new_names = more_tracks['name']
+        new_ids = more_tracks['id']
+        new_images = more_tracks['image']
+        new_artists = more_tracks['trackartistname']
+        new_albums = more_tracks['trackalbumname']
 
-        print(new_names)
+        get_new_playlist_id = api_client.create_new_playlist(user_id)['id']
+        print(create_playlist)
+
 
     return render_template('recommendations.html', t_names=track_names, cols=cols, t_ids=track_ids, t_images=track_image, t_artists=track_artists, t_albums=track_albums, a_names=artist_names, a_ids=artist_ids, a_images=artist_images, zip=zip)
 
