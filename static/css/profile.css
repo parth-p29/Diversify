@@ -47,3 +47,9 @@ main img{
     font-size: 14px;
     opacity: 80%;
 }
+@media screen and (max-width: 370px){
+    main img{
+        width: 180px;
+        height: 180px;
+    }
+}
