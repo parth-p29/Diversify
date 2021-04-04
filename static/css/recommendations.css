@@ -94,3 +94,12 @@ p{
 .slider-title span{
     color: #1DB954;
 }
+
+.submit input{
+    padding: 10px;
+    color: ghostwhite;
+    background-color: #181818;
+    border: 0.5px solid ghostwhite;
+    margin-bottom: 20px;
+    cursor: pointer;
+}

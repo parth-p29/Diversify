@@ -38,7 +38,6 @@ def profilePage():
     username = user_info["display_name"]
     followers = user_info["followers"]["total"]
 
-    
     if len(user_info["images"]) == 0:
         profile_pic = None
     else:
@@ -176,6 +175,9 @@ def new():
     data_client = DataClient(api_client, session.get('time_frame'))
     cols = ['Danceability', 'Energy', 'Acousticness', 'Speechiness', 'Valence', 'Instrumentalness']
 
+    #user info
+    user_id = api_client.get_user_info()['user_info']['id']
+
     #tracks
     seeds = data_client.get_recommendation_seeds()
     user_audio_features = data_client.get_user_top_avg_audio_features(cols)
@@ -196,15 +198,19 @@ def new():
     artist_images = get_recommended_artists_info['image']
 
     #user created recommendations
-
     if request.method == "POST":
         
-        user_inputed_popularity = request.form['pop']
-        user_inputed_audio_features = [request.form['Danceability'], request.form['Energy'], request.form['Acousticness'], request.form['Speechiness'], request.form['Valence'], request.form['Instrumentalness']]
+        user_inputed_popularity = int(request.form['pop'])
+        user_inputed_audio_features = [float(request.form['Danceability']), float(request.form['Energy']), float(request.form['Acousticness']), float(request.form['Speechiness']), float(request.form['Valence']), float(request.form['Instrumentalness'])]
 
         more_tracks = api_client.get_track_recommendations(10, seeds, user_inputed_audio_features, user_inputed_popularity)
-        
+        new_names = get_recommended_tracks_info['name']
+        new_ids = get_recommended_tracks_info['id']
+        new_images = get_recommended_tracks_info['image']
+        new_artists = get_recommended_tracks_info['trackartistname']
+        new_albums = get_recommended_tracks_info['trackalbumname']
 
+        print(new_names)
 
     return render_template('recommendations.html', t_names=track_names, cols=cols, t_ids=track_ids, t_images=track_image, t_artists=track_artists, t_albums=track_albums, a_names=artist_names, a_ids=artist_ids, a_images=artist_images, zip=zip)
 

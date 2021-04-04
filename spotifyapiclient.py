@@ -180,7 +180,7 @@ class SpotifyApiClient():
         
         except:
             get = retry_call(requests.get, fargs=[url, self.auth_body])
-            
+
         data = json.loads(get.text)
         
         limit = 10
@@ -198,3 +198,7 @@ class SpotifyApiClient():
             data_dict[idx]['image'] = data['artists'][idx]['images'][1]['url']
 
         return get_user_top_data(data_dict)
+
+    def create_new_playlist(self, user_id):
+
+        url = self.API_BASE_URL + f"/users/{user_id}/playlists"

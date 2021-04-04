@@ -64,16 +64,18 @@ class DataClient():
         
         genres = {}
         top_artist_genres = self.api_client.get_multiple_track_or_artist_info("artists", self.csv_ids['artists'], "genres")
-
+        weight = 0
         for artist_genres in top_artist_genres:
 
             for genre in artist_genres:
 
                 if genre in genres.keys():
-                    genres[genre] += 1
+                    genres[genre] += (0.9 * weight)
 
                 else:
-                    genres[genre] = 1
+                    genres[genre] = (0.9 * weight)
+            
+        weight += 1
 
         top_genres = dict(Counter(genres).most_common(5)) 
 
@@ -105,18 +107,16 @@ class DataClient():
         
         output_dict = lambda **data: data
 
-        random_track = self.ids['tracks'][random.randint(0,10)]
-        random_artist = self.ids['artists'][random.randint(0,10)]
+        random_track = self.ids['tracks'][random.randint(0,14)]
+        random_artist = self.ids['artists'][random.randint(0,14)]
         random_genre = self.get_user_top_genres()[random.randint(0,4)]
 
         return output_dict(track=random_track, artist=random_artist, genre=random_genre)
-
 
 
 #useful functions
 def get_user_top_data(data):
 
     df = pd.DataFrame(data.values())
-    ls = df.to_dict("list")
 
-    return ls
+    return df.to_dict("list")
