@@ -40,6 +40,7 @@ def profilePage():
 
     if len(user_info["images"]) == 0:
         profile_pic = None
+
     else:
         profile_pic = user_info["images"][0]["url"]
 
@@ -171,8 +172,13 @@ def analytics():
 @app.route("/new", methods=['POST', 'GET'])
 def new():
 
-    api_client = init_api_client()
-    data_client = DataClient(api_client, session.get('time_frame'))
+    try:
+        api_client = init_api_client()
+        data_client = DataClient(api_client, session.get('time_frame'))
+
+    except:
+        return error_page("Sorry, seems like your account is new and I can't access your music data :(")
+
     cols = ['Danceability', 'Energy', 'Acousticness', 'Speechiness', 'Valence', 'Instrumentalness']
 
     #user info
@@ -243,10 +249,10 @@ def configure_user_top(html_page, limit):
 
     try:
         user_top_tracks = api_client.get_user_top_info(limit, time_frame, "tracks")
-        user_top_artists = api_client.get_user_top_info(limit, time_frame, "atists")
+        user_top_artists = api_client.get_user_top_info(limit, time_frame, "artists")
 
     except:
-        return error_page("sorry")
+        return error_page("Sorry, seems like your account is new and I can't access your music data :(")
 
     songs = user_top_tracks['name']
     song_ids = user_top_tracks['id']

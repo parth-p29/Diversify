@@ -13,13 +13,15 @@
     font-family: 'Proxima Nova Alt Rg';
     background-color: #010101;
 }
-
 .error{
     text-align: center;
-    margin-top: 10%;
+    margin-top:8%;
 }
-
 .error img{
-    width: 55%;
-    height: 40%;
+    width: 40%;
+    height: 20%;
+}
+.error h3{
+    color: ghostwhite;
+    font-size: 15px;
 }
