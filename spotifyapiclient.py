@@ -13,7 +13,7 @@ class SpotifyApiClient():
 
     def get_user_info(self):
 
-        output_dict = lambda **data: data
+        output_dict = lambda **data: data #to format the returned data nicely and readable
 
         playlist_url = self.API_BASE_URL + "/me/playlists"
         followed_artist_url = self.API_BASE_URL + "/me/following?type=artist"
@@ -39,8 +39,8 @@ class SpotifyApiClient():
         for i in range(limit):
 
             data_dict[i] = {}
-            data_dict[i]['name'] = data['items'][i]["name"]
-            data_dict[i]['id'] = data['items'][i]["id"]
+            data_dict[i]['name'] = data['items'][i]["name"] #artist/track name
+            data_dict[i]['id'] = data['items'][i]["id"] #artist/track id
 
             if top_type == "tracks":
                 data_dict[i]["image"] = data['items'][i]["album"]["images"][1]["url"]  #track cover image
@@ -147,7 +147,7 @@ class SpotifyApiClient():
         
         seed_query = f"/recommendations?limit={limit}&seed_artists={seeds['artist']}&seed_tracks={seeds['track']}&seed_genres={seeds['genre']}"
         
-        if type == "post":
+        if type == "post":  #if this method is called from the post request, it will format the features differently
             features_query = "&"
             for element in audio_features:
                 features_query += f"{element[0]}={element[1]}&"
@@ -158,9 +158,9 @@ class SpotifyApiClient():
         popularity_query = f"&target_popularity={round(popularity)}"
         
         url = self.API_BASE_URL + seed_query + popularity_query + features_query
-        get = retry_call(requests.get, fargs=[url], fkwargs={"headers":self.auth_body})
+        get = requests.get(url, headers=self.auth_body)
         data = retry_call(json.loads, fargs=[get.text])
-        
+
         data_dict = {}
 
         for idx in range(limit):
@@ -183,7 +183,7 @@ class SpotifyApiClient():
         limit = 10
         data_dict = {}
 
-        if len(data['artists']) < limit:
+        if len(data['artists']) < limit: #just in case they're not enough artists returned
 
             limit = len(data['artists'])
 
@@ -215,5 +215,3 @@ class SpotifyApiClient():
 
         url = self.API_BASE_URL + f"/playlists/{playlist_id}/tracks?uris={csv_ids}"
         post = requests.post(url, headers=self.auth_body)
-
-        print(post.status_code)

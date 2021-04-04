@@ -1,0 +1,25 @@
+@font-face {
+    font-family: 'Proxima Nova Alt Rg';
+    src: url('fonts/ProximaNovaA-Bold.woff2') format('woff2'),
+        url('fonts/ProximaNovaA-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Proxima Nova Alt Rg';
+    background-color: #010101;
+}
+
+.error{
+    text-align: center;
+    margin-top: 10%;
+}
+
+.error img{
+    width: 55%;
+    height: 40%;
+}

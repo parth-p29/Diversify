@@ -1,5 +1,4 @@
-import requests
-import json
+import requests, json
 
 class SpotifyOauthClient():
 
