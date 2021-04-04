@@ -184,7 +184,7 @@ def new():
     user_popularity = data_client.get_user_avg_popularity("tracks")
 
     #tracks
-    get_recommended_tracks_info = api_client.get_track_recommendations(10, seeds, user_audio_features, user_popularity)
+    get_recommended_tracks_info = api_client.get_track_recommendations(10, seeds, user_audio_features, user_popularity, "normal")
     track_names = get_recommended_tracks_info['name']
     track_ids = get_recommended_tracks_info['id']
     track_image = get_recommended_tracks_info['image']
@@ -201,9 +201,9 @@ def new():
     if request.method == "POST":
         
         user_inputed_popularity = int(request.form['pop'])
-        user_inputed_audio_features = [float(request.form['Danceability']), float(request.form['Energy']), float(request.form['Acousticness']), float(request.form['Speechiness']), float(request.form['Valence']), float(request.form['Instrumentalness'])]
-
-        more_tracks = api_client.get_track_recommendations(10, seeds, user_inputed_audio_features, user_inputed_popularity)
+        user_inputed_audio_features = [[f"target_{col.lower()}", float(request.form[col])] for col in cols if float(request.form[col]) != 0.0]
+    
+        more_tracks = api_client.get_track_recommendations(50, seeds, user_inputed_audio_features, user_inputed_popularity, "post")
         new_names = more_tracks['name']
         new_ids = more_tracks['id']
         new_images = more_tracks['image']
@@ -211,8 +211,10 @@ def new():
         new_albums = more_tracks['trackalbumname']
 
         get_new_playlist_id = api_client.create_new_playlist(user_id)['id']
-        print(create_playlist)
+        modified_ids = ["spotify:track:" + track_id for track_id in new_ids]
+        csv_ids = ','.join(modified_ids)
 
+        api_client.add_items_to_playlist(get_new_playlist_id, csv_ids)
 
     return render_template('recommendations.html', t_names=track_names, cols=cols, t_ids=track_ids, t_images=track_image, t_artists=track_artists, t_albums=track_albums, a_names=artist_names, a_ids=artist_ids, a_images=artist_images, zip=zip)
 

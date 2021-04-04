@@ -51,9 +51,3 @@ val_slider.oninput = function() {
 instru_slider.oninput = function() {
     instru_output.innerHTML = this.value;
 }
-
-button.onclick = () => {
-
-    alert("A new playlist with the name of 'Recommendations' is created in your Spotify account with the new songs. Enjoy!")
-}
-

@@ -55,26 +55,26 @@
                 
                 <div class="slider-container">
                     <div class="slider-title">
-                        <p>Popularity: <span id="value"></span></p>
+                        <p>Popularity: &nbsp;<span id="value"></span></p>
                     </div>
                     <div class="slide">
-                        <input type="range" class="slider" min="0.0" max="100.0" step="1.0" value="50.0" name="pop" id="pop">
+                        <input type="range" class="slider" min="0" max="100" step="1.0" value="0" name="pop" id="pop">
                     </div>
                 </div>
 
                 {% for name in cols %}
                     <div class="slider-container">
                         <div class="slider-title">
-                            <p>{{name}}: <span id="slider-value-{{name}}"></span></p>
+                            <p>{{name}}: &nbsp;<span id="slider-value-{{name}}"></span></p>
                         </div>
                         <div class="slide">
-                            <input type="range" class="slider" min="0" max="1.0" step="0.01" value="0.5" name="{{name}}" id="{{name}}">
+                            <input type="range" class="slider" min="0" max="1.0" step="0.01" value="0.0" name="{{name}}" id="{{name}}">
                         </div>
                     </div>
                 {% endfor %}
 
                 <div class="submit">
-                    <input type="submit" id="button" name="slide-submit" value="Create Playlist">
+                    <input type="submit" id="button" name="slide-submit" value="Create Playlist" onclick="alert('A new playlist with the name of \'Recommendations\' is created in your Spotify account with the new songs. Enjoy!')">
                 </div>
 
             </form>

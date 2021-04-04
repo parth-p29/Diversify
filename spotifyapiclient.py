@@ -143,17 +143,24 @@ class SpotifyApiClient():
      
         return lyrics
 
-    def get_track_recommendations(self, limit, seeds, audio_features, popularity):
+    def get_track_recommendations(self, limit, seeds, audio_features, popularity, type):
         
         seed_query = f"/recommendations?limit={limit}&seed_artists={seeds['artist']}&seed_tracks={seeds['track']}&seed_genres={seeds['genre']}"
-        features_query = f"&target_danceability={audio_features[0]}&target_energy={audio_features[1]}&target_instrumentalness={audio_features[5]}&target_valence={audio_features[4]}&target_acousticness={audio_features[2]}&target_speechiness={audio_features[3]}"
+        
+        if type == "post":
+            features_query = "&"
+            for element in audio_features:
+                features_query += f"{element[0]}={element[1]}&"
+
+        else:
+            features_query = f"&target_danceability={audio_features[0]}&target_energy={audio_features[1]}&target_instrumentalness={audio_features[5]}&target_valence={audio_features[4]}&target_acousticness={audio_features[2]}&target_speechiness={audio_features[3]}"
+        
         popularity_query = f"&target_popularity={round(popularity)}"
         
         url = self.API_BASE_URL + seed_query + popularity_query + features_query
         get = retry_call(requests.get, fargs=[url], fkwargs={"headers":self.auth_body})
         data = retry_call(json.loads, fargs=[get.text])
-        #data = json.loads(get.text)
-
+        
         data_dict = {}
 
         for idx in range(limit):
@@ -170,7 +177,6 @@ class SpotifyApiClient():
     def get_artist_recommendations(self, artist_id):
         
         url = self.API_BASE_URL + f"/artists/{artist_id}/related-artists"
-        #get = retry_call(requests.get, fargs=[url], fkwargs={"headers":self.auth_body})
         get = requests.get(url, headers=self.auth_body)
         data = retry_call(json.loads, fargs=[get.text])
         
@@ -204,3 +210,10 @@ class SpotifyApiClient():
         data = json.loads(post.text)
 
         return data
+
+    def add_items_to_playlist(self, playlist_id, csv_ids):
+
+        url = self.API_BASE_URL + f"/playlists/{playlist_id}/tracks?uris={csv_ids}"
+        post = requests.post(url, headers=self.auth_body)
+
+        print(post.status_code)
