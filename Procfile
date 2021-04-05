@@ -1,1 +1,1 @@
-web: gunicorn app:app azureclient:azureclient dataclient:dataclient oauth:oauth spotifyapiclient:spotifyapiclient
+web: gunicorn app:app
