@@ -144,7 +144,7 @@ def analytics():
         data_client = DataClient(api_client, session.get('time_frame'))
 
     except:
-        return error_page("Sorry, seems like your account is new and I can't access your music data :(")
+        return error_page("Sorry, seems like your account is new and I can not access your music data :(")
 
     cols = session.get('cols')
 
