@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block head %}
+    <link rel="stylesheet" href= "{{ url_for('static', filename='css/music.css')}}">
     <link rel="stylesheet" href= "{{ url_for('static', filename='css/recommendations.css')}}">
 {% endblock %}
 
@@ -68,6 +69,9 @@
                     <input type="submit" id="button" name="slide-submit" value="Create Playlist" onclick="alert('A new playlist with the name of \'Recommendations\' is created in your Spotify account with the new songs. Enjoy!')">
                 </div>
             </form>
+            <div class="caption">
+                <p>Using the sliders above, you can create your own recommendations based on those various seeds. Just move the ones you want to change!</p>
+            </div>
             <script src="{{ url_for('static', filename='js/slider.js')}}"></script>
         </div>
     </div>

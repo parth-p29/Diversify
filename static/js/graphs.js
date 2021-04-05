@@ -143,6 +143,9 @@ function doughnut_graph(data1, data2, data3, id){
         },
 
         // Configuration options go here
-        options: {}
+        options: {
+            responsive: true,
+            maintainAspectRatio: false
+        }
     });
 }

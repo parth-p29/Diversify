@@ -12,12 +12,10 @@
 
 {% block content %}
     <div class="user-profile">
-
         <div id="time-selector">
             <a href="/change-time/short_termA"><h4 id="short">Recent</h4></a>
             <a href="/change-time/medium_termA"><h4 id="medium">6 Months</h4></a>
             <a href="/change-time/long_termA"><h4 id="long">All Time</h4></a>
-    
             {% if time == "short_term" %}
                 <style>#short{color: #1DB954}</style>
             {% elif time == "medium_term" %}
@@ -26,17 +24,14 @@
                 <style>#long{color: #1DB954}</style>
             {% endif %}
         </div>
-    
         <div class="chart-container radar">
             <h3 class='title'>Your Listening Habits</h3>
             <canvas id="radarChart"></canvas>
         </div>
-
         <div class="chart-container popularity">
             <h3 class='title'>Popularity of Your Top Songs/Artists</h3>
             <canvas id="myChart"></canvas>
         </div>
-
         <div class="genres">
             <h3 class='title'>Your Top Genres</h3>
             <div class="facts">
@@ -47,26 +42,19 @@
                 </div>
             </div>
         </div>
-
         <hr>
-
         <div class="similarity-scores">
             <h3 class="title" title="A Score representing how 'basic' your music taste is. The lower the better.">Your Basic Score</h3>
-
             <div class="facts">
-                 
                     <div class="s" title="A Score representing how 'basic' your music taste is. The lower the better.">
                         <h3 class='fact'>{{score}}</h3>
                     </div>
             </div>
-
             <div class="caption">
                 <p>Analyzing all your Spotify data, this score generally represents your music taste. The higher it is, the more "basic" your music.</p>
             </div>
         </div>
-
     </div>
-
     <script>
         radar_graph( {{user_avg_features|safe}}, {{top_avg_features|safe}} );
         bar_graph( {{pop_labels|safe}}, {{pop_data|safe}}, 10, 10, 100);

@@ -1,4 +1,3 @@
-
 #profile{
     position: absolute;
     top:23%;
@@ -51,5 +50,12 @@ main img{
     main img{
         width: 180px;
         height: 180px;
+    }
+}
+
+@media (min-height: 900px){
+    main img{
+        width: 320px;
+        height: 320px;
     }
 }

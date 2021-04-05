@@ -8,25 +8,20 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Diversify - Login</title>
     </head>
-
     <body>
         <div id="title-box">        
             <div id="logo">
                 <img src="{{ url_for('static', filename='photos/spotifylogo.png')}}">
             </div>
-
             <div id="title">
                 <h1>Diversify</h1>
             </div>
-
             <div class="gif">
                 <img src="{{ url_for('static', filename='photos/play.gif')}}">
             </div>
-
             <div id="login">
                 <input type="button" onclick="location.href='{{url}}';" value="Login with Spotify" />
             </div>
-
             <div class="creds">
                 <a href="">💻 by Parth Patel</a>
             </div>

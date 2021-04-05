@@ -6,7 +6,7 @@
     margin-bottom: 60px;
     display: flex;
     justify-content: flex-end;
-    width: 94%;
+    width: 90%;
 }
 #time-selector a{
     margin:13px;
@@ -18,7 +18,7 @@
 .top-title{
     color:ghostwhite;
     font-size: 22px;
-    margin:50px;
+    text-align: center;
 }
 .top-type {
     text-align: center;

@@ -60,7 +60,7 @@ p{
     margin-bottom: 60px;
     display: flex;
     justify-content: flex-end;
-    width: 94%;
+    width: 90%;
 }
 #time-selector a{
     margin:13px;
@@ -80,8 +80,7 @@ p{
     font-family: 'Proxima Nova Th';
 }
 #show-more{
-    position: absolute;
-    top:105%;
+    margin-top: 80px;
     width:100%;
     display: flex;
     justify-content: center;
@@ -93,4 +92,34 @@ p{
     border: 0.8px solid ghostwhite;
     border-radius: 200px;
     margin-bottom:50px;
+}
+@media (max-width: 450px){
+    #time-selector{
+        margin-right: 50px;
+    }
+    #show-more{
+        margin-left: 60px;
+    }
+    #songs-artists{
+        flex-direction: column;
+    }
+    .a{
+        margin-top: 50px;
+    }
+    .c h3{
+        margin-left: 50px;
+    }
+    .a h3{
+        margin-left: 50px;
+    }
+    .tracks{
+        display: flex;
+        margin-top:30px;
+        margin-left: 50px;
+    }
+    .artists{
+        display: flex;
+        margin-top:30px;
+        margin-left: 50px;
+    }
 }
