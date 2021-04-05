@@ -143,8 +143,8 @@ def analytics():
         api_client = init_api_client()
         data_client = DataClient(api_client, session.get('time_frame'))
 
-    except:
-        return error_page("Sorry, seems like your account is new and I can not access your music data :(")
+    except Exception as e:
+        return error_page("Sorry, I can't access your music data.", e)
 
     cols = session.get('cols')
 
@@ -181,8 +181,8 @@ def new():
         api_client = init_api_client()
         data_client = DataClient(api_client, session.get('time_frame'))
 
-    except:
-        return error_page("Sorry, seems like your account is new and I can't access your music data :(")
+    except Exception as e:
+        return error_page("Sorry, I can't access your music data.", e)
 
     cols = session.get('cols')
 
@@ -256,8 +256,8 @@ def configure_user_top(html_page, limit):
         user_top_tracks = api_client.get_user_top_info(limit, time_frame, "tracks")
         user_top_artists = api_client.get_user_top_info(limit, time_frame, "artists")
 
-    except:
-        return error_page("Sorry, seems like your account is new and I can't access your music data :(")
+    except Exception as e:
+        return error_page("Sorry, I can't access your music data.", e)
 
     songs = user_top_tracks['name']
     song_ids = user_top_tracks['id']
@@ -271,8 +271,8 @@ def configure_user_top(html_page, limit):
 
     return render_template(html_page, songs=songs, song_ids=song_ids, song_covers=song_covers, song_artists=song_artists, song_albums=song_albums, artists=artists, artist_ids=artist_ids, artist_covers=artist_covers, zip=zip, time=time_frame)
 
-def error_page(text):
-    return render_template('error.html', text=text)
+def error_page(text, e):
+    return render_template('error.html', text=text, error=e)
 
 if __name__ == "__main__":
     app.run()
