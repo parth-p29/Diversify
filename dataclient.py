@@ -5,13 +5,13 @@ from collections import Counter
 
 class DataClient():
 
-    def __init__(self, api_client, time_frame):
+    def __init__(self, api_client, song_ids, artist_ids, time_frame):
         
         self.api_client = api_client
         self.spotify_dataset = pd.read_csv('static/csv/spotifytoptracks.csv')
         self.ids = {
-            "artists": (api_client.get_user_top_info(33, time_frame, "artists")['id']),
-            "tracks": (api_client.get_user_top_info(50, time_frame, "tracks")['id']) 
+            "artists": (artist_ids),
+            "tracks": (song_ids) 
         }
         self.csv_ids = {
             "artists": ','.join(self.ids['artists']),
@@ -63,6 +63,7 @@ class DataClient():
     def get_user_top_genres(self):
         
         genres = {}
+        
         top_artist_genres = self.api_client.get_multiple_track_or_artist_info("artists", self.csv_ids['artists'], "genres")
 
         for artist_genres in top_artist_genres:
@@ -80,7 +81,7 @@ class DataClient():
         return (list(top_genres))
 
     def get_similarity_between_features(self, user, spotify):
-
+    
         percent_list = [(((min(item1, item2) / max(item1,item2)) * 100)) for item1, item2 in zip(user, spotify)]
         
         return round(statistics.mean(percent_list))
@@ -99,15 +100,31 @@ class DataClient():
 
         return round((occurence/50) * 100, 4)
 
-    def get_recommendation_seeds(self):
+    def get_recommendation_seeds(self, songs_length, artists_length):
         
         output_dict = lambda **data: data
+        
+        genres = self.get_user_top_genres()
 
-        random_track = self.ids['tracks'][random.randint(0,14)]
-        random_artist = self.ids['artists'][random.randint(0,14)]
-        random_genre = self.get_user_top_genres()[random.randint(0,4)]
+        if songs_length > 15:
+            random_track = self.ids['tracks'][random.randint(0, 14)]
+        
+        else:
+            random_track = self.ids['tracks'][random.randint(0, songs_length - 1)]
 
-        return output_dict(track=random_track, artist=random_artist, genre=random_genre)
+        if artists_length > 15:
+            random_artist = self.ids['artists'][random.randint(0, 14)]
+        
+        else:
+            random_artist = self.ids['artists'][random.randint(0, artists_length - 1)]
+
+        if len(genres) > 5:
+            random_genres = genres[random.randint(0, 4)]
+        
+        else:
+            random_genres = genres[random.randint(0, len(genres) - 1)]
+
+        return output_dict(track=random_track, artist=random_artist, genre=random_genres)
 
 #useful function
 def get_user_top_data(data):

@@ -36,7 +36,13 @@ class SpotifyApiClient():
 
         data_dict = {}
 
-        for i in range(limit):
+        if limit > len(data['items']):
+            list_limit = len(data['items'])
+
+        else:
+            list_limit = limit
+
+        for i in range(list_limit):
 
             data_dict[i] = {}
             data_dict[i]['name'] = data['items'][i]["name"] #artist/track name
@@ -134,20 +140,19 @@ class SpotifyApiClient():
         
         try:
             get = requests.get(url, timeout=10)
+            data = json.loads(get.text)
+            lyrics = data['lyrics'].replace("\n","<br>")
         
         except:
             return "Lyrics not able to be analyzed"
-        
-        data = json.loads(get.text)
-        lyrics = data['lyrics'].replace("\n","<br>")
-     
+            
         return lyrics
 
     def get_track_recommendations(self, limit, seeds, audio_features, popularity, type):
         
         seed_query = f"/recommendations?limit={limit}&seed_artists={seeds['artist']}&seed_tracks={seeds['track']}&seed_genres={seeds['genre']}"
         
-        if type == "post":  #if this method is called from the post request, it will format the features differently
+        if type == "post":  #if this method is called from the post request, it will format the feature query differently
             features_query = "&"
             for element in audio_features:
                 features_query += f"{element[0]}={element[1]}&"

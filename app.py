@@ -139,13 +139,18 @@ def more():
 @app.route("/analytics")
 def analytics():
 
-    try:
-        api_client = init_api_client()
-        data_client = DataClient(api_client, session.get('time_frame'))
+    api_client = init_api_client()
+    user_top_songs = api_client.get_user_top_info(50, session.get('time_frame'), "tracks")
+    user_top_artists = api_client.get_user_top_info(33, session.get('time_frame'), "artists")
 
-    except Exception as e:
-        return error_page("Sorry, I can't access your music data.", e)
+    if not user_top_songs or not user_top_artists: #if the user has no data (i.e the returned dict is empty)
+        return error_page("Sorry, I can't access your data.")
+    
+    else:
+        song_ids = user_top_songs['id']
+        artist_ids = user_top_artists['id']
 
+    data_client = DataClient(api_client, song_ids, artist_ids, session.get('time_frame'))
     cols = session.get('cols')
 
     #popularity info
@@ -177,12 +182,18 @@ def analytics():
 @app.route("/new", methods=['POST', 'GET'])
 def new():
 
-    try:
-        api_client = init_api_client()
-        data_client = DataClient(api_client, session.get('time_frame'))
+    api_client = init_api_client()
+    user_top_songs = api_client.get_user_top_info(50, session.get('time_frame'), "tracks")
+    user_top_artists = api_client.get_user_top_info(33, session.get('time_frame'), "artists")
 
-    except Exception as e:
-        return error_page("Sorry, I can't access your music data.", e)
+    if not user_top_songs or not user_top_artists: #if the user has no data (i.e the returned dict is empty)
+        return error_page("Sorry, I can't access your data.")
+    
+    else:
+        song_ids = user_top_songs['id']
+        artist_ids = user_top_artists['id']
+
+    data_client = DataClient(api_client, song_ids, artist_ids, session.get('time_frame'))
 
     cols = session.get('cols')
 
@@ -190,7 +201,7 @@ def new():
     user_id = api_client.get_user_info()['user_info']['id']
 
     #tracks
-    seeds = data_client.get_recommendation_seeds()
+    seeds = data_client.get_recommendation_seeds(len(user_top_songs['name']), len(user_top_artists['name']))
     user_audio_features = data_client.get_user_top_avg_audio_features(cols)
     user_popularity = data_client.get_user_avg_popularity("tracks")
 
@@ -252,27 +263,37 @@ def configure_user_top(html_page, limit):
     api_client = init_api_client()
     time_frame = session.get('time_frame')
 
-    try:
-        user_top_tracks = api_client.get_user_top_info(limit, time_frame, "tracks")
-        user_top_artists = api_client.get_user_top_info(limit, time_frame, "artists")
+    user_top_tracks = api_client.get_user_top_info(limit, time_frame, "tracks")
+    user_top_artists = api_client.get_user_top_info(limit, time_frame, "artists")
 
-    except Exception as e:
-        return error_page("Sorry, I can't access your music data.", e)
+    if not user_top_tracks: #if the returned data is empty it will set the values to empty
+        songs = ['']
+        song_ids = ['']
+        song_covers = ['']
+        song_artists = ['']
+        song_albums = ['']
+    
+    else:
+        songs = user_top_tracks['name']
+        song_ids = user_top_tracks['id']
+        song_covers = user_top_tracks['image']
+        song_artists = user_top_tracks['trackartistname']
+        song_albums = user_top_tracks['trackalbumname']
 
-    songs = user_top_tracks['name']
-    song_ids = user_top_tracks['id']
-    song_covers = user_top_tracks['image']
-    song_artists = user_top_tracks['trackartistname']
-    song_albums = user_top_tracks['trackalbumname']
-
-    artists = user_top_artists['name']
-    artist_ids = user_top_artists['id']
-    artist_covers = user_top_artists['image']
+    if not user_top_artists:
+        artists = ['']
+        artist_ids = ['']
+        artist_covers = ['']
+    
+    else:
+        artists = user_top_artists['name']
+        artist_ids = user_top_artists['id']
+        artist_covers = user_top_artists['image']
 
     return render_template(html_page, songs=songs, song_ids=song_ids, song_covers=song_covers, song_artists=song_artists, song_albums=song_albums, artists=artists, artist_ids=artist_ids, artist_covers=artist_covers, zip=zip, time=time_frame)
 
-def error_page(text, e):
-    return render_template('error.html', text=text, error=e)
+def error_page(text):
+    return render_template('error.html', text=text)
 
 if __name__ == "__main__":
     app.run()
