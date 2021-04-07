@@ -16,10 +16,17 @@
     height: 70px;
     margin-right: 20px;
 }
+.content a{
+    text-decoration: none;
+    display: flex;
+}
 .tracks{
     display: flex;
     margin-left: 120px;
     margin-top:30px;
+}
+a:hover p {
+    color: #1DB954;
 }
 .artists{
     display: flex;
@@ -47,9 +54,6 @@ h3{
 }
 #song-artists a{
     text-decoration: none;
-}
-#songs-artists img:hover{
-    opacity: 50%;
 }
 p{
     color:ghostwhite;

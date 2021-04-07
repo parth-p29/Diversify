@@ -36,7 +36,7 @@ class SpotifyApiClient():
 
         data_dict = {}
 
-        if limit > len(data['items']):
+        if limit > len(data['items']): #incase the user does not have as many songs as the limit
             list_limit = len(data['items'])
 
         else:
@@ -145,7 +145,7 @@ class SpotifyApiClient():
         
         except:
             return "Lyrics not able to be analyzed"
-            
+
         return lyrics
 
     def get_track_recommendations(self, limit, seeds, audio_features, popularity, type):

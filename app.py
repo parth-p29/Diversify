@@ -194,7 +194,6 @@ def new():
         artist_ids = user_top_artists['id']
 
     data_client = DataClient(api_client, song_ids, artist_ids, session.get('time_frame'))
-
     cols = session.get('cols')
 
     #user info
@@ -249,7 +248,7 @@ def init_api_client():
     token_expiry = oauth_info['expires_in']  #sets the token expiry time which is 3600 seconds or 1 hour
     time_diff = current_time - start_time #how much time has passed since token was given
 
-    if (time_diff > token_expiry): #if more than an hour has passed, a new access_token will be provided
+    if time_diff > token_expiry: #if more than an hour has passed, a new access_token will be provided
         new_token = oauth_client.refresh_token(oauth_info['refresh_token'])   #logic for refreshing access token
         start_time = int(time.time())
 
