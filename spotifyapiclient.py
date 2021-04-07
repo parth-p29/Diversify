@@ -201,12 +201,12 @@ class SpotifyApiClient():
 
         return get_user_top_data(data_dict)
 
-    def create_new_playlist(self, user_id):
+    def create_new_playlist(self, user_id, name):
 
         url = self.API_BASE_URL + f"/users/{user_id}/playlists"
 
         request_body = {
-            "name": "Recommendations",
+            "name": name,
             "description": "Your customized recommendations from Diversify!",
             "public": False
         }

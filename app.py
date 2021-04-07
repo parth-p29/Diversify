@@ -223,7 +223,8 @@ def new():
         
         user_inputed_popularity = int(request.form['pop'])
         user_inputed_audio_features = [[f"target_{col.lower()}", float(request.form[col])] for col in cols if float(request.form[col]) != 0.0]
-    
+        playlist_name = request.form['playlistname']
+
         more_tracks = api_client.get_track_recommendations(50, seeds, user_inputed_audio_features, user_inputed_popularity, "post")
         new_names = more_tracks['name']
         new_ids = more_tracks['id']
@@ -231,7 +232,7 @@ def new():
         new_artists = more_tracks['trackartistname']
         new_albums = more_tracks['trackalbumname']
 
-        get_new_playlist_id = api_client.create_new_playlist(user_id)['id']
+        get_new_playlist_id = api_client.create_new_playlist(user_id, playlist_name)['id']
         modified_ids = ["spotify:track:" + track_id for track_id in new_ids]
         csv_ids = ','.join(modified_ids)
 
