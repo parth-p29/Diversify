@@ -52,7 +52,11 @@ main img{
         height: 180px;
     }
 }
-
+@media screen and (max-height: 600px){
+    #logout{
+        top: 100%;
+    }
+}
 @media (min-height: 900px){
     main img{
         width: 320px;

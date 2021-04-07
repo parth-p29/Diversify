@@ -97,9 +97,10 @@ p{
     border-radius: 200px;
     margin-bottom:50px;
 }
-@media (max-width: 450px){
+@media (max-width: 600px){
     #time-selector{
         margin-right: 50px;
+        width: 100%;
     }
     #show-more{
         margin-left: 60px;
@@ -125,5 +126,10 @@ p{
         display: flex;
         margin-top:30px;
         margin-left: 50px;
+    }
+
+    a p{
+        text-decoration: underline;
+        color: ghostwhite;
     }
 }
