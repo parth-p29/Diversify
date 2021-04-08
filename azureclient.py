@@ -25,7 +25,7 @@ class AzureAnalyticsClient():
             return output_dict(overall=overall_sentiment, positive=positive, negative=negative, neutral=neutral)
         
         except:
-            return output_dict(overall="Not able to be analyzed", positive=100, negative=100, neutral=100)
+            return output_dict(overall="Lyrics not able to be analyzed", positive=100, negative=100, neutral=100)
 
     def key_phrase_extraction(self, lyrics):
         
