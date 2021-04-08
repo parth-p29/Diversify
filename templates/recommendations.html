@@ -13,7 +13,7 @@
     <div class="top">
         <div id="songs-artists">
             <div class="content c">
-                <h3>Recommended Tracks</h3>
+                <h3>Recommended Tracks <span id="hidden">🔗 = Clickable</span></h3>
                 {% for song, s_cover, s_artist, s_album, id in zip(t_names, t_images, t_artists, t_albums, t_ids) %}
                         <div class="tracks">
                             <a href='info/{{id}}T'>
@@ -22,7 +22,7 @@
                                 </div>
                                 
                                 <div class="name">
-                                    <p>{{song}}</p>
+                                    <p>{{song}} <span id="hidden">🔗</span></p>
                                     <div class='song-info'><p><span>{{s_artist}}&nbsp; &#8226; &nbsp;{{s_album}}</span></p></div>
                                 </div>
                             </a>
@@ -38,7 +38,7 @@
                                     <img src="{{a_cover}}"/>
                                 </div>
                                 <div class="name">
-                                    <p>{{artist}}</p>
+                                    <p>{{artist}} <span id="hidden">🔗</span></p>
                                 </div>
                             </a>
                         </div>

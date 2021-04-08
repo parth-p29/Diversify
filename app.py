@@ -95,28 +95,39 @@ def info(id):
         track_artist = track_info['artist']
         song_lyrics = api_client.get_song_lyrics(track_artist, track_name)
 
-        sentiment = lyrics_analyzer.sentiment_analysis(song_lyrics)
-        song_overall_sentiment = sentiment['overall']
-        song_positive_score = sentiment['positive']
-        song_negative_score = sentiment['negative']
-        song_neutral_score = sentiment['neutral']
+        if song_lyrics != "Lyrics not able to be analyzed":
 
-        key_phrases = lyrics_analyzer.key_phrase_extraction(song_lyrics)
+            sentiment = lyrics_analyzer.sentiment_analysis(song_lyrics)
+            song_overall_sentiment = sentiment['overall']
+            song_positive_score = sentiment['positive']
+            song_negative_score = sentiment['negative']
+            song_neutral_score = sentiment['neutral']
 
-        for phrase in key_phrases:
-            
-            if phrase == "br":
-                pass
-            
-            else:
-                song_lyrics = song_lyrics.replace(phrase, f"<span>{phrase}</span>")
-          
-        audio_features = audio_info['features']
-        track_popularity = track_info['popularity']
-        tempo = audio_info['tempo']
-        loudness = audio_info['loudness']
+            key_phrases = lyrics_analyzer.key_phrase_extraction(song_lyrics)
 
-        return render_template('info.html', t=tempo, l=loudness, id=track_id, p=track_popularity, labels=session.get('cols'), data=audio_features, type=info_type, lyrics=song_lyrics, overall=song_overall_sentiment, positive=song_positive_score, negative=song_negative_score, neutral=song_neutral_score )
+            for phrase in key_phrases:
+                
+                if phrase == "br":
+                    pass
+                
+                else:
+                    song_lyrics = song_lyrics.replace(phrase, f"<span>{phrase}</span>")
+
+            audio_features = audio_info['features']
+            track_popularity = track_info['popularity']
+            tempo = audio_info['tempo']
+            loudness = audio_info['loudness']
+
+            return render_template('info.html', t=tempo, l=loudness, id=track_id, p=track_popularity, labels=session.get('cols'), data=audio_features, type=info_type, lyrics=song_lyrics, overall=song_overall_sentiment, positive=song_positive_score, negative=song_negative_score, neutral=song_neutral_score, allowed=True)
+        
+        else:
+
+            audio_features = audio_info['features']
+            track_popularity = track_info['popularity']
+            tempo = audio_info['tempo']
+            loudness = audio_info['loudness']
+
+            return render_template('info.html', t=tempo, l=loudness, id=track_id, p=track_popularity, labels=session.get('cols'), data=audio_features, type=info_type, allowed=False)
 
     else:
         artist_id = id[:-1]
