@@ -23,14 +23,14 @@
 }
 .tracks{
     display: flex;
-    margin-top:30px;
+    margin-top:40px;
 }
 a:hover p {
     color: #1DB954;
 }
 .artists{
     display: flex;
-    margin-top:30px;
+    margin-top:40px;
 }
 h3{
     color: ghostwhite;
