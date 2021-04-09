@@ -216,7 +216,11 @@ def new():
     user_popularity = data_client.get_user_avg_popularity("tracks")
 
     #tracks
-    get_recommended_tracks_info = api_client.get_track_recommendations(10, seeds, user_audio_features, user_popularity, "normal")
+    try:
+        get_recommended_tracks_info = api_client.get_track_recommendations(10, seeds, user_audio_features, user_popularity, "normal")
+    except:
+        return error_page("Can't get recommendations.")
+
     track_names = get_recommended_tracks_info['name']
     track_ids = get_recommended_tracks_info['id']
     track_image = get_recommended_tracks_info['image']
@@ -236,7 +240,11 @@ def new():
         user_inputed_audio_features = [[f"target_{col.lower()}", float(request.form[col])] for col in cols if float(request.form[col]) != 0.0]
         playlist_name = request.form['playlistname']
 
-        more_tracks = api_client.get_track_recommendations(50, seeds, user_inputed_audio_features, user_inputed_popularity, "post")
+        try:
+            more_tracks = api_client.get_track_recommendations(50, seeds, user_inputed_audio_features, user_inputed_popularity, "post")
+        except:
+            return error_page("Can't get recommendations.")
+
         new_names = more_tracks['name']
         new_ids = more_tracks['id']
         new_images = more_tracks['image']
