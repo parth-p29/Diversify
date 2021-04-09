@@ -14,7 +14,7 @@
         <div id="songs-artists">
             <div class="content c">
                 <h3>Recommended Tracks</h3>
-                <span class="info">(click the songs for their stats)</span>
+                <span class="info">(click the songs for their stats/audio features)</span>
                 {% for song, s_cover, s_artist, s_album, id in zip(t_names, t_images, t_artists, t_albums, t_ids) %}
                         <div class="tracks">
                             <a href='info/{{id}}T'>
