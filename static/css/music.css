@@ -65,6 +65,9 @@ p{
     font-size: 16px;
     opacity: 80%;
 }
+.info{
+    color: #1DB954;
+}
 .song-info{
     margin-top:6px;
 }
@@ -88,6 +91,30 @@ span{
     border-radius: 200px;
     margin-bottom:50px;
 }
+@media (max-width: 1200px){
+    #time-selector{
+        justify-content: center;
+        margin: 0px 0px 30px 0px;
+    }
+    .top{
+        top: 10%;
+    }
+    .c{
+        margin-left: 20%;
+    }
+}
+@media (max-width: 800px){
+    #time-selector{
+        justify-content: center;
+        margin: 0px 0px 30px 0px;
+    }
+    .top{
+        top:13%;
+    }
+    .a{
+        margin-left: 7%;
+    }
+}
 @media (max-width: 600px){
     #time-selector{
         justify-content: center;
@@ -104,6 +131,7 @@ span{
     }
     .a{
         margin-top: 50px;
+        margin-left: 0px;
     }   
     .c h3{
         margin-left: 35px;
