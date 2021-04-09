@@ -68,10 +68,10 @@ p{
 .song-info{
     margin-top:6px;
 }
-.name span{
+span{
     margin-top:5px;
     color: rgb(175, 175, 175);
-    font-size: 12px;
+    font-size: 13px;
     opacity: 80%;
     font-family: 'Proxima Nova Th';
 }
@@ -117,6 +117,9 @@ p{
     }
     .artists{
         display: flex;
+        margin-left: 35px;
+    }
+    .info{
         margin-left: 35px;
     }
     #hidden{
