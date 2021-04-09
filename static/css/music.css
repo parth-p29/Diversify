@@ -35,7 +35,7 @@ a:hover p {
 h3{
     color: ghostwhite;
     font-size: 20px;
-    margin-bottom: 25px;
+    margin-bottom: 10px;
 }
 .content{
     width: 350px;
@@ -66,7 +66,8 @@ p{
     opacity: 80%;
 }
 .info{
-    color: #1DB954;
+    color: #00e450;
+    font-size: 15px;
 }
 .song-info{
     margin-top:6px;
