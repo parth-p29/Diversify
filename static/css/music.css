@@ -66,8 +66,8 @@ p{
     opacity: 80%;
 }
 .info{
-    color: #00e450;
-    font-size: 15px;
+    color: rgb(255, 255, 255);
+    font-size: 16px;
 }
 .song-info{
     margin-top:6px;

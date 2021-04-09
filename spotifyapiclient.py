@@ -32,7 +32,7 @@ class SpotifyApiClient():
 
         url = self.API_BASE_URL + f"/me/top/{top_type}?time_range={time_range}&limit={limit}"
         get = requests.get(url, headers=self.auth_body)
-        data = json.loads(get.text)
+        data = retry_call(json.loads, fargs=[get.text]) #resends request if failure; avoids 500+ errors
 
         data_dict = {}
 
@@ -86,7 +86,7 @@ class SpotifyApiClient():
 
         url = self.API_BASE_URL + f"/tracks?ids={song_ids}"
         get = requests.get(url, headers=self.auth_body)
-        data = json.loads(get.text)
+        data = retry_call(json.loads, fargs=[get.text])
         
         return [ artist['album']['artists'][0]['id'] for artist in data['tracks']] 
 
@@ -96,6 +96,7 @@ class SpotifyApiClient():
 
         url = self.API_BASE_URL + f'/audio-features/{track_id}'
         get = requests.get(url, headers=self.auth_body)
+        data = retry_call(json.loads, fargs=[get.text]) 
         data = json.loads(get.text)
 
         Danceability = data['danceability']
@@ -113,7 +114,7 @@ class SpotifyApiClient():
 
         url = self.API_BASE_URL + f"/audio-features?ids={ids}"
         get = requests.get(url, headers=self.auth_body)
-        data = json.loads(get.text)
+        data = retry_call(json.loads, fargs=[get.text])
         all_features = []
 
         for audio in data['audio_features']:
@@ -129,7 +130,7 @@ class SpotifyApiClient():
 
         url = self.API_BASE_URL + f"/{info_type}?ids={type_ids}"
         get = requests.get(url, headers=self.auth_body)
-        data = json.loads(get.text)
+        data = retry_call(json.loads, fargs=[get.text])
         all_info = [info[feature] for info in data[info_type]]
         
         return all_info
@@ -164,7 +165,7 @@ class SpotifyApiClient():
         
         url = self.API_BASE_URL + seed_query + popularity_query + features_query
         get = requests.get(url, headers=self.auth_body)
-        data = retry_call(json.loads, fargs=[get.text])
+        data = retry_call(json.loads, fargs=[get.text]) #resends request until pass; avoids 500+ errors
 
         data_dict = {}
 
