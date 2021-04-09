@@ -5,13 +5,12 @@
     text-align: center;
 }
 #time-selector{
-    margin-bottom: 30px;
+    margin: 0px 120px 60px 15px;
     display: flex;
     justify-content: flex-end;
-    width: 90%;
 }
 #time-selector a{
-    margin:13px;
+    margin:0px 13px 13px 13px;
     text-decoration: none;
     color: rgb(175, 175, 175);
     font-size: 16px;
@@ -65,13 +64,13 @@
 .s{
     margin: 10px 20px 50px 20px;
     border: 0.5px solid ghostwhite;
-    border-radius: 50%;
+    border-radius: 200px;
     padding: 20px;
 }
 hr{
     border: 0.5px solid ghostwhite;
     opacity: 0.7;
-    margin: 70px 200px 80px 200px;
+    margin: 60px 0px 60px 0px;
 }
 .caption{
     color: rgb(175, 175, 175);
@@ -80,11 +79,15 @@ hr{
     text-align: center;
 }
 @media (max-width: 450px){
-    .user-profile{
-        margin-left: 30px;
-    }
     .group{
         flex-direction: column;
+    }
+    #time-selector{
+        justify-content: center;
+        margin: 20px 0px 30px 0px;
+    }
+    .caption{
+        width: 60%;
     }
 }
 

@@ -24,7 +24,7 @@
         </div>
         <div id="songs-artists">
             <div class="content c">
-                <h3>Top Tracks <span id="hidden">🔗 = Clickable</span></h3>
+                <h3>Top Tracks</h3>
                 {% for song, s_cover, s_artist, s_album, id in zip(songs, song_covers, song_artists, song_albums, song_ids) %}
                         <div class="tracks">
                             <a href='info/{{id}}T'>
@@ -34,7 +34,7 @@
                                     {% endif %}
                                 </div>
                                 <div class="name">
-                                    <p>{{song}} <span id="hidden">🔗</span></p>
+                                    <p>{{song}} <span>(click for stats)</span></p>
                                     <div class='song-info'><p><span>{{s_artist}}&nbsp; &#8226; &nbsp;{{s_album}}</span></p></div>
                                 </div>
                             </a>
@@ -52,7 +52,7 @@
                                     {% endif %}
                                 </div>
                                 <div class="name">
-                                    <p>{{artist}} <span id="hidden">🔗</span></p>
+                                    <p>{{artist}} <span>(click for stats)</span></p>
                                 </div>
                             </a>
                         </div>
