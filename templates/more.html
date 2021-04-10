@@ -23,6 +23,21 @@
             {% endif %}
         </div>
         <div id="type">
+            <div id="more-artists">
+                <div class="top-title">
+                    <h3>Top Artists</h3>
+                    <span class="info">(click the artists for their stats)</span>
+                </div>
+                <div class="top-type">
+                    {% for cover, name, id in zip(artist_covers, artists, artist_ids) %}
+                        {% if id != '' %}
+                            <a href="info/{{id}}A">
+                                <img src="{{cover}}" title="{{name}}" width="250" height="280"/>
+                            </a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
             <div id="more-tracks">
                 <div class="top-title">
                     <h3>Top Tracks</h3>
@@ -41,21 +56,6 @@
                             {% endif %}
                         {% endfor %}
                     </div>
-                </div>
-            </div>
-            <div id="more-artists">
-                <div class="top-title">
-                    <h3>Top Artists</h3>
-                    <span class="info">(click the artists for their stats)</span>
-                </div>
-                <div class="top-type">
-                    {% for cover, name, id in zip(artist_covers, artists, artist_ids) %}
-                        {% if id != '' %}
-                            <a href="info/{{id}}A">
-                                <img src="{{cover}}" title="{{name}}" width="250" height="280"/>
-                            </a>
-                        {% endif %}
-                    {% endfor %}
                 </div>
             </div>
         </div>
