@@ -72,16 +72,19 @@ You can also click on the songs/artists and see more specific information about 
 
 ![infopage lyrical analysis](https://user-images.githubusercontent.com/69891859/114288423-d9a3b800-9a3d-11eb-87af-b50a783f4b44.png)
 
-In the analytics page, you can see the analyzed history of your Spotify data such as: the audio features of the top songs you listen to, how popular your songs/artists are and also compare that with the most popular songs in 2020. You can also get to know your most prominent genres and see an overall score depicting how your music taste compares with the public:
+In the analytics page, you can see the analyzed history of your Spotify data such as: the audio features of the top songs you listen to, how popular your songs/artists are and also compare that with the most popular songs on Spotify. You can also get to know your most prominent genres and see an overall score depicting how your music taste compares with the public:
 
 ![basic score](https://user-images.githubusercontent.com/69891859/114288481-48811100-9a3e-11eb-9f6b-a439945aeccd.png)
 
-On the recommendations page, using all the data collected and analyzed, a list of a couple songs and artists are produced that you will potentially enjoy. To test them out, you can even click on them to hear the songs and see its features to better judge if you want to add it to your playlists. 
+On the recommendations page, using all the data collected and analyzed, a list of a couple songs and artists is produced that you will potentially enjoy. To test them out, you can even click on them to hear the songs and see its features to better judge if you want to add it to your playlists. 
 
 If you want to just randomly make interesting playlists with differnt features such as: a party playlist or a chill playlist, there is also a tool that allows you to do that:
 
 ![recommendation creator](https://user-images.githubusercontent.com/69891859/114288583-466b8200-9a3f-11eb-9b20-b00e6db93323.png)
 
-You can adjust the various sliders to produce differnt songs. The songs produced will still be aligned to your interests but with your customized audio features!
+You can adjust the various sliders to produce different songs. The songs produced will still be aligned to your interests but with your customized audio features!
 
+## Authors
+
+- **Parth Patel** - [parth-p29](https://github.com/parth-p29)
 
