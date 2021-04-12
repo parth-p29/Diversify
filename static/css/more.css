@@ -9,6 +9,7 @@
 #more-top{
     position: absolute;
     top:20%;
+    width: 100%;
 }
 #time-selector{
     margin: 0px 120px 60px 15px;
@@ -54,4 +55,5 @@
 }
 #more-artists{
     margin-bottom: 100px;
+    width: 100%;
 }
