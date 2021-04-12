@@ -35,19 +35,17 @@ def profilePage():
     api_client = init_api_client()
     request_data = api_client.get_user_info()
 
+    #user general info
     user_info = request_data["user_info"]
     username = user_info["display_name"]
     followers = user_info["followers"]["total"]
+    profile_pic = user_info["images"][0]["url"] if len(user_info["images"]) != 0 else None
 
-    if len(user_info["images"]) == 0:
-        profile_pic = None
-
-    else:
-        profile_pic = user_info["images"][0]["url"]
-
+    #playlists user has
     playlist_info = request_data["playlist_info"]
     num_of_playlists = len(playlist_info['items']) 
 
+    #how many people the user is following/followed by
     user_follow_info = request_data["following_info"]
     num_of_followed_artists = len(user_follow_info['artists']['items'])
 
@@ -80,11 +78,11 @@ def info(id):
 
     if id[-1] == "T":
 
-        info_type="track" 
+        info_type = "track" 
         track_id = id[:-1]
 
         try:
-            track_info = (api_client.get_track_or_artist_info(track_id, "tracks"))
+            track_info = api_client.get_track_or_artist_info(track_id, "tracks")
             audio_info = api_client.get_audio_features(track_id)
             lyrics_analyzer = AzureAnalyticsClient()
 
@@ -106,11 +104,7 @@ def info(id):
             key_phrases = lyrics_analyzer.key_phrase_extraction(song_lyrics)
 
             for phrase in key_phrases:
-                
-                if phrase == "br":
-                    pass
-                
-                else:
+                if phrase != "br":
                     song_lyrics = song_lyrics.replace(phrase, f"<span>{phrase}</span>")
 
             audio_features = audio_info['features']
@@ -121,7 +115,6 @@ def info(id):
             return render_template('info.html', t=tempo, l=loudness, id=track_id, p=track_popularity, labels=session.get('cols'), data=audio_features, type=info_type, lyrics=song_lyrics, overall=song_overall_sentiment, positive=song_positive_score, negative=song_negative_score, neutral=song_neutral_score, allowed=True)
         
         else:
-
             audio_features = audio_info['features']
             track_popularity = track_info['popularity']
             tempo = audio_info['tempo']
@@ -156,7 +149,7 @@ def analytics():
 
     if not user_top_songs or not user_top_artists: #if the user has no data (i.e the returned dict is empty)
         return error_page("Sorry, I can't access your data.")
-    
+
     else:
         song_ids = user_top_songs['id']
         artist_ids = user_top_artists['id']
@@ -199,7 +192,7 @@ def new():
 
     if not user_top_songs or not user_top_artists: #if the user has no data (i.e the returned dict is empty)
         return error_page("Sorry, I can't access your data.")
-    
+
     else:
         song_ids = user_top_songs['id']
         artist_ids = user_top_artists['id']
@@ -218,6 +211,7 @@ def new():
     #tracks
     try:
         get_recommended_tracks_info = api_client.get_track_recommendations(10, seeds, user_audio_features, user_popularity, "normal")
+    
     except:
         return error_page("Can't get recommendations.")
 
@@ -242,6 +236,7 @@ def new():
 
         try:
             more_tracks = api_client.get_track_recommendations(50, seeds, user_inputed_audio_features, user_inputed_popularity, "post")
+        
         except:
             return error_page("Can't get recommendations.")
 
@@ -271,7 +266,6 @@ def init_api_client():
     if time_diff > token_expiry: #if more than an hour has passed, a new access_token will be provided
         new_token = oauth_client.refresh_token(oauth_info['refresh_token'])   #logic for refreshing access token
         start_time = int(time.time())
-
         return SpotifyApiClient(new_token['access_token'])
     
     else:
