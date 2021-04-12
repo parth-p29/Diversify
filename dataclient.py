@@ -69,10 +69,9 @@ class DataClient():
         for artist_genres in top_artist_genres:
 
             for genre in artist_genres:
-
+                
                 if genre in genres.keys():
                     genres[genre] += 1
-
                 else:
                     genres[genre] = 1
 
@@ -95,7 +94,6 @@ class DataClient():
         for song in user_songs:
 
             if song in spotify_songs:
-                
                 occurence += 1
 
         return round((occurence/50) * 100, 4)
@@ -106,23 +104,9 @@ class DataClient():
         
         genres = self.get_user_top_genres()
 
-        if songs_length > 15:
-            random_track = self.ids['tracks'][random.randint(0, 14)]
-        
-        else:
-            random_track = self.ids['tracks'][random.randint(0, songs_length - 1)]
-
-        if artists_length > 15:
-            random_artist = self.ids['artists'][random.randint(0, 14)]
-        
-        else:
-            random_artist = self.ids['artists'][random.randint(0, artists_length - 1)]
-
-        if len(genres) > 5:
-            random_genres = genres[random.randint(0, 4)]
-        
-        else:
-            random_genres = genres[random.randint(0, len(genres) - 1)]
+        random_track = self.ids['tracks'][random.randint(0, 14)] if songs_length > 15 else self.ids['tracks'][random.randint(0, songs_length - 1)]
+        random_artist = self.ids['artists'][random.randint(0, 14)] if artists_length > 15 else self.ids['artists'][random.randint(0, artists_length - 1)]
+        random_genres = genres[random.randint(0, 4)] if len(genres) > 5 else genres[random.randint(0, len(genres) - 1)]
 
         return output_dict(track=random_track, artist=random_artist, genre=random_genres)
 

@@ -52,7 +52,7 @@ class SpotifyApiClient():
                 data_dict[i]["image"] = data['items'][i]["album"]["images"][1]["url"]  #track cover image
                 data_dict[i]["trackartistname"] = data['items'][i]["album"]['artists'][0]['name'] #artist who released track
                 data_dict[i]["trackalbumname"] = data['items'][i]["album"]['name'] #album the track is in
-
+            
             else:
                 data_dict[i]['image'] = data['items'][i]["images"][1]["url"] #artist cover image
 
@@ -70,16 +70,13 @@ class SpotifyApiClient():
         name = data['name']
 
         if info_type == "artists":
-
             followers = data['followers']['total']
             genres = data['genres']
             image = data['images'][2]['url']
-
             return output_dict(followers=followers, genres=genres, name=name, image=image, popularity=popularity)
         
         else:
             artist_name = data['artists'][0]['name']
-
             return output_dict(name=name, artist=artist_name, popularity=popularity)
 
     def find_artists_from_songs(self, song_ids):
@@ -87,7 +84,7 @@ class SpotifyApiClient():
         url = self.API_BASE_URL + f"/tracks?ids={song_ids}"
         get = requests.get(url, headers=self.auth_body)
         data = retry_call(json.loads, fargs=[get.text])
-        
+
         return [ artist['album']['artists'][0]['id'] for artist in data['tracks']] 
 
     def get_audio_features(self, track_id):
@@ -190,7 +187,6 @@ class SpotifyApiClient():
         data_dict = {}
 
         if len(data['artists']) < limit: #just in case they're not enough artists returned
-
             limit = len(data['artists'])
 
         for idx in range(limit):
