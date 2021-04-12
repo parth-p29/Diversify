@@ -32,7 +32,7 @@
                     {% for cover, name, id in zip(artist_covers, artists, artist_ids) %}
                         {% if id != '' %}
                             <a href="info/{{id}}A">
-                                <img src="{{cover}}" title="{{name}}" width="250" height="280"/>
+                                <img src="{{cover}}" title="{{name}}" width="250" height="250"/>
                             </a>
                         {% endif %}
                     {% endfor %}
@@ -50,7 +50,7 @@
                                 <a href="/info/{{id}}T">
                                     <div class="card-body">
                                         <h3 >{{name}}</h3>
-                                        <img src="{{cover}}" title="{{name}}"width="250" height="280"/>
+                                        <img src="{{cover}}" title="{{name}}"width="250" height="250"/>
                                     </div>
                                 </a>
                             {% endif %}
