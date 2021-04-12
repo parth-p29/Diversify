@@ -72,6 +72,7 @@ class DataClient():
                 
                 if genre in genres.keys():
                     genres[genre] += 1
+                    
                 else:
                     genres[genre] = 1
 

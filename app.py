@@ -6,7 +6,7 @@ from azureclient import *
 import time
 
 app = Flask(__name__)
-app.secret_key="Diversify-App"
+app.secret_key="YOUR SECRET KEY"
 
 oauth_client = SpotifyOauthClient()
 
