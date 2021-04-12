@@ -6,7 +6,7 @@ from azureclient import *
 import time
 
 app = Flask(__name__)
-app.secret_key="YOUR SECRET KEY"
+app.secret_key = "YOUR SECRET KEY"
 
 oauth_client = SpotifyOauthClient()
 
@@ -49,7 +49,7 @@ def profilePage():
     user_follow_info = request_data["following_info"]
     num_of_followed_artists = len(user_follow_info['artists']['items'])
 
-    return render_template("profile.html", username = username, followers = followers, pic = profile_pic, playlists = num_of_playlists, follows=num_of_followed_artists)
+    return render_template("profile.html", username=username, followers=followers, pic=profile_pic, playlists=num_of_playlists, follows=num_of_followed_artists)
     
 @app.route("/music")
 def myMusic():
