@@ -148,7 +148,7 @@ def analytics():
     user_top_artists = api_client.get_user_top_info(33, session.get('time_frame'), "artists")
 
     if not user_top_songs or not user_top_artists: #if the user has no data (i.e the returned dict is empty)
-        return error_page("Sorry, I can't access your data.")
+        return error_page("Sorry, your account does not seem to have any data I can analyze. Please go back to the 'My Music' section and try switching the timeframe to see if you have any data there!")
 
     else:
         song_ids = user_top_songs['id']
@@ -191,7 +191,7 @@ def new():
     user_top_artists = api_client.get_user_top_info(33, session.get('time_frame'), "artists")
 
     if not user_top_songs or not user_top_artists: #if the user has no data (i.e the returned dict is empty)
-        return error_page("Sorry, I can't access your data.")
+        return error_page("Sorry, your account does not seem to have any data I can analyze. Please go back to the 'My Music' section and try switching the timeframe to see if you have any data there!")
 
     else:
         song_ids = user_top_songs['id']

@@ -6,8 +6,8 @@ class AzureAnalyticsClient():
     def __init__(self):
 
         self.client = TextAnalyticsClient(
-            endpoint="YOUR AZURE ENDPOINT",
-            credential=AzureKeyCredential("YOUR AZURE KEY CREDENTIALS"))
+            endpoint="https://diversifysentiment.cognitiveservices.azure.com/",
+            credential=AzureKeyCredential("7ab3b52e66264693a32402ef642bfa4f"))
     
     def sentiment_analysis(self, lyrics):
 
