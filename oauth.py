@@ -4,9 +4,9 @@ class SpotifyOauthClient():
 
     def __init__(self):
 
-        self.CLIENT_ID = "58023d39e03146ae8b95a3443638037c"
-        self.CLIENT_SECRET = "d5ab5a0d102b4c8c934a81acdc542e24"
-        self.REDIRECT_URI = "https://diversify-application.herokuapp.com/redirect/"
+        self.CLIENT_ID = "YOUR CLIENT ID"
+        self.CLIENT_SECRET = "YOUR CLIENT SECRET"
+        self.REDIRECT_URI = "YOUR REDIRECT URI"
         self.SCOPE = "user-top-read user-read-private user-follow-read playlist-read-private playlist-read-collaborative playlist-modify-public playlist-modify-private"
         self.OAUTH_AUTHORIZE_URL = "https://accounts.spotify.com/authorize"
         self.OAUTH_TOKEN_URL = "https://accounts.spotify.com/api/token"
