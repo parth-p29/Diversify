@@ -1,5 +1,7 @@
 # Diversify
 
+![Diversify](https://user-images.githubusercontent.com/69891859/115303157-451e1180-a131-11eb-93ea-ccca651080c7.gif)
+
 ## Inspiration
 
 Diversify is a Spotify analytics web app that allows one to view all their music data and get to know information about their top songs/artists, listening habits, how "basic" their music taste is and even generating new music based on personal interests.
