@@ -1,6 +1,6 @@
 # Diversify
+![Diversify (2)](https://user-images.githubusercontent.com/69891859/115304417-f2455980-a132-11eb-9532-1f7d4963e4e9.gif)
 
-![Diversify](https://user-images.githubusercontent.com/69891859/115303157-451e1180-a131-11eb-93ea-ccca651080c7.gif)
 
 ## Inspiration
 
