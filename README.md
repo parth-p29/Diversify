@@ -24,7 +24,7 @@ This led me to creating Diversify. With this app, anyone can view their data and
 
 - [Lyrics OVH](https://lyricsovh.docs.apiary.io/#reference/0/lyrics-of-a-song/search): API used to retrieve song lyrics
 
-- [Chart.js](https://www.chartjs.org/docs/latest/): Used for visualing user data on various graphs inluding: bar, radar, doughnut etc.
+- [Chart.js](https://www.chartjs.org/docs/latest/): Used for visualing user data on various graphs including: bar, radar, doughnut etc.
 
 - [Kaggle Datasets](https://www.kaggle.com/atillacolak/top-50-spotify-tracks-2020): Used to compare user data with the top Spotify songs in 2020
 
