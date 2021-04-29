@@ -35,9 +35,13 @@ This led me to creating Diversify. With this app, anyone can view their data and
 If you want to just use the finished web app, please skip to the **"Usage"** header. If you want to integrate my APIs into your own projects then follow these steps:
 
 1. Go to the directory you want in your command line and write: 
-> git clone https://github.com/parth-p29/Diversify.git
+
+        git clone https://github.com/parth-p29/Diversify.git
+        
 3. Next write the following to install all dependencies: 
-> pip install -r requirements.txt
+
+        pip install -r requirements.txt
+        
 4. Create a [Spotify Dev account](https://developer.spotify.com/dashboard/login) and make a project so you can get 3 credentials: Client ID, Client Secret and Redirect URI
 5. Traverse to **"oauth.py"** file and place in your values here:
 
