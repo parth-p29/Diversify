@@ -1,4 +1,6 @@
 # Diversify
+Check it out [here](https://diversify-application.herokuapp.com/)
+
 ![Diversify (2)](https://user-images.githubusercontent.com/69891859/115304417-f2455980-a132-11eb-9532-1f7d4963e4e9.gif)
 
 
